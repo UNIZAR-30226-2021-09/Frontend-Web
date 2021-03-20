@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-# Frontend-Web
-=======
-# front-web
+# front-web configuration for UNIZAR-30226-2021-09
 
 ## Project setup
 ```
@@ -25,4 +22,3 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
->>>>>>> init
