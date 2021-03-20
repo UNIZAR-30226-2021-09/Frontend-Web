@@ -10,13 +10,16 @@ const app = new Vue({
 
     methods:{
         enviarDatos: function(){
-            console.log('click :)', this.correo, ' - ' , this.contrasena)
+            console.log('click!', this.correo, ' - ' , this.contrasena)
             this.correo = ""
             this.contrasena = ""
             this.esEnviado = true
             var divideAt = this.correo.split('@')
             var divideDot = this.correo.split('.')
             console.log(divideAt.length)
+            
+            // TO-DO
+            // Pequeña comprobación de que el correo parece correcto
             if(divideAt.length === 1 || divideDot.length === 1){
                 this.correoInvalido = false
             }
