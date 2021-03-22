@@ -1,7 +1,7 @@
 const app = new Vue({
     el: '#app',
     data: {
-        titulo: 'Batalla Naval',
+        titulo: 'Log in',
         correo: '',
         contrasena: '',
         esEnviado: false,
@@ -25,9 +25,6 @@ const app = new Vue({
             }
 
 
-        },
-        irLogIn: function(){
-            window.location = "src/authentication/log_in.html";
         }
 
 
