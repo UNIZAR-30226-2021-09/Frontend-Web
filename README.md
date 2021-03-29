@@ -1,4 +1,4 @@
-# front-web configuration for UNIZAR-30226-2021-09
+# front-web
 
 ## Project setup
 ```
