@@ -7,11 +7,21 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <a class="nav-link" href="/">Home</a>
-          <a class="nav-link" href="login">Log-in</a>
-          <a class="nav-link" href="signin">Sign-in</a>
-          <a class="nav-link disabled" href="#">TODO #1</a>
-          <a class="nav-link disabled" href="#">TODO #2</a>
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login">Log-in</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="signin">Sign-in</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">TODO #1</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">TODO #2</a>
+          </li>
         </ul>
       </div>
     </nav>

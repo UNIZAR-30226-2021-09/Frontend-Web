@@ -19,7 +19,7 @@
         <input type="password" class="form-control" placeholder="Contraseña" v-model="contrasena" v-on:keyup.enter="enviarDatos">
       </div>
       
-      <div class="input-group mt-3">
+      <div class="input-group mt-3 mb-3">
         ¿No tienes cuenta? <router-link to="Signin">¡Regístrate!</router-link>
       </div>
 

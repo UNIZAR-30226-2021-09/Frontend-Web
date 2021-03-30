@@ -25,7 +25,7 @@
                 <input type="password" class="form-control" placeholder="Repetir Contraseña" v-model="rep_contrasena" v-on:keyup.enter="registrarse">
             </div>
 
-            <div class="input-group mt-3">
+            <div class="input-group mt-3 mb-3">
                 ¿Ya tienes una cuenta? <router-link class="mr-4" to="Login">¡Identifícate!</router-link>
             </div>
 
