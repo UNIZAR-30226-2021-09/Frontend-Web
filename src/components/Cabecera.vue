@@ -17,11 +17,17 @@
             <a class="nav-link" href="signin">Sign-in</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="inicio">Inicio</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link disabled" href="#">TODO #1</a>
           </li>
           <li class="nav-item">
             <a class="nav-link disabled" href="#">TODO #2</a>
           </li>
+          <!-- <ListaAmigos/> -->
+          
+
         </ul>
       </div>
     </nav>
@@ -29,8 +35,13 @@
 </template>
 
 <script>
+//import ListaAmigos from '@/components/ListaAmigos.vue'
+
 export default {
-  name: 'Cabecera'
+  name: 'Cabecera',
+  components: {
+    //ListaAmigos
+  }
 }
 </script>
 
