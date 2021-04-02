@@ -9,23 +9,28 @@
 </template>
 
 <script>
+
+import {mapState} from 'vuex';
 export default {
   name: 'ListaAmigos',
-  data() {
-        return{ 
-            nombreUsuario: 'Usuario1',
-            fotoUsuario: '',
-            listaAmigos: [
-                {nombre: 'Amigo1'},
-                {nombre: 'Amigo2'}
-            ]
-        }
+  computed:{
+      ...mapState(['nombreUsuario', 'listaAmigos']) //Para recoger los datos de la lista de amigos que están almacenados en el store
   },
+//   data() {
+//         return{ 
+//             nombreUsuario: 'Usuario1',
+//             fotoUsuario: '',
+//             listaAmigos: [
+//                 {nombre: 'Amigo1'},
+//                 {nombre: 'Amigo2'}
+//             ]
+//         }
+//   },
   methods:{
     recuperarNombre: function(){
         
     }
-        //Implementar las otras funciones de capturar la lista de amigos, el nombre del usuario y su imagen
+        //Implementar las otras funciones de capturar la lista de amigos, el nombre del usuario
     }
 }
 

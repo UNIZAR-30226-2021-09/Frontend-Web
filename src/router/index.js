@@ -28,6 +28,26 @@ const routes = [
     path: '/inicio',
     name: 'Inicio',
     component: () => import(/* webpackChunkName: "inicio" */ '../views/Inicio.vue')
+  },
+  {
+    path: '/torneo',
+    name: 'Torneo',
+    component: () => import(/* webpackChunkName: "torneo" */ '../views/Torneo.vue')
+  },
+  {
+    path: '/ciegas',
+    name: 'Ciegas',
+    component: () => import(/* webpackChunkName: "ciegas" */ '../views/Ciegas.vue')
+  },
+  {
+    path: '/pendientes',
+    name: 'Pendientes',
+    component: () => import(/* webpackChunkName: "pendientes" */ '../views/Pendientes.vue')
+  },
+  {
+    path: '/desafiar',
+    name: 'Desafiar',
+    component: () => import(/* webpackChunkName: "desafiar" */ '../views/Desafiar.vue')
   }
 ]
 
