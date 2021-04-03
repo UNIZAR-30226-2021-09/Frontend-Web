@@ -48,6 +48,11 @@ const routes = [
     path: '/desafiar',
     name: 'Desafiar',
     component: () => import(/* webpackChunkName: "desafiar" */ '../views/Desafiar.vue')
+  },
+  {
+    path: '/amigoDesafiado',
+    name: 'AmigoDesafiado',
+    component: () => import(/* webpackChunkName: "amigoDesafiado" */ '../views/AmigoDesafiado.vue')
   }
 ]
 

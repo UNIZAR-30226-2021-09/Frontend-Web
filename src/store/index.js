@@ -10,9 +10,14 @@ export default new Vuex.Store({
     listaAmigos: [
         {nombre: 'Amigo1'},
         {nombre: 'Amigo2'}
-    ]
+    ],
+    amigoDesafiado: ''
   },
   mutations: {
+    setAmigoDesafiado(state){
+      state.amigoDesafiado = 'amigo cambiado'
+      console.log(state.amigoDesafiado)
+    }
   },
   actions: {
   },

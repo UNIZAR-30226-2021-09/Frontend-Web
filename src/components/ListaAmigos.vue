@@ -3,7 +3,7 @@
         <h4 class="text-sm-left">{{nombreUsuario}}</h4>
 
         <ul class="list-group list-group-flush">
-            <li class="list-group-item" v-for="amigo in listaAmigos" v-bind:key="amigo">{{amigo.nombre}}</li>
+            <li class="list-group-item" v-for="amigo in listaAmigos" v-bind:key="amigo.nombre">{{amigo.nombre}}</li>
         </ul>
     </div>
 </template>

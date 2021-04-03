@@ -7,23 +7,22 @@
          <div class="row g-3">
             <div class="col-sm-9">
                 
-                <h2>{{nombrePag}}</h2>
-                
-                <h4 class="mt-5">
-                    {{nombreUsuario}}: Listo
-                </h4>
+              <h2>{{nombrePag}}</h2>
+              
+              <h4 class="mt-5">
+                  {{nombreUsuario}}: Listo
+              </h4>
 
-                <p></p>
+              <p></p>
 
-                <h6 class="mt-4">Invita a un jugador...</h6>
+              <h6 class="mt-4">Invita a un jugador...</h6>
 
-                <p></p>
+              <p></p>
 
-                <div class="d-grid gap-2 col-6 mx-auto mt-4" >
-                    <button class="btn btn-outline-info" type="button" @click="desafiaAmigo(amigo.nombre)" v-for="amigo in listaAmigos" v-bind:key="amigo">{{amigo.nombre}}</button>
-                </div>
+              <div class="d-grid gap-2 col-6 mx-auto mt-4" >
+                  <router-link v-for="(amigo, index) in listaAmigos" v-bind:key="amigo.nombre" @click="setAmigoDesafiado()" to="amigoDesafiado" class="btn btn-outline-info" type="button" >{{index}} - {{amigo.nombre}}</router-link>
+              </div>
 
-                <p class="fst-italic mt-5">{{tmpmsg}}</p>
 
             </div>
 
@@ -38,27 +37,23 @@
 #######################################SCRIPT#######################################
 <script>
 import ListaAmigos from '@/components/ListaAmigos.vue'
-import {mapState} from 'vuex';
+import {mapState, mapMutations} from 'vuex';
 
 export default {
-  name: 'Torneo',
+  name: 'Desafiar',
   components: {
     ListaAmigos
   },
   computed:{
-      ...mapState(['nombreUsuario', 'listaAmigos'])
+    ...mapState(['nombreUsuario', 'listaAmigos'])
   },
   data() {
         return{ 
-          nombrePag: 'Desafiar a un amigo',
-          tmpmsg: ''
+          nombrePag: 'Desafiar a un amigo'
         }
   },
   methods: {
-      desafiaAmigo: function(amigo){
-          this.tmpmsg = 'Se ha invitado a ' + amigo
-    }
-
+    ...mapMutations(['setAmigoDesafiado'])
   }
 }
 </script>
