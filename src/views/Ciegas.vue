@@ -3,30 +3,16 @@
       
       <p></p>
 
-      <div class="mt-5"> 
+      <div class="mt-5 "> 
          <div class="row g-3">
-            <div class="col-sm-9">
+            <div class="container col-sm-9 border rounded border-primary bg-light" style="min-height:400px !important;">
                 
-                <h2>{{nombrePag}}</h2>
-                
-                <div class=".container mt-5">
-                  <div class="row">
-                    <p></p>
-                    <div class="col"><router-link to="" class="btn btn-primary btn-lg ">Partida a ciegas</router-link></div>
-                    <div class="col"></div>
-                    <div class="col"><router-link to="" class="btn btn-primary btn-lg ">Desafiar a un amigo</router-link></div>
-                  </div>
-
-                  <p></p>
-
-                  <div class="row">
-                    <p></p>
-                    <div class="col"><router-link to="" class="btn btn-primary btn-lg ">Modo torneo</router-link></div>
-                    <div class="col"></div>
-                    <div class="col"><router-link to="" class="btn btn-primary btn-lg ">Partidas en curso</router-link></div>
-                  </div>
-
+                <h2 class="mt-3">{{nombrePag}}</h2>
+                <div  class="container mt-5">
+                    <p >Buscando contrincante...</p>
+                    
                 </div>
+                
 
             </div>
 
