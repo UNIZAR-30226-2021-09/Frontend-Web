@@ -25,9 +25,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "signin" */ '../views/Signin.vue')
   },
   {
-    path: '/inicio',
-    name: 'Inicio',
-    component: () => import(/* webpackChunkName: "inicio" */ '../views/Inicio.vue')
+    path: '/crearPartida',
+    name: 'CrearPartida',
+    component: () => import(/* webpackChunkName: "crear partida" */ '../views/CrearPartida.vue')
   },
   {
     path: '/torneo',
