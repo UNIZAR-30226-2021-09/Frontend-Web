@@ -20,7 +20,7 @@
               <p></p>
 
               <div class="d-grid gap-2 col-6 mx-auto mt-4" >
-                  <router-link v-for="(amigo, index) in listaAmigos" v-bind:key="amigo.nombre" @click="setAmigoDesafiado()" to="amigoDesafiado" class="btn btn-outline-info" type="button" >{{index}} - {{amigo.nombre}}</router-link>
+                  <router-link v-for="(amigo, index) in listaAmigos" v-bind:key="amigo.nombre" @click='setAmigoDesafiado' to="amigoDesafiado" class="btn btn-outline-info" type="button" >{{index}} - {{amigo.nombre}}</router-link>
               </div>
 
 
@@ -44,16 +44,12 @@ export default {
   components: {
     ListaAmigos
   },
-  computed:{
-    ...mapState(['nombreUsuario', 'listaAmigos'])
-  },
+  computed: mapState(['nombreUsuario', 'listaAmigos']),
   data() {
         return{ 
           nombrePag: 'Desafiar a un amigo'
         }
   },
-  methods: {
-    ...mapMutations(['setAmigoDesafiado'])
-  }
+  methods: mapMutations(['setAmigoDesafiado'])
 }
 </script>

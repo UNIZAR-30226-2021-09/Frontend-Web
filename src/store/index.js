@@ -14,7 +14,7 @@ export default new Vuex.Store({
         {nombre: 'Amigo4' , estado: 'Conectado'},
         {nombre: 'Amigo5' , estado: 'Conectado'}
     ],
-    amigoDesafiado: ''
+    amigoDesafiado: 'default'
   },
   mutations: {
     setAmigoDesafiado(state){
