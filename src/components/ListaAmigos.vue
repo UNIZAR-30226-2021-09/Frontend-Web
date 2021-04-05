@@ -1,10 +1,24 @@
 <template>
-    <div class="col-sm">
+    
+    <div class="col-sm-3">
         <h4 class="text-sm-left">{{nombreUsuario}}</h4>
 
+        <!-- Lista de amigos conectados -->
         <ul class="list-group list-group-flush">
-            <li class="list-group-item" v-for="amigo in listaAmigos" v-bind:key="amigo.nombre">{{amigo.nombre}}</li>
+            <li class="list-group-item bg-primary" v-for="amigo in amigosConectados" v-bind:key="amigo.nombre" bg>{{amigo.nombre}} - {{amigo.estado}}</li>
         </ul>
+
+        <br>
+
+        <!-- Lista de amigos desconectados -->
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item bg-secondary" v-for="amigo in amigosDesconectados" v-bind:key="amigo.nombre" bg>{{amigo.nombre}} - {{amigo.estado}}</li>
+        </ul>
+
+        <br>
+
+
+        
     </div>
 </template>
 
@@ -14,7 +28,14 @@ import {mapState} from 'vuex';
 export default {
   name: 'ListaAmigos',
   computed:{
-      ...mapState(['nombreUsuario', 'listaAmigos']) //Para recoger los datos de la lista de amigos que están almacenados en el store
+      ...mapState(['nombreUsuario', 'listaAmigos']), //Para recoger los datos de la lista de amigos que están almacenados en el store
+
+      amigosConectados(){
+            return this.listaAmigos.filter(amigo => amigo.estado =='Conectado')
+      },
+      amigosDesconectados(){
+            return this.listaAmigos.filter(amigo => amigo.estado ==='No conectado')
+      },
   },
 //   data() {
 //         return{ 

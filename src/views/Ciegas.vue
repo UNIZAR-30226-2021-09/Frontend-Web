@@ -5,13 +5,15 @@
 
       <div class="mt-5 "> 
          <div class="row g-3">
-            <div class="container col-sm-9 border rounded border-primary bg-light" style="min-height:400px !important;">
+            <div class="container col-sm-8 border rounded border-primary bg-light" style="min-height:400px !important;">
                 
                 <h2 class="mt-3">{{nombrePag}}</h2>
+                <br><br><br><br><br><br><br>
                 <div  class="container mt-5">
                     <p >Buscando contrincante...</p>
-                    
                 </div>
+
+                <router-link to="crearPartida" class="mt-3 btn btn-primary btn-lg active" >Cancelar</router-link>
                 
 
             </div>

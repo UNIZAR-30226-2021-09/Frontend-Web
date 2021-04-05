@@ -8,8 +8,11 @@ export default new Vuex.Store({
     nombreUsuario: 'Usuario1',
     fotoUsuario: '',
     listaAmigos: [
-        {nombre: 'Amigo1'},
-        {nombre: 'Amigo2'}
+        {nombre: 'Amigo1' , estado: 'Conectado'},
+        {nombre: 'Amigo2' , estado: 'No conectado'},
+        {nombre: 'Amigo3' , estado: 'No conectado'},
+        {nombre: 'Amigo4' , estado: 'Conectado'},
+        {nombre: 'Amigo5' , estado: 'Conectado'}
     ],
     amigoDesafiado: ''
   },
