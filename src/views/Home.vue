@@ -5,7 +5,7 @@
         <h1>{{titulo}}</h1>
         
         <div>
-            <img src="@/assets/logo.png" class="img-fluid" alt="logoAplicacion">
+            <img src="@/assets/barco.png" class="img-fluid" alt="logoAplicacion" style="width:230px ; height:300px">
         </div>
         <p></p>
         <div>
