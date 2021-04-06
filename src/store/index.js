@@ -14,12 +14,11 @@ export default new Vuex.Store({
         {nombre: 'Amigo4' , estado: 'Conectado'},
         {nombre: 'Amigo5' , estado: 'Conectado'}
     ],
-    amigoDesafiado: 'default'
+    amigoDesafiado: ''
   },
   mutations: {
-    setAmigoDesafiado(state){
-      state.amigoDesafiado = 'amigo cambiado'
-      console.log(state.amigoDesafiado)
+    setDesafiado(state, nombre){
+      state.amigoDesafiado = nombre
     }
   },
   actions: {
