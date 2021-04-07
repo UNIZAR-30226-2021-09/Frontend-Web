@@ -53,6 +53,11 @@ const routes = [
     path: '/amigoDesafiado',
     name: 'AmigoDesafiado',
     component: () => import(/* webpackChunkName: "amigoDesafiado" */ '../views/AmigoDesafiado.vue')
+  },
+  {
+    path: '/agregarAmigo',
+    name: 'AgregarAmigo',
+    component: () => import(/* webpackChunkName: "agregarAmigo" */ '../views/AgregarAmigo.vue')
   }
 ]
 

@@ -20,7 +20,7 @@
               <p></p>
 
               <div class="d-grid gap-2 col-6 mx-auto mt-4" >
-                  <button v-for="(amigo, index) in listaAmigos" v-bind:key="amigo.nombre" @click='modificarDesafiado(amigo.nombre)' to="amigoDesafiado" class="btn btn-outline-info" type="button" >{{index}} - {{amigo.nombre}}</button>
+                  <button v-for="(amigo) in listaAmigos" v-bind:key="amigo.nombre" @click='modificarDesafiado(amigo.nombre)' to="amigoDesafiado" class="btn btn-outline-info" type="button" >{{amigo.nombre}}</button>
 
               </div>
 
@@ -67,7 +67,7 @@ export default {
     ]),
     modificarDesafiado: function(amigo){
       this.setDesafiado(amigo);
-      this.msg =  'Invitando a ' + amigo + '...';
+      this.msg =  'Vas a invitar a ' + amigo;
       var element = document.getElementById("btnSend");
       element.classList.remove("disabled");
     }

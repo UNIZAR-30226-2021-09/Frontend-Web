@@ -3,8 +3,16 @@
     <div class="col-sm-3">
         <h4 class="text-sm-left">{{nombreUsuario}}</h4>
 
+        <p></p>
+        
+        <div>
+            <h5 style="display:inline">Amigos </h5> 
+            <router-link to="agregarAmigo" class="btn btn-outline-success btn-sm" type="button" >+</router-link>
+        </div>
+        
+
         <!-- Lista de amigos conectados -->
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush mt-2">
             <li class="list-group-item bg-primary" v-for="amigo in amigosConectados" v-bind:key="amigo.nombre" bg>{{amigo.nombre}} - {{amigo.estado}}</li>
         </ul>
 
