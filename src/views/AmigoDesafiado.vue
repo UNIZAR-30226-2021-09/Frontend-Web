@@ -10,14 +10,20 @@
                 <h2>{{nombrePag}}</h2>
                 
                 <h4 class="mt-5">
-                    {{nombreUsuario}}: Listo
+                    {{perfil.nombreUsuario}}: Listo
                 </h4>
 
                 <p></p>
 
                 <h4 class="mt-4">
-                    {{amigoDesafiado}}: Esperando...
+                    {{amigoDesafiado}}: {{estadoAmigo}}
                 </h4>
+
+                <button class="btn btn-warning mt-3" @click="emularAceptar">~Emular partida aceptada~</button>
+
+                <p></p>
+
+                <router-link id="btnStart" to="pantallaJuego" class="btn btn-primary disabled" type="button" >Iniciar desafío</router-link>
 
             </div>
 
@@ -40,15 +46,20 @@ export default {
     ListaAmigos
   },
   computed:{
-    ...mapState(['nombreUsuario', 'amigoDesafiado'])
+    ...mapState(['perfil', 'amigoDesafiado'])
   },
   data() {
         return{ 
-          nombrePag: 'Desafiar a un amigo'
+          nombrePag: 'Desafiar a un amigo',
+          estadoAmigo: 'Esperando...'
         }
   },
   methods: {
-
+    emularAceptar: function(){
+      this.estadoAmigo =  'Listo';
+      var element = document.getElementById("btnStart");
+      element.classList.remove("disabled");
+    }
   }
 }
 </script>

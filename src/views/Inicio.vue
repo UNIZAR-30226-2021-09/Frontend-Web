@@ -43,7 +43,7 @@
 import ListaAmigos from '@/components/ListaAmigos.vue'
 
 export default {
-  name: 'CrearPartida',
+  name: 'Inicio',
   components: {
     ListaAmigos
   },

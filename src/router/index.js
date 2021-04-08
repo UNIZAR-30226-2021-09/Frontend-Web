@@ -25,9 +25,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "signin" */ '../views/Signin.vue')
   },
   {
-    path: '/crearPartida',
-    name: 'CrearPartida',
-    component: () => import(/* webpackChunkName: "crear partida" */ '../views/CrearPartida.vue')
+    path: '/inicio',
+    name: 'Inicio',
+    component: () => import(/* webpackChunkName: "inicio" */ '../views/Inicio.vue')
   },
   {
     path: '/torneo',
@@ -58,6 +58,16 @@ const routes = [
     path: '/agregarAmigo',
     name: 'AgregarAmigo',
     component: () => import(/* webpackChunkName: "agregarAmigo" */ '../views/AgregarAmigo.vue')
+  },
+  {
+    path: '/pantallaJuego',
+    name: 'PantallaJuego',
+    component: () => import(/* webpackChunkName: "pantallaJuego" */ '../views/PantallaJuego.vue')
+  },
+  {
+    path: '/perfil',
+    name: 'Perfil',
+    component: () => import(/* webpackChunkName: "perfil" */ '../views/Perfil.vue')
   }
 ]
 

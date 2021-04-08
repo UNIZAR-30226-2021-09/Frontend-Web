@@ -1,13 +1,17 @@
 <template>
     
     <div class="col-sm-3">
-        <h4 class="text-sm-left">{{nombreUsuario}}</h4>
+        
+        <h4 class="text-sm-left">{{perfil.nombreUsuario}} 
+            <router-link to="perfil" class="btn btn-primary btn-sm mb-1" type="button" >Mi Perfil</router-link>
+        </h4>
+        
 
         <p></p>
         
         <div>
             <h5 style="display:inline">Amigos </h5> 
-            <router-link to="agregarAmigo" class="btn btn-outline-success btn-sm" type="button" >+</router-link>
+            <router-link to="agregarAmigo" class="btn btn-outline-success btn-sm mb-1" type="button" >+</router-link>
         </div>
         
 
@@ -36,13 +40,13 @@ import {mapState} from 'vuex';
 export default {
   name: 'ListaAmigos',
   computed:{
-      ...mapState(['nombreUsuario', 'listaAmigos']), //Para recoger los datos de la lista de amigos que están almacenados en el store
+      ...mapState(['perfil']), //Para recoger los datos de la lista de amigos que están almacenados en el store
 
       amigosConectados(){
-            return this.listaAmigos.filter(amigo => amigo.estado =='Conectado')
+            return this.perfil.listaAmigos.filter(amigo => amigo.estado =='Conectado')
       },
       amigosDesconectados(){
-            return this.listaAmigos.filter(amigo => amigo.estado ==='No conectado')
+            return this.perfil.listaAmigos.filter(amigo => amigo.estado ==='No conectado')
       },
   },
 //   data() {

@@ -24,7 +24,7 @@
                 <button class="btn btn-primary mt-3" @click="enviarPeticion">Enviar invitación</button>
 
                 <!-- TODO: Este botón es para emular la respuesta del servidor si se intenta añadir un usuario inexistente -->
-                <button class="btn btn-danger mt-3" @click="emularError">~Usuario desconocido~</button>
+                <button class="btn btn-warning mt-3" @click="emularError">~Usuario desconocido~</button>
 
                 <!-- Mensaje de éxito -->
                 <div class="mt-3">
@@ -72,9 +72,8 @@ export default {
   methods: {
     enviarPeticion: function(){
         console.log('click!', this.correo, ' - ' , this.contrasena)
-        this.correo = ""
         this.nombre = ""
-        this.contrasena = ""
+        this.link = ""
         this.esEnviado = true
         this.datosInvalidos = false
     },

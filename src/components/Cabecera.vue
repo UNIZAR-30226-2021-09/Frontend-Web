@@ -17,14 +17,30 @@
             <a class="nav-link" href="signin">Sign-in</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="crearPartida">Crear Partida</a>
+            <a class="nav-link" href="inicio">Inicio</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="ciegas">Ciegas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="perfil">Perfil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="agregarAmigo">Agregar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="desafiar">Desafiar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="amigoDesafiado">Desafiado</a>
+          </li>
+          <!-- <li class="nav-item">
             <a class="nav-link disabled" href="#">TODO #1</a>
           </li>
           <li class="nav-item">
             <a class="nav-link disabled" href="#">TODO #2</a>
-          </li>
+          </li> -->
+
           <!-- <ListaAmigos/> -->
           
 

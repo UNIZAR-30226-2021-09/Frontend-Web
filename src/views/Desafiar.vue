@@ -10,7 +10,7 @@
               <h2>{{nombrePag}}</h2>
               
               <h4 class="mt-5">
-                  {{nombreUsuario}}: Listo
+                  {{perfil.nombreUsuario}}: Listo
               </h4>
 
               <p></p>
@@ -20,7 +20,7 @@
               <p></p>
 
               <div class="d-grid gap-2 col-6 mx-auto mt-4" >
-                  <button v-for="(amigo) in listaAmigos" v-bind:key="amigo.nombre" @click='modificarDesafiado(amigo.nombre)' to="amigoDesafiado" class="btn btn-outline-info" type="button" >{{amigo.nombre}}</button>
+                  <button v-for="(amigo) in perfil.listaAmigos" v-bind:key="amigo.nombre" @click='modificarDesafiado(amigo.nombre)' to="amigoDesafiado" class="btn btn-outline-info" type="button" >{{amigo.nombre}}</button>
 
               </div>
 
@@ -60,7 +60,7 @@ export default {
           msg: 'Selecciona un amigo al que desafiar'
         }
   },
-  computed: mapState(['nombreUsuario', 'listaAmigos', 'amigoDesafiado']),
+  computed: mapState(['perfil', 'amigoDesafiado']),
   methods: {
     ...mapMutations([
       'setDesafiado'
