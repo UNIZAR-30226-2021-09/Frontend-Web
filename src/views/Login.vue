@@ -65,20 +65,38 @@ export default {
         }
   },
   methods: {
-      enviarDatos: function(){
-        console.log('click!', this.correo, ' - ' , this.contrasena)
-        this.correo = ""
-        this.nombre = ""
-        this.contrasena = ""
-        this.esEnviado = true
-        
-        axios
-        .post('http://localhost:3000/register', {
-          email: this.email,
+    digestMessage: async function(message) {
+        const msgUint8 = new TextEncoder().encode(message);                           // encode as (utf-8) Uint8Array
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);           // hash the message
+        const hashArray = Array.from(new Uint8Array(hashBuffer));                     // convert buffer to byte array
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
+        return hashHex;
+    },
+    enviarDatos: async function(){
+      
+      let conHash = await this.digestMessage(this.contrasena); //Hasheamos la contraseña
+      const prueba = axios
+      .post('http://localhost:3000/login', {
+          email: this.correo,
           nombreUsuario: this.nombre,
-          contrasena: this.contrasena
-        })
-        .then(resp => (this.respuesta = resp))
+          contrasena: conHash
+      })
+      .then(resp => (this.respuesta = resp))
+
+      console.log('hola?')
+      console.log(prueba)
+      if(this.respuesta.mensaje == "Something is wrong"){
+        this.correoInvalido = true;
+        this.esEnviado = false;
+      }else{
+        this.correoInvalido = false;
+        this.esEnviado = true;
+      }
+
+      this.correo = ""
+      this.nombre = ""
+      this.contrasena = ""
+      this.esEnviado = true
 
     }
 

@@ -67,17 +67,24 @@ export default {
         }
   },
   methods:{
-    registrarse: function(){
-
+    digestMessage: async function(message) {
+        const msgUint8 = new TextEncoder().encode(message);                           // encode as (utf-8) Uint8Array
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);           // hash the message
+        const hashArray = Array.from(new Uint8Array(hashBuffer));                     // convert buffer to byte array
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
+        return hashHex;
+    },
+    registrarse: async function(){
         if (this.contrasena != this.rep_contrasena){
             this.contDif = true;
             
         }else{
+            let conHash = await this.digestMessage(this.contrasena); //Hasheamos la contraseña
             axios
             .post('http://localhost:3000/signin', {
                 email: this.correo,
                 nombreUsuario: this.nombre,
-                contrasena: this.contrasena
+                contrasena: conHash
             })
             .then(resp => (this.respuesta = resp))
         }
