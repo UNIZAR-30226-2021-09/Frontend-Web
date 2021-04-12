@@ -10,23 +10,23 @@
                 <h2>{{nombrePag}}</h2>
                 
                 <div class=".container mt-5">
-                  <div class="row">
-                    <p></p>
-                    <div class="col"><router-link to="" class="btn btn-primary btn-lg ">Partida a ciegas</router-link></div>
-                    <div class="col"></div>
-                    <div class="col"><router-link to="" class="btn btn-primary btn-lg ">Desafiar a un amigo</router-link></div>
-                  </div>
+                  <!-- Contenido de la pagina -->
 
-                  <p></p>
-
-                  <div class="row">
-                    <p></p>
-                    <div class="col"><router-link to="" class="btn btn-primary btn-lg ">Modo torneo</router-link></div>
-                    <div class="col"></div>
-                    <div class="col"><router-link to="" class="btn btn-primary btn-lg ">Partidas en curso</router-link></div>
+                  <div class="input-group mb-3">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="#">Separated link</a></li>
+                    </ul>
+                    <input type="text" class="form-control" aria-label="Text input with dropdown button">
                   </div>
 
                 </div>
+                
+                
 
             </div>
 
@@ -43,7 +43,7 @@
 import ListaAmigos from '@/components/ListaAmigos.vue'
 
 export default {
-  name: 'Modo torneo',
+  name: 'Modotorneo',
   components: {
     ListaAmigos
   },
@@ -51,11 +51,7 @@ export default {
         return{ 
           nombrePag: 'Torneo',
           titulo: 'Log in',
-          nombre: '',
-          correo: '',
-          contrasena: '',
-          esEnviado: false,
-          correoInvalido: false
+          nombre: ''
         }
   },
   methods: {
