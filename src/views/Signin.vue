@@ -30,6 +30,15 @@
             </div>
 
             <button class="btn btn-primary" @click="registrarse">Registrarse</button>
+
+            <!-- Mensaje de correo erróneo -->
+            <div class="mt-3">
+                <div v-if=contDif class="alert alert-danger" role="alert">
+                Las contraseñas no coinciden
+                </div>
+            </div>
+
+            <p>{{respuesta}}</p>
             
         </div>
     </div>
@@ -38,6 +47,8 @@
 
 #######################################SCRIPT#######################################
 <script>
+import axios from 'axios'
+
 export default {
   name: 'Signin',
   components: {
@@ -49,21 +60,32 @@ export default {
             nombre: '',
             correo: '',
             contrasena: '',
-            rep_contrasena: ''
+            rep_contrasena: '',
+            contDif: false,
+            respuesta: '',
+            token: ''
         }
   },
   methods:{
     registrarse: function(){
-        console.log('click!', this.correo, ' - ' , this.contrasena)
+
+        if (this.contrasena != this.rep_contrasena){
+            this.contDif = true;
+            
+        }else{
+            axios
+            .post('http://localhost:3000/signin', {
+                email: this.correo,
+                nombreUsuario: this.nombre,
+                contrasena: this.contrasena
+            })
+            .then(resp => (this.respuesta = resp))
+        }
+
         this.correo = ""
         this.nombre = ""
         this.contrasena = ""
         this.rep_contrasena = ""
-            //si el nombre de usuario esta disponible
-                //si las contraseñas son iguales
-                    //introducir los datos en la base de datos
-                //sino informamos del error recargando la pagina
-            //sino informamos del error recargando la pagina
     }
 
     }

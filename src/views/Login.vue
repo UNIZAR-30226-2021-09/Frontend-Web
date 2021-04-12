@@ -39,11 +39,15 @@
         </div>
       </div>
 
+      <p>{{respuesta}}</p>
+
     </div>
 </template>
 
 #######################################SCRIPT#######################################
 <script>
+import axios from 'axios'
+
 export default {
   name: 'Login',
   components: {
@@ -56,7 +60,8 @@ export default {
           correo: '',
           contrasena: '',
           esEnviado: false,
-          correoInvalido: false
+          correoInvalido: false,
+          respuesta: ''
         }
   },
   methods: {
@@ -66,15 +71,15 @@ export default {
         this.nombre = ""
         this.contrasena = ""
         this.esEnviado = true
-        var divideAt = this.correo.split('@')
-        var divideDot = this.correo.split('.')
-        console.log(divideAt.length)
         
-        // TO-DO
-        // Pequeña comprobación de que el correo parece correcto
-        if(divideAt.length === 1 || divideDot.length === 1){
-            this.correoInvalido = false
-        }
+        axios
+        .post('http://localhost:3000/register', {
+          email: this.email,
+          nombreUsuario: this.nombre,
+          contrasena: this.contrasena
+        })
+        .then(resp => (this.respuesta = resp))
+
     }
 
   }
