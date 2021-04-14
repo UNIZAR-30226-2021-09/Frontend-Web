@@ -20,6 +20,16 @@ export default new Vuex.Store({
         {contrincante: 'a1', resultado: 'Victoria', codigo: 111},
         {contrincante: 'this.perfil.listaAmigos(1).nombre', resultado: 'Derrota', codigo: 112},
         {contrincante: 'a3', resultado: 'Victoria', codigo: 113}
+      ],
+      peticionesEnviadas: [
+        {nombre: 'pepe'},
+        {nombre: 'ship_killer'},
+        {nombre: 'repollo'}
+      ],
+      peticionesRecibidas: [
+        {nombre: 'roberto_jose'},
+        {nombre: 'algo123'},
+        {nombre: 'easyGame'}
       ]
       
     },

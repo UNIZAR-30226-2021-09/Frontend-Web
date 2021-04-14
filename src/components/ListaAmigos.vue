@@ -7,11 +7,39 @@
         </h4>
         
 
-        <p></p>
+        <br>
         
         <div>
-            <h5 style="display:inline">Amigos </h5> 
+            <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Peticiones enviadas </h5> 
+            <ul class="dropdown-menu">
+
+                      <li class="list-group-item bg-secundary" v-for="jugador in peticionesEnviadasF" v-bind:key="jugador.nombre" bg>
+                            <a class="dropdown-item" > {{jugador.nombre }}
+                                <button  class="btn btn-outline-danger btn-sm mb-1" type="button">Cancelar</button>
+                            </a>
+                      </li>
+            </ul>
             <router-link to="agregarAmigo" class="btn btn-outline-success btn-sm mb-1" type="button" >+</router-link>
+        </div>
+
+        <br>
+
+        <div>
+            <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Peticiones recibidas </h5> 
+            <ul class="dropdown-menu">
+                    <li class="list-group-item bg-secundary" v-for="jugador in peticionesRecibidasF" v-bind:key="jugador.nombre" bg>
+                        <a class="dropdown-item" > {{jugador.nombre }}
+                                <button  class="btn btn-outline-success btn-sm mb-1" type="button">Aceptar</button>
+                                <button  class="btn btn-outline-danger btn-sm mb-1" type="button">Rechazar</button>
+                            </a>
+                    </li>
+            </ul>
+        </div>
+
+        <br>
+
+        <div>
+            <h5 style="display:inline">Amigos </h5> 
         </div>
         
 
@@ -48,6 +76,12 @@ export default {
       amigosDesconectados(){
             return this.perfil.listaAmigos.filter(amigo => amigo.estado ==='No conectado')
       },
+      peticionesEnviadasF(){
+            return this.perfil.peticionesEnviadas
+      },
+      peticionesRecibidasF(){
+            return this.perfil.peticionesRecibidas
+      }
   },
 //   data() {
 //         return{ 
