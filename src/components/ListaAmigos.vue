@@ -96,6 +96,28 @@ export default {
   methods:{
     recuperarNombre: function(){
         
+    },
+    aceptarAmigo: function(amigo){
+
+      var indice = this.peticionesRecibidas.indexOf(amigo);
+      if (indice != -1){
+
+        this.peticionesRecibidas.splice(indice, 1);
+        this.listaAmigos.push({nombre: amigo,estado: 'Desconectado'})
+      }
+
+    },
+    rechazarAmigo: function(amigo){
+      this.setDesafiado(amigo);
+      this.msg =  'Vas a invitar a ' + amigo;
+      var element = document.getElementById("btnSend");
+      element.classList.remove("disabled");
+    },
+    cancelarPeticion: function(amigo){
+      this.setDesafiado(amigo);
+      this.msg =  'Vas a invitar a ' + amigo;
+      var element = document.getElementById("btnSend");
+      element.classList.remove("disabled");
     }
         //Implementar las otras funciones de capturar la lista de amigos, el nombre del usuario
     }
