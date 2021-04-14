@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     enviarPeticion: function(){
-        console.log('click!', this.correo, ' - ' , this.contrasena)
+        //console.log('click!', this.correo, ' - ' , this.contrasena)
         this.nombre = ""
         this.link = ""
         this.esEnviado = true

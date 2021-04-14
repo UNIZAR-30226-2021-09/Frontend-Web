@@ -38,6 +38,8 @@
                 </div>
             </div>
 
+            <router-link to="Inicio" class="btn btn-warning mb-1 mt-1" type="button" >~Inicio~</router-link>
+
             <p>{{respuesta}}</p>
             
         </div>
@@ -81,7 +83,7 @@ export default {
         }else{
             let conHash = await this.digestMessage(this.contrasena); //Hasheamos la contraseña
             axios
-            .post('http://localhost:3000/signin', {
+            .post('https://proyecto-software-09.herokuapp.com/signin', {
                 email: this.correo,
                 nombreUsuario: this.nombre,
                 contrasena: conHash

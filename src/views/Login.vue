@@ -39,6 +39,8 @@
         </div>
       </div>
 
+      <router-link to="Inicio" class="btn btn-warning mb-1 mt-1" type="button" >~Inicio~</router-link>
+
       <p>{{respuesta}}</p>
 
     </div>
@@ -75,7 +77,7 @@ export default {
     enviarDatos: async function(){
       
       let conHash = await this.digestMessage(this.contrasena); //Hasheamos la contraseña
-      const prueba = axios
+      axios
       .post('http://localhost:3000/login', {
           email: this.correo,
           nombreUsuario: this.nombre,
@@ -83,8 +85,8 @@ export default {
       })
       .then(resp => (this.respuesta = resp))
 
-      console.log('hola?')
-      console.log(prueba)
+      //console.log('hola?')
+      //console.log(prueba)
       if(this.respuesta.mensaje == "Something is wrong"){
         this.correoInvalido = true;
         this.esEnviado = false;
