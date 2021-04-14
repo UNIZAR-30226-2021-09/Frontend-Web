@@ -51,29 +51,30 @@
             <a class="nav-link" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="login">Log-in</a>
+            <a class="nav-link" href="/Login">Log-in</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="signin">Sign-in</a>
+            <a class="nav-link" href="/Signin">Sign-in</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="inicio">Inicio</a>
+            <a class="nav-link" href="/Inicio">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="ciegas">Ciegas</a>
+            <a class="nav-link" href="/Ciegas">Ciegas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="perfil">Perfil</a>
+            <a class="nav-link" href="/Perfil">Perfil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="agregarAmigo">Agregar</a>
+            <a class="nav-link" href="/AgregarAmigo">Agregar</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="desafiar">Desafiar</a>
+            <a class="nav-link" href="/Desafiar">Desafiar</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="amigoDesafiado">Desafiado</a>
+            <a class="nav-link" href="/AmigoDesafiado">Desafiado</a>
           </li>
+
           </ul>
         </div>
       </div>

@@ -38,6 +38,8 @@
                 </div>
             </div>
 
+            <router-link to="Inicio" class="btn btn-warning mb-1 mt-1" type="button" >~Inicio~</router-link>
+
             <p>{{respuesta}}</p>
             
         </div>
