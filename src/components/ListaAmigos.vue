@@ -13,9 +13,9 @@
             <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Peticiones enviadas </h5> 
             <ul class="dropdown-menu">
 
-                      <li class="list-group-item bg-secundary" v-for="jugador in peticionesEnviadasF" v-bind:key="jugador.nombre" bg>
+                      <li class="list-group-item bg-secundary" v-for="(jugador,index) in peticionesEnviadasF" v-bind:key="jugador.nombre" bg>
                             <a class="dropdown-item" > {{jugador.nombre }}
-                                <button  class="btn btn-outline-danger btn-sm mb-1" type="button">Cancelar</button>
+                                <button  class="btn btn-outline-danger btn-sm mb-1" type="button" @click='cancelarPeticion(index)'>Cancelar</button>
                             </a>
                       </li>
             </ul>
@@ -27,10 +27,10 @@
         <div>
             <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Peticiones recibidas </h5> 
             <ul class="dropdown-menu">
-                    <li class="list-group-item bg-secundary" v-for="jugador in peticionesRecibidasF" v-bind:key="jugador.nombre" bg>
+                    <li class="list-group-item bg-secundary" v-for="(jugador,index) in peticionesRecibidasF" v-bind:key="jugador.nombre" bg>
                         <a class="dropdown-item" > {{jugador.nombre }}
-                                <button  class="btn btn-outline-success btn-sm mb-1" type="button">Aceptar</button>
-                                <button  class="btn btn-outline-danger btn-sm mb-1" type="button">Rechazar</button>
+                                <button  class="btn btn-outline-success btn-sm mb-1" type="button" @click='aceptarAmigo(jugador.nombre,index)'>Aceptar</button>
+                                <button  class="btn btn-outline-danger btn-sm mb-1" type="button" @click='rechazarAmigo(index)'>Rechazar</button>
                             </a>
                     </li>
             </ul>
@@ -64,7 +64,7 @@
 
 <script>
 
-import {mapState} from 'vuex';
+import {mapState,mapMutations} from 'vuex';
 export default {
   name: 'ListaAmigos',
   computed:{
@@ -94,30 +94,24 @@ export default {
 //         }
 //   },
   methods:{
+    ...mapMutations([
+      'anyadirAmigo'
+    ]),
     recuperarNombre: function(){
         
     },
-    aceptarAmigo: function(amigo){
+    aceptarAmigo: function(amigo,index){
 
-      var indice = this.peticionesRecibidas.indexOf(amigo);
-      if (indice != -1){
-
-        this.peticionesRecibidas.splice(indice, 1);
-        this.listaAmigos.push({nombre: amigo,estado: 'Desconectado'})
-      }
-
+        this.perfil.peticionesRecibidas.splice(index, 1);
+        this.anyadirAmigo(amigo);
     },
-    rechazarAmigo: function(amigo){
-      this.setDesafiado(amigo);
-      this.msg =  'Vas a invitar a ' + amigo;
-      var element = document.getElementById("btnSend");
-      element.classList.remove("disabled");
+    rechazarAmigo: function(index){
+
+        this.perfil.peticionesRecibidas.splice(index, 1);
     },
-    cancelarPeticion: function(amigo){
-      this.setDesafiado(amigo);
-      this.msg =  'Vas a invitar a ' + amigo;
-      var element = document.getElementById("btnSend");
-      element.classList.remove("disabled");
+    cancelarPeticion: function(amigo,index){
+
+        this.perfil.peticionesEnviadas.splice(index, 1);
     }
         //Implementar las otras funciones de capturar la lista de amigos, el nombre del usuario
     }

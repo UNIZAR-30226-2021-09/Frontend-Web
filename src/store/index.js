@@ -38,6 +38,9 @@ export default new Vuex.Store({
   mutations: {
     setDesafiado(state, nombre){
       state.amigoDesafiado = nombre
+    },
+    anyadirAmigo(state,name){
+      state.perfil.listaAmigos.push({nombre: name, estado: 'No conectado'});
     }
   },
   actions: {
