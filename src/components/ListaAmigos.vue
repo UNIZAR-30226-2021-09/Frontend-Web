@@ -6,10 +6,8 @@
             <router-link to="perfil" class="btn btn-primary btn-sm mb-1" type="button" >Mi Perfil</router-link>
         </h4>
         
-
-        <br>
         
-        <div>
+        <div class="mt-3">
             <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Peticiones enviadas </h5> 
             <ul class="dropdown-menu">
 
@@ -19,12 +17,11 @@
                             </a>
                       </li>
             </ul>
-            <router-link to="agregarAmigo" class="btn btn-outline-success btn-sm mb-1" type="button" >+</router-link>
+            
         </div>
 
-        <br>
 
-        <div>
+        <div class="mt-3">
             <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Peticiones recibidas </h5> 
             <ul class="dropdown-menu">
                     <li class="list-group-item bg-secundary" v-for="(jugador,index) in peticionesRecibidasF" v-bind:key="jugador.nombre" bg>
@@ -39,7 +36,7 @@
         <br>
 
         <div>
-            <h5 style="display:inline">Amigos </h5> 
+            <h5 style="display:inline">Amigos </h5>  <router-link to="agregarAmigo" class="btn btn-outline-success btn-sm mb-1" type="button" >+</router-link>
         </div>
         
 
