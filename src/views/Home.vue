@@ -12,6 +12,8 @@
             <router-link to="Login"  class="btn btn-outline-primary btn-lg mr-5">Identificarme</router-link>
             <router-link to="Signin" class="btn btn-outline-primary btn-lg ">Registrarme</router-link>
         </div>
+
+        <h1>v5</h1>
         
 
       </div>
