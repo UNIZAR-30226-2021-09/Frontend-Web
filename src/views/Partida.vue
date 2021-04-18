@@ -9,9 +9,7 @@
                 
                 <h2>{{nombrePag}}</h2>
                 
-                <div class="d-grid gap-2 col-6 mx-auto mt-5" >
-                  <router-link v-for="(pendiente) in perfil.pendientes" v-bind:key="pendiente.nombre" to="partida" class="btn btn-secondary" type="button" >Partida contra {{pendiente.contrincante}}</router-link>
-                </div>
+
             </div>
 
             <ListaAmigos/>
@@ -24,7 +22,6 @@
 
 #######################################SCRIPT#######################################
 <script>
-import {mapState} from 'vuex';
 import ListaAmigos from '@/components/ListaAmigos.vue'
 
 export default {
@@ -34,8 +31,7 @@ export default {
   },
   data() {
         return{ 
-          nombrePag: 'Partidas en curso',
-          titulo: 'Log in',
+          nombrePag: '~Pantalla de la partida~',
           nombre: '',
           correo: '',
           contrasena: '',
@@ -47,9 +43,6 @@ export default {
       enviarDatos: function(){
     }
 
-  },
-  computed:{
-      ...mapState(['perfil']), //Para recoger los datos de la lista de amigos que están almacenados en el store
-  },
+  }
 }
 </script>

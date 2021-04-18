@@ -26,6 +26,15 @@
                     <div class="col"><router-link to="pendientes" class="btn btn-primary btn-lg ">Partidas en curso</router-link></div>
                   </div>
 
+                  <p></p>
+
+                  <div class="row">
+                    <p></p>
+                    <div class="col"></div>
+                    <div class="col"><router-link to="partida" class="btn btn-primary btn-lg ">Partida contra IA</router-link></div>
+                    <div class="col"></div>
+                  </div>
+
                 </div>
 
             </div>

@@ -68,6 +68,16 @@ const routes = [
     path: '/perfil',
     name: 'Perfil',
     component: () => import(/* webpackChunkName: "perfil" */ '../views/Perfil.vue')
+  },
+  {
+    path: '/partida',
+    name: 'Partida',
+    component: () => import(/* webpackChunkName: "partida" */ '../views/Partida.vue')
+  },
+  {
+    path: '/clasificacion',
+    name: 'Clasificacion',
+    component: () => import(/* webpackChunkName: "clasificacion" */ '../views/Clasificacion.vue')
   }
 ]
 

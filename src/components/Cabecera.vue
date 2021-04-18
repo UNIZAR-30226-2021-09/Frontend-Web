@@ -74,6 +74,12 @@
           <li class="nav-item">
             <a class="nav-link" href="/AmigoDesafiado">Desafiado</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/Partida">Partida</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/Clasificacion">Clasificacion</a>
+          </li>
           <!-- <li class="nav-item">
             <a class="nav-link" href="/AmigoDesafiado" to="Inicio">inicio?</a>
           </li> -->

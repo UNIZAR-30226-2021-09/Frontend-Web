@@ -18,8 +18,13 @@ export default new Vuex.Store({
       puntos: '0',
       partidas:[
         {contrincante: 'a1', resultado: 'Victoria', codigo: 111},
-        {contrincante: 'this.perfil.listaAmigos(1).nombre', resultado: 'Derrota', codigo: 112},
+        {contrincante: 'a2', resultado: 'Derrota', codigo: 112},
         {contrincante: 'a3', resultado: 'Victoria', codigo: 113}
+      ],
+      pendientes:[
+        {contrincante: 'a1', codigo: 111},
+        {contrincante: 'a2', codigo: 112},
+        {contrincante: 'a3', codigo: 113}
       ],
       peticionesEnviadas: [
         {nombre: 'pepe'},
@@ -33,6 +38,12 @@ export default new Vuex.Store({
       ]
       
     },
+    clasificacion:[
+      {nombre: 'alguien'},
+      {nombre: 'Usuario1'},
+      {nombre: 'tercero'},
+      {nombre: 'amigo4'},
+    ],
     amigoDesafiado: 'default'
   },
   mutations: {
