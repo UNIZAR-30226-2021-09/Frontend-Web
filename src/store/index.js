@@ -39,10 +39,10 @@ export default new Vuex.Store({
       
     },
     clasificacion:[
-      {nombre: 'alguien'},
-      {nombre: 'Usuario1'},
-      {nombre: 'tercero'},
-      {nombre: 'amigo4'},
+      {nombre: 'alguien', puntos: 100},
+      {nombre: 'Usuario1', puntos: 80},
+      {nombre: 'tercero', puntos: 50},
+      {nombre: 'amigo4', puntos: 20},
     ],
     amigoDesafiado: 'default'
   },

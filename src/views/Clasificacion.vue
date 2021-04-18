@@ -13,12 +13,12 @@
                     <div class="list-group" v-for="(clasificacion) in clasificacion" v-bind:key="clasificacion.nombre">
                       <!-- Se muestran a todos los usuarios  -->
                       <div v-if="clasificacion.nombre != perfil.nombreUsuario">
-                        <router-link to="perfil" class="list-group-item list-group-item-action" type="button" >{{clasificacion.nombre}}</router-link>
+                        <router-link to="perfil" class="list-group-item list-group-item-action" type="button" >{{clasificacion.nombre}} - {{clasificacion.puntos}} puntos</router-link>
                       </div>
 
                       <!-- Al usuario se le colorea diferente para que se le vea mejor -->
                       <div v-if="clasificacion.nombre === perfil.nombreUsuario">
-                        <router-link to="perfil" class="list-group-item list-group-item-action list-group-item-primary" type="button" >{{clasificacion.nombre}}</router-link>
+                        <router-link to="perfil" class="list-group-item list-group-item-action list-group-item-primary" type="button" >{{clasificacion.nombre}} - {{clasificacion.puntos}} puntos</router-link>
                       </div>                 
 
                     </div>

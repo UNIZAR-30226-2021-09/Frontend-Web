@@ -13,7 +13,7 @@
             <router-link to="Signin" class="btn btn-outline-primary btn-lg ">Registrarme</router-link>
         </div>
 
-        <h1>v5</h1>
+        <h1>v7</h1>
         
 
       </div>
