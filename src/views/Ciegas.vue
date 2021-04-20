@@ -12,8 +12,6 @@
                 <div  class="container mt-5">
                     <p >Buscando contrincante...</p>
                 </div>
-
-                <router-link to="inicio" class="mt-3 btn btn-primary btn-lg" >Cancelar</router-link>
                 
 
             </div>

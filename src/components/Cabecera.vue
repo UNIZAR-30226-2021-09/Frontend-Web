@@ -80,6 +80,9 @@
           <li class="nav-item">
             <a class="nav-link" href="/Clasificacion">Clasificacion</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/PartidasEnCurso">Partidas en curso</a>
+          </li>
           <!-- <li class="nav-item">
             <a class="nav-link" href="/AmigoDesafiado" to="Inicio">inicio?</a>
           </li> -->

@@ -5,21 +5,6 @@
         <h4 class="text-sm-left">{{perfil.nombreUsuario}} 
             <router-link to="perfil" class="btn btn-primary btn-sm mb-1" type="button" >Mi Perfil</router-link>
         </h4>
-        
-        
-        <div class="mt-3">
-            <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Peticiones enviadas </h5> 
-            <ul class="dropdown-menu">
-
-                      <li class="list-group-item bg-secundary" v-for="(jugador,index) in peticionesEnviadasF" v-bind:key="jugador.nombre" bg>
-                            <a class="dropdown-item" > {{jugador.nombre }}
-                                <button  class="btn btn-outline-danger btn-sm mb-1" type="button" @click='cancelarPeticion(index)'>Cancelar</button>
-                            </a>
-                      </li>
-            </ul>
-            
-        </div>
-
 
         <div class="mt-3">
             <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Peticiones recibidas </h5> 
@@ -73,9 +58,6 @@ export default {
       amigosDesconectados(){
             return this.perfil.listaAmigos.filter(amigo => amigo.estado ==='No conectado')
       },
-      peticionesEnviadasF(){
-            return this.perfil.peticionesEnviadas
-      },
       peticionesRecibidasF(){
             return this.perfil.peticionesRecibidas
       }
@@ -105,10 +87,6 @@ export default {
     rechazarAmigo: function(index){
 
         this.perfil.peticionesRecibidas.splice(index, 1);
-    },
-    cancelarPeticion: function(amigo,index){
-
-        this.perfil.peticionesEnviadas.splice(index, 1);
     }
         //Implementar las otras funciones de capturar la lista de amigos, el nombre del usuario
     }

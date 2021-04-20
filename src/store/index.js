@@ -26,15 +26,13 @@ export default new Vuex.Store({
         {contrincante: 'a2', codigo: 112},
         {contrincante: 'a3', codigo: 113}
       ],
-      peticionesEnviadas: [
-        {nombre: 'pepe'},
-        {nombre: 'ship_killer'},
-        {nombre: 'repollo'}
-      ],
       peticionesRecibidas: [
         {nombre: 'roberto_jose'},
         {nombre: 'algo123'},
         {nombre: 'easyGame'}
+      ],
+      partidasEnCurso: [
+        {rival: 'fulanito', turno: 'fulanito'}
       ]
       
     },
