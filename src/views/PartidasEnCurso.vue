@@ -1,7 +1,19 @@
 <template>
 
-  <div align="center" class="container mt-5" id="app">
-    <ListaAmigos/>
+  <div  class="container mt-5" id="app">
+
+
+    <div class="mt-5"> 
+         <div class="row g-3">
+            <div class="col-sm-9">
+
+                <h2>{{nombrePag}}</h2>
+
+            </div>
+            <ListaAmigos/>
+         </div>
+    </div>
+
   </div>
 
 </template>
@@ -16,7 +28,7 @@ export default {
   },
   data() {
         return{ 
-          titulo: 'Partidas en curso'
+          nombrePag: 'Partidas en curso'
         }
   },
   methods: {
