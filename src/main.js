@@ -25,12 +25,6 @@ Vue.use(new VueSocketIO({
 Vue.use(new VueSocketIO({
   debug: true,
   connection: 'https://proyecto-software-09.herokuapp.com/',
-  vuex: {
-      store,
-      actionPrefix: 'SOCKET_',
-      mutationPrefix: 'SOCKET_'
-  },
-  options: { path: "/my-app/" } //Optional options
 }))
 
 new Vue({
