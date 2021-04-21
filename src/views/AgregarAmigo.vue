@@ -54,7 +54,8 @@
 #######################################SCRIPT#######################################
 <script>
 import ListaAmigos from '@/components/ListaAmigos.vue'
-
+import {mapMutations} from 'vuex';
+import axios from 'axios'
 export default {
   name: 'AgregarAmigo',
   components: {
@@ -69,13 +70,29 @@ export default {
           datosInvalidos: false
         }
   },
+  sockets: {
+    connect: function () {
+        console.log('socket connected')
+    },
+    llegaInvitacion: function () {
+        console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)')
+    }
+  },
   methods: {
+    ...mapMutations([
+      'getToken'
+    ]),
+
     enviarPeticion: function(){
         //console.log('click!', this.correo, ' - ' , this.contrasena)
-        this.nombre = ""
-        this.link = ""
-        this.esEnviado = true
-        this.datosInvalidos = false
+      let token = this.getToken();
+      axios
+      .post('https://proyecto-software-09.herokuapp.com/user/addfriend', {
+          nombreUsuario:"User3",
+          nombreAmigo: "User4",
+          accessToken: token
+      })
+      .then(resp => (this.respuesta = resp))
     },
     emularError: function(){
       this.datosInvalidos = true

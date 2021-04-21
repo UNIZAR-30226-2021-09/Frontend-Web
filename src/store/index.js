@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     perfil:{
       nombreUsuario: 'Usuario1',
+      token: '',
       fotoUsuario: '',
       listaAmigos: [
           {nombre: 'Amigo1' , estado: 'Conectado'},
@@ -32,7 +33,9 @@ export default new Vuex.Store({
         {nombre: 'easyGame'}
       ],
       partidasEnCurso: [
-        {rival: 'fulanito', turno: 'fulanito'}
+        {rival: 'fulanito', turno: 'Usuario1'},
+        {rival: 'fulanito', turno: 'fulanito'},
+        {rival: 'fulanito', turno: 'Usuario1'}
       ]
       
     },
@@ -42,7 +45,7 @@ export default new Vuex.Store({
       {nombre: 'tercero', puntos: 50},
       {nombre: 'amigo4', puntos: 20},
     ],
-    amigoDesafiado: 'default'
+    amigoDesafiado: 'default',
   },
   mutations: {
     setDesafiado(state, nombre){
@@ -50,6 +53,9 @@ export default new Vuex.Store({
     },
     anyadirAmigo(state,name){
       state.perfil.listaAmigos.push({nombre: name, estado: 'No conectado'});
+    },
+    getToken(state){
+      state.perfil.token;
     }
   },
   actions: {

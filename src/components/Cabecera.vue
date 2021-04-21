@@ -1,3 +1,19 @@
+<style>
+span.red {
+  background: red;
+   border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1.6em;
+  margin-right: 15px;
+  text-align: center;
+  width: 1.6em; 
+}
+
+</style>
 <template>
   <div>
     <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-primary w-100 p-3">
@@ -81,7 +97,7 @@
             <a class="nav-link" href="/Clasificacion">Clasificacion</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/PartidasEnCurso">Partidas en curso</a>
+            <a class="nav-link" href="/PartidasEnCurso">Partidas en curso <span class="red">{{numPartidas}}</span> </a>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link" href="/AmigoDesafiado" to="Inicio">inicio?</a>
@@ -100,11 +116,19 @@
 
 <script>
 //import ListaAmigos from '@/components/ListaAmigos.vue'
-
+import {mapState} from 'vuex';
 export default {
   name: 'Cabecera',
   components: {
     //ListaAmigos
+  },
+  computed: {
+    ...mapState(['perfil']), //Para recoger los datos de la lista de amigos que están almacenados en el store
+
+    numPartidas(){
+      
+      return this.perfil.partidasEnCurso.filter(partida => partida.turno == this.perfil.nombreUsuario ).length;
+    }
   }
 }
 </script>

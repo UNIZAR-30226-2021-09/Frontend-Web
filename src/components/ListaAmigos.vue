@@ -1,3 +1,7 @@
+<style>
+
+</style>
+
 <template>
     
     <div class="col-sm-3">
@@ -94,6 +98,3 @@ export default {
 
 </script>
 
-<style>
-
-</style>
