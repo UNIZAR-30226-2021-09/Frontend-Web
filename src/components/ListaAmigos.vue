@@ -25,7 +25,7 @@
         <br>
 
         <div>
-            <h5 style="display:inline">Amigos </h5>  <router-link to="agregarAmigo" class="btn btn-outline-success btn-sm mb-1" type="button" >+</router-link>
+            <h5 style="display:inline">Amigos </h5>  <router-link to="agregarAmigo" class="btn btn-outline-success btn-sm mb-1" type="button">+</router-link>
         </div>
         
 
