@@ -49,6 +49,7 @@
 #######################################SCRIPT#######################################
 <script>
 import axios from 'axios'
+// import mapState from 'vuex';
 
 export default {
   name: 'Login',
@@ -75,18 +76,16 @@ export default {
         return hashHex;
     },
     enviarDatos: async function(){
-      
+      // console.log(this.host)
       let conHash = await this.digestMessage(this.contrasena); //Hasheamos la contraseña
       axios
-      .post('https://proyecto-software-09.herokuapp.com/signin', {
+      .post('localhost:3000/login', {
           email: this.correo,
           nombreUsuario: this.nombre,
           contrasena: conHash
       })
       .then(resp => (this.respuesta = resp))
 
-      //console.log('hola?')
-      //console.log(prueba)
       if(this.respuesta.mensaje == "Something is wrong"){
         this.correoInvalido = true;
         this.esEnviado = false;
@@ -103,5 +102,8 @@ export default {
     }
 
   }
+  // computed:{
+  //     ...mapState(['host'])
+  // }
 }
 </script>

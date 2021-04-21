@@ -50,6 +50,7 @@
 #######################################SCRIPT#######################################
 <script>
 import axios from 'axios'
+import {mapState} from 'vuex'
 
 export default {
   name: 'Signin',
@@ -82,14 +83,17 @@ export default {
             
         }else{
             this.contDif = false;
+            let dir = this.host + '/signin'
             let conHash = await this.digestMessage(this.contrasena); //Hasheamos la contraseña
-            axios
-            .post('https://proyecto-software-09.herokuapp.com/signin', {
+            let ret = axios
+            .post(dir, {
                 email: this.correo,
                 nombreUsuario: this.nombre,
                 contrasena: conHash
             })
             .then(resp => (this.respuesta = resp))
+
+            console.log(ret)
         }
 
         this.correo = ""
@@ -98,6 +102,9 @@ export default {
         this.rep_contrasena = ""
     }
 
-    }
+  },
+  computed:{
+      ...mapState(['host'])
+  }
 }
 </script>

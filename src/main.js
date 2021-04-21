@@ -7,14 +7,17 @@ import VueAxios from 'vue-axios';
 import SocketIO from "socket.io-client";
 import VueSocketIO from 'vue-socket.io';
 
+import {mapState} from 'vuex'
+
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 
 const options = { withCredentials: false };
 
+
 Vue.use(new VueSocketIO({
   debug: true,
-  connection: SocketIO('localhost:3001', options)
+  connection: SocketIO('localhost:3000', options)
 }));
 
 new Vue({
@@ -22,6 +25,18 @@ new Vue({
   store,
   render: h => h(App),
   created: function() {
-    this.$socket.emit("logMe", { nombreUsuario: "User4"});
-  } 
+    console.log('Estoy en la ruta ' + this.$router.currentRoute.path)
+
+    if (this.perfil.token === ''){
+      console.log('Me tendría que echar al login')
+      
+      //this.$router.push('login');
+    }else{
+      console.log('El token es: ' + this.perfil.token)
+      this.$socket.emit("logMe", { nombreUsuario: "User4"});
+    }
+  } ,
+  computed:{
+    ...mapState(['perfil'])
+  }
 }).$mount('#app')

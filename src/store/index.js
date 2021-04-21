@@ -5,6 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    host: 'https://proyecto-software-09.herokuapp.com',
+    // host: 'localhost:3000',
     perfil:{
       nombreUsuario: 'Usuario1',
       token: '',

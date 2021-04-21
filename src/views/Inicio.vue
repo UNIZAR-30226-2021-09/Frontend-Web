@@ -50,6 +50,7 @@
 #######################################SCRIPT#######################################
 <script>
 import ListaAmigos from '@/components/ListaAmigos.vue'
+import {mapState} from 'vuex'
 
 export default {
   name: 'Inicio',
@@ -67,10 +68,23 @@ export default {
           correoInvalido: false
         }
   },
-  methods: {
-      enviarDatos: function(){
-    }
+  computed:{
+    ...mapState(['perfil'])
+  },
+  // methods: {
+  //     enviarDatos: function(){
+  //   }
 
+  // },
+  
+  created: function() {
+    if (this.perfil.token != ''){
+      this.$router.push('login');
+    }else{
+      this.$socket.emit("logMe", { nombreUsuario: "User4"});
+    }
+    
   }
+
 }
 </script>
