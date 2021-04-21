@@ -81,6 +81,7 @@ export default {
             this.contDif = true;
             
         }else{
+            this.contDif = false;
             let conHash = await this.digestMessage(this.contrasena); //Hasheamos la contraseña
             axios
             .post('https://proyecto-software-09.herokuapp.com/signin', {
