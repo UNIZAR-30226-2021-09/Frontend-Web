@@ -57,7 +57,15 @@ export default new Vuex.Store({
       state.perfil.listaAmigos.push({nombre: name, estado: 'No conectado'});
     },
     getToken(state){
-      state.perfil.token;
+      return state.perfil.token;
+    },
+    setToken(state, newToken){
+      state.perfil.token = newToken
+    }
+  },
+  getters:{
+    getToken: state => {
+      return state.perfil.token
     }
   },
   actions: {

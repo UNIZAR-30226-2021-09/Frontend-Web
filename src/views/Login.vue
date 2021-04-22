@@ -9,10 +9,10 @@
         <input type="text" class="form-control" placeholder="Nombre de usuario" v-model="nombre" v-on:keyup.enter="enviarDatos">
       </div>
 
-      <div class="input-group mb-3">
+      <!-- <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">@</span>
         <input type="text" class="form-control" placeholder="Correo" v-model="correo" v-on:keyup.enter="enviarDatos">
-      </div>
+      </div> -->
 
       <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">#</span>
@@ -34,14 +34,10 @@
       
       <!-- Mensaje de correo erróneo -->
       <div class="mt-3">
-        <div v-if=correoInvalido class="alert alert-danger" role="alert">
-          Por favor, introduzca un correo válido.
+        <div v-if=invalido class="alert alert-danger" role="alert">
+          El usuario y la contraseña no coinciden.
         </div>
       </div>
-
-      <router-link to="Inicio" class="btn btn-warning mb-1 mt-1" type="button" >~Inicio~</router-link>
-
-      <p>{{respuesta}}</p>
 
     </div>
 </template>
@@ -49,7 +45,7 @@
 #######################################SCRIPT#######################################
 <script>
 import axios from 'axios'
-// import mapState from 'vuex';
+import {mapState,mapMutations} from 'vuex';
 
 export default {
   name: 'Login',
@@ -60,11 +56,9 @@ export default {
         return{ 
           titulo: 'Log in',
           nombre: '',
-          correo: '',
           contrasena: '',
           esEnviado: false,
-          correoInvalido: false,
-          respuesta: ''
+          invalido: false
         }
   },
   methods: {
@@ -77,33 +71,41 @@ export default {
     },
     enviarDatos: async function(){
       // console.log(this.host)
+      let dir = this.host + '/login'
       let conHash = await this.digestMessage(this.contrasena); //Hasheamos la contraseña
       axios
-      .post('localhost:3000/login', {
-          email: this.correo,
+      .post(dir, {
           nombreUsuario: this.nombre,
           contrasena: conHash
       })
-      .then(resp => (this.respuesta = resp))
-
-      if(this.respuesta.mensaje == "Something is wrong"){
-        this.correoInvalido = true;
+      .then(resp => {
+        //Login correcto
+        //console.log("Voy a meter el token " + resp.data.accessToken)
+        this.setToken(resp.data.accessToken)
+        
+//        const tok = this.$store.getters.getToken  //!!!Conseguir el token introducido 
+//        console.log(tok)
+        this.$router.push('Inicio'); //Vamos al inicio con el usuario identificado
+        })
+      .catch(error => {
+        //Error al hacer login
+        console.log(error.response.request.response)
+        this.invalido = true;
         this.esEnviado = false;
-      }else{
-        this.correoInvalido = false;
-        this.esEnviado = true;
-      }
+        });
 
-      this.correo = ""
+
       this.nombre = ""
       this.contrasena = ""
-      this.esEnviado = true
 
-    }
+    },
+    ...mapMutations([
+      'setToken'
+    ])
 
+  },
+  computed:{
+      ...mapState(['host'])
   }
-  // computed:{
-  //     ...mapState(['host'])
-  // }
 }
 </script>

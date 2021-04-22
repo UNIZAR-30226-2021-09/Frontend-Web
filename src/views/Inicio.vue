@@ -78,11 +78,11 @@ export default {
   // },
   
   created: function() {
-    if (this.perfil.token != ''){
-      this.$router.push('login');
-    }else{
-      this.$socket.emit("logMe", { nombreUsuario: "User4"});
-    }
+    // if (this.perfil.token != ''){
+    //   this.$router.push('login');
+    // }else{
+    //   this.$socket.emit("logMe", { nombreUsuario: "User4"});
+    // }
     
   }
 

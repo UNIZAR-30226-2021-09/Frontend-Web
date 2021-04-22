@@ -4,21 +4,21 @@ import router from './router';
 import store from './store';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
-import SocketIO from "socket.io-client";
-import VueSocketIO from 'vue-socket.io';
+// import SocketIO from "socket.io-client";
+// import VueSocketIO from 'vue-socket.io';
 
 import {mapState} from 'vuex'
 
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 
-const options = { withCredentials: false };
+// const options = { withCredentials: false };
 
 
-Vue.use(new VueSocketIO({
-  debug: true,
-  connection: SocketIO('localhost:3000', options)
-}));
+// Vue.use(new VueSocketIO({
+//   debug: true,
+//   connection: SocketIO('localhost:3000', options)
+// }));
 
 new Vue({
   router,

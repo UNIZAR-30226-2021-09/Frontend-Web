@@ -31,14 +31,12 @@
 
             <button class="btn btn-primary" @click="registrarse">Registrarse</button>
 
-            <!-- Mensaje de correo erróneo -->
+            <!-- Mensaje de error -->
             <div class="mt-3">
-                <div v-if=contDif class="alert alert-danger" role="alert">
-                Las contraseñas no coinciden
+                <div v-if=error class="alert alert-danger" role="alert">
+                {{errorMSG}}
                 </div>
             </div>
-
-            <router-link to="Inicio" class="btn btn-warning mb-1 mt-1" type="button" >~Inicio~</router-link>
 
             <p>{{respuesta}}</p>
             
@@ -50,7 +48,7 @@
 #######################################SCRIPT#######################################
 <script>
 import axios from 'axios'
-import {mapState} from 'vuex'
+import {mapState,mapMutations} from 'vuex'
 
 export default {
   name: 'Signin',
@@ -64,9 +62,10 @@ export default {
             correo: '',
             contrasena: '',
             rep_contrasena: '',
-            contDif: false,
             respuesta: '',
-            token: ''
+            token: '',
+            error: false,
+            errorMSG: ''
         }
   },
   methods:{
@@ -79,7 +78,8 @@ export default {
     },
     registrarse: async function(){
         if (this.contrasena != this.rep_contrasena){
-            this.contDif = true;
+            this.error = true;
+            this.errorMSG = "Las contraseñas no coinciden"
             
         }else{
             this.contDif = false;
@@ -91,7 +91,22 @@ export default {
                 nombreUsuario: this.nombre,
                 contrasena: conHash
             })
-            .then(resp => (this.respuesta = resp))
+            .then(resp => {
+                //Registro correcto
+                console.log("Voy a meter el token " + resp.data.accessToken)
+                this.setToken(resp.data.accessToken)
+                
+                const tok = this.$store.getters.getToken  //!!!Conseguir el token introducido 
+                console.log(tok)
+                this.$router.push('Inicio'); //Vamos al inicio con el usuario identificado
+                })
+            .catch(error => {
+                //Error al hacer signin
+                console.log(error)
+                this.error = true;
+                this.errorMSG = "El usuario o el correo ya existen"
+                
+                });
 
             console.log(ret)
         }
@@ -100,7 +115,10 @@ export default {
         this.nombre = ""
         this.contrasena = ""
         this.rep_contrasena = ""
-    }
+    },
+    ...mapMutations([
+      'setToken'
+    ])
 
   },
   computed:{
