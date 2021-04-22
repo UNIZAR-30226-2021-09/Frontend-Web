@@ -85,6 +85,10 @@ export default {
         
 //        const tok = this.$store.getters.getToken  //!!!Conseguir el token introducido 
 //        console.log(tok)
+
+        //rellenamos los elementos del perfil del usuario
+        this.setPerfil(resp.data.nombreUsuario,resp.data.email,resp.data.amigos,resp.data.solicitudesEntrantes,resp.data.solicitudesSalientes,resp.data.accessToken,resp.data.historial)
+
         this.$router.push('Inicio'); //Vamos al inicio con el usuario identificado
         })
       .catch(error => {
@@ -100,12 +104,12 @@ export default {
 
     },
     ...mapMutations([
-      'setToken'
+      'setToken','setPerfil'
     ])
 
   },
   computed:{
-      ...mapState(['host'])
+      ...mapState(['host']),
   }
 }
 </script>

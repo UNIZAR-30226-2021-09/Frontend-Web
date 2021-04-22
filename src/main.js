@@ -21,8 +21,12 @@ Vue.config.productionTip = false
 // }));
 
 new Vue({
+  el: '#app',
   router,
-  store,
+  store: store,
+  components: { App },
+  beforeCreate() { this.$store.commit('initialiseStore');},
+  template: '<App/>',
   render: h => h(App),
   created: function() {
     console.log('Estoy en la ruta ' + this.$router.currentRoute.path)

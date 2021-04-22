@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -8,15 +7,16 @@ export default new Vuex.Store({
     host: 'https://proyecto-software-09.herokuapp.com',
     // host: 'localhost:3000',
     perfil:{
-      nombreUsuario: 'Usuario1',
+      nombreUsuario: '',
+      email: '',
       token: '',
       fotoUsuario: '',
       listaAmigos: [
-          {nombre: 'Amigo1' , estado: 'Conectado'},
-          {nombre: 'Amigo2' , estado: 'No conectado'},
-          {nombre: 'Amigo3' , estado: 'No conectado'},
-          {nombre: 'Amigo4' , estado: 'Conectado'},
-          {nombre: 'Amigo5' , estado: 'Conectado'}
+          {nombre: 'Amigo1'},
+          {nombre: 'Amigo2'},
+          {nombre: 'Amigo3'},
+          {nombre: 'Amigo4'},
+          {nombre: 'Amigo5'}
       ],
       puntos: '0',
       partidas:[
@@ -47,9 +47,13 @@ export default new Vuex.Store({
       {nombre: 'tercero', puntos: 50},
       {nombre: 'amigo4', puntos: 20},
     ],
-    amigoDesafiado: 'default',
+    amigoDesafiado: 'default'
   },
   mutations: {
+
+    initialiseStore() {
+      console.log('roegiporjgioer');
+    },
     setDesafiado(state, nombre){
       state.amigoDesafiado = nombre
     },
@@ -61,11 +65,29 @@ export default new Vuex.Store({
     },
     setToken(state, newToken){
       state.perfil.token = newToken
-    }
+    },
+    setPerfil(state,nombreUsuario,email,amigos,solicitudesEntrantes,solicitudesSalientes,accessToken,historial){
+      console.log('4545');
+      state.perfil.nombreUsuario=nombreUsuario;
+      state.perfil.email = email;
+      state.perfil.listaAmigos = amigos + [];
+      state.perfil.peticionesRecibidas = solicitudesEntrantes + [];
+      state.perfil.pendientes = solicitudesSalientes + [];
+      state.perfil.token = accessToken;
+      state.perfil.partidas = historial;
+    },
+
+    
   },
   getters:{
     getToken: state => {
-      return state.perfil.token
+      return state.perfil.token;
+    },
+    getNombre: state => {
+      return state.perfil.nombreUsuario;
+    },
+    getPerfil: state => {
+      return state.perfil;
     }
   },
   actions: {
