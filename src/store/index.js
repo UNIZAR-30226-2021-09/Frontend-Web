@@ -1,8 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  plugins: [createPersistedState({
+    storage: window.sessionStorage,
+  })],
   state: {
     host: 'https://proyecto-software-09.herokuapp.com',
     // host: 'localhost:3000',
@@ -52,7 +56,7 @@ export default new Vuex.Store({
   mutations: {
 
     initialiseStore() {
-      console.log('roegiporjgioer');
+      console.log(this.nombreUsuario);
     },
     setDesafiado(state, nombre){
       state.amigoDesafiado = nombre
