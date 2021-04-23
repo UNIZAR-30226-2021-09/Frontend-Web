@@ -62,6 +62,8 @@ export default {
         }
   },
   methods: {
+    ...mapMutations(['setNombreUsuario','setEmail','setAmigos','setEntrantes','setSalientes','setToken','setHistorial','setPuntos','setPartidas','imprimePerfil']),
+    
     digestMessage: async function(message) {
         const msgUint8 = new TextEncoder().encode(message);                           // encode as (utf-8) Uint8Array
         const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);           // hash the message
@@ -81,16 +83,27 @@ export default {
       .then(resp => {
         //Login correcto
         //console.log("Voy a meter el token " + resp.data.accessToken)
-        this.setToken(resp.data.accessToken)
         
+        this.setNombreUsuario(resp.data.nombreUsuario)
+        this.setEmail(resp.data.email)
+        this.setAmigos(resp.data.amigos)
+        this.setEntrantes(resp.data.solicitudesEntrantes)
+        this.setSalientes(resp.data.solicitudesSalientes)
+        this.setToken(resp.data.accessToken)
+        this.setHistorial(resp.data.historial)
+        this.setPuntos(13)
+        this.setPartidas([])
+
+        //Faltaría actualizar los puntos del usuario y sus partidas actuales (?) 
+
+        this.imprimePerfil()
+
 //        const tok = this.$store.getters.getToken  //!!!Conseguir el token introducido 
 //        console.log(tok)
 
-        //rellenamos los elementos del perfil del usuario
-        this.setPerfil(resp.data.nombreUsuario,resp.data.email,resp.data.amigos,resp.data.solicitudesEntrantes,resp.data.solicitudesSalientes,resp.data.accessToken,resp.data.historial)
-
         this.$router.push('Inicio'); //Vamos al inicio con el usuario identificado
         })
+        
       .catch(error => {
         //Error al hacer login
         console.log(error.response.request.response)
@@ -102,10 +115,7 @@ export default {
       this.nombre = ""
       this.contrasena = ""
 
-    },
-    ...mapMutations([
-      'setToken','setPerfil'
-    ])
+    }
 
   },
   computed:{

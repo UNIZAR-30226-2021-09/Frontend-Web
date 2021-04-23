@@ -14,49 +14,48 @@ export default new Vuex.Store({
       nombreUsuario: '',
       email: '',
       token: '',
-      fotoUsuario: '',
       listaAmigos: [
-          {nombre: 'Amigo1'},
-          {nombre: 'Amigo2'},
-          {nombre: 'Amigo3'},
-          {nombre: 'Amigo4'},
-          {nombre: 'Amigo5'}
+          // {nombre: 'Amigo1'},
+          // {nombre: 'Amigo2'},
+          // {nombre: 'Amigo3'},
+          // {nombre: 'Amigo4'},
+          // {nombre: 'Amigo5'}
       ],
-      puntos: '0',
+      puntos: '-1',
       partidas:[
-        {contrincante: 'a1', resultado: 'Victoria', codigo: 111},
-        {contrincante: 'a2', resultado: 'Derrota', codigo: 112},
-        {contrincante: 'a3', resultado: 'Victoria', codigo: 113}
+        // {contrincante: 'a1', resultado: 'Victoria', codigo: 111},
+        // {contrincante: 'a2', resultado: 'Derrota', codigo: 112},
+        // {contrincante: 'a3', resultado: 'Victoria', codigo: 113}
       ],
       pendientes:[
-        {contrincante: 'a1', codigo: 111},
-        {contrincante: 'a2', codigo: 112},
-        {contrincante: 'a3', codigo: 113}
+        // {contrincante: 'a1', codigo: 111},
+        // {contrincante: 'a2', codigo: 112},
+        // {contrincante: 'a3', codigo: 113}
       ],
       peticionesRecibidas: [
-        {nombre: 'roberto_jose'},
-        {nombre: 'algo123'},
-        {nombre: 'easyGame'}
+        // {nombre: 'roberto_jose'},
+        // {nombre: 'algo123'},
+        // {nombre: 'easyGame'}
       ],
       partidasEnCurso: [
-        {rival: 'fulanito', turno: 'Usuario1'},
-        {rival: 'fulanito', turno: 'fulanito'},
-        {rival: 'fulanito', turno: 'Usuario1'}
+        // {rival: 'fulanito', turno: 'Usuario1'},
+        // {rival: 'fulanito', turno: 'fulanito'},
+        // {rival: 'fulanito', turno: 'Usuario1'}
       ]
       
     },
     clasificacion:[
-      {nombre: 'alguien', puntos: 100},
-      {nombre: 'Usuario1', puntos: 80},
-      {nombre: 'tercero', puntos: 50},
-      {nombre: 'amigo4', puntos: 20},
+      // {nombre: 'alguien', puntos: 100},
+      // {nombre: 'Usuario1', puntos: 80},
+      // {nombre: 'tercero', puntos: 50},
+      // {nombre: 'amigo4', puntos: 20},
     ],
-    amigoDesafiado: 'default'
+    amigoDesafiado: ''
   },
   mutations: {
 
-    initialiseStore() {
-      console.log(this.nombreUsuario);
+    initialiseStore(state) {
+      console.log("Nombre de usuario: " + state.perfil.nombreUsuario);
     },
     setDesafiado(state, nombre){
       state.amigoDesafiado = nombre
@@ -64,22 +63,51 @@ export default new Vuex.Store({
     anyadirAmigo(state,name){
       state.perfil.listaAmigos.push({nombre: name, estado: 'No conectado'});
     },
+    //______________________________SETTERS______________________________
+    setNombreUsuario(state, newNombreUsuario){
+      // console.log("Actualizando nombre de usuario: " + newNombreUsuario)
+      state.perfil.nombreUsuario = newNombreUsuario
+    },
+    setEmail(state, newEmail){
+      // console.log("Actualizando email: " + newEmail)
+      state.perfil.email = newEmail
+    },
+    setAmigos(state, newAmigos){
+      // console.log("Actualizando lista de amigos: " + newAmigos)
+      state.perfil.listaAmigos = newAmigos
+    },
+    setEntrantes(state, newEntrantes){
+      // console.log("Actualizando entrantes: " + newEntrantes)
+      state.perfil.peticionesRecibidas = newEntrantes
+    },
+    setSalientes(state, newSalientes){
+      // console.log("Actualizando salientes: " + newSalientes)
+      state.perfil.pendientes = newSalientes
+    },
+    setToken(state, newToken){
+      // console.log("Actualizando token: " + newToken)
+      state.perfil.token = newToken
+    },
+    setHistorial(state, newHistorial){
+      // console.log("Actualizando historial: " + newHistorial)
+      state.perfil.partidas = newHistorial
+    },
+    setPuntos(state, newPuntos){
+      // console.log("Actualizando puntos: " + newPuntos)
+      state.perfil.puntos = newPuntos
+    },
+    setPartidas(state, newPartidas){
+      // console.log("Actualizando partidas: " + newPartidas)
+      state.perfil.partidasEnCurso = newPartidas
+    },
+    //______________________________GETTERS______________________________
     getToken(state){
       return state.perfil.token;
     },
-    setToken(state, newToken){
-      state.perfil.token = newToken
-    },
-    setPerfil(state,nombreUsuario,email,amigos,solicitudesEntrantes,solicitudesSalientes,accessToken,historial){
-      console.log('4545');
-      state.perfil.nombreUsuario=nombreUsuario;
-      state.perfil.email = email;
-      state.perfil.listaAmigos = amigos + [];
-      state.perfil.peticionesRecibidas = solicitudesEntrantes + [];
-      state.perfil.pendientes = solicitudesSalientes + [];
-      state.perfil.token = accessToken;
-      state.perfil.partidas = historial;
-    },
+    imprimePerfil(state){
+      console.log("Imprimiendo información actual del perfil...")
+      console.log(state.perfil)
+    }
 
     
   },

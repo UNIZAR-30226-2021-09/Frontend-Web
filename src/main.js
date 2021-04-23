@@ -32,7 +32,7 @@ new Vue({
     console.log('Estoy en la ruta ' + this.$router.currentRoute.path)
 
     if (this.perfil.token === ''){
-      console.log('Me tendría que echar al login')
+      console.log('No hay token almacenado -> login')
       
       //this.$router.push('login');
     }else{

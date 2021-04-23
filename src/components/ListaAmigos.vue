@@ -11,8 +11,11 @@
         </h4>
 
         <div class="mt-3">
-            <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Peticiones recibidas </h5> 
+            <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Peticiones recibidas </h5>
             <ul class="dropdown-menu">
+                    <li class="list-group-item bg-secundary" v-if="numPeticionesRecibidas==0" bg>
+                        <i>No hay peticiones</i>
+                    </li>
                     <li class="list-group-item bg-secundary" v-for="(jugador,index) in peticionesRecibidasF" v-bind:key="jugador.nombre" bg>
                         <a class="dropdown-item" > {{jugador.nombre }}
                                 <button  class="btn btn-outline-success btn-sm mb-1" type="button" @click='aceptarAmigo(jugador.nombre,index)'>Aceptar</button>
@@ -27,7 +30,8 @@
         <div>
             <h5 style="display:inline">Amigos </h5>  <router-link to="agregarAmigo" class="btn btn-outline-success btn-sm mb-1" type="button">+</router-link>
         </div>
-        
+
+        <i v-if="numAmigos==0">Aún no has añadido a ningún amigo</i>
 
         <!-- Lista de amigos conectados -->
         <ul class="list-group list-group-flush mt-2">
@@ -35,7 +39,6 @@
         </ul>
 
         <br>
-
 
         
     </div>
@@ -57,7 +60,12 @@ export default {
             return this.perfil.peticionesRecibidas;
       }
   },
-
+  data() {
+        return{ 
+          numPeticionesRecibidas: -1,
+          numAmigos: -1
+        }
+  },
   methods:{
     ...mapMutations([
       'anyadirAmigo'
@@ -75,7 +83,12 @@ export default {
         this.perfil.peticionesRecibidas.splice(index, 1);
     }
         //Implementar las otras funciones de capturar la lista de amigos, el nombre del usuario
-    }
+  },
+  created: function() {
+    this.numPeticionesRecibidas = this.perfil.peticionesRecibidas.length
+    this.numAmigos = this.perfil.listaAmigos.length
+    
+  }
 }
 
 </script>

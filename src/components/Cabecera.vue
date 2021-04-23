@@ -67,37 +67,37 @@ span.red {
             <a class="nav-link" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/Login">Log-in</a>
+            <a class="nav-link" href="/login">Log-in</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/Signin">Sign-in</a>
+            <a class="nav-link" href="/signin">Sign-in</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/Inicio">Inicio</a>
+            <a class="nav-link" href="/inicio">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/Ciegas">Ciegas</a>
+            <a class="nav-link" href="/ciegas">Ciegas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/Perfil">Perfil</a>
+            <a class="nav-link" href="/perfil">Perfil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/AgregarAmigo">Agregar</a>
+            <a class="nav-link" href="/agregarAmigo">Agregar</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/Desafiar">Desafiar</a>
+            <a class="nav-link" href="/desafiar">Desafiar</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/AmigoDesafiado">Desafiado</a>
+            <a class="nav-link" href="/amigoDesafiado">Desafiado</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/Partida">Partida</a>
+            <a class="nav-link" href="/partida">Partida</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/Clasificacion">Clasificacion</a>
+            <a class="nav-link" href="/clasificacion">Clasificacion</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/PartidasEnCurso">Partidas en curso <span class="red">{{numPartidas}}</span> </a>
+            <a class="nav-link" href="/partidasEnCurso">Partidas en curso <span class="red">{{numPartidas}}</span> </a>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link" href="/AmigoDesafiado" to="Inicio">inicio?</a>
