@@ -47,7 +47,7 @@
                   </div>
                   <div class="carousel-inner">
                     <div class="carousel-item active" data-bs-interval="4000">
-                      <!-- <router-link to="ciegas"><img src="@/assets/logo.png" class="d-block w-50" alt="@/assets/logo.png"></router-link> -->
+                      <router-link to="ciegas"><img src="@/assets/logo.png" class="d-block w-50" alt="@/assets/logo.png"></router-link>
                       <div class="carousel-caption d-none d-md-block">
                         <h4>
                           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
