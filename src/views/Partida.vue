@@ -10,7 +10,7 @@
               <!-- Contenido de la pantalla -->
                 <h2>{{titulo}}</h2>
 
-                <div class="container mt-4">
+                <div class="grids-container ">
                   <div class="battleship-grid grid-user"></div>
                   <div class="battleship-grid grid-computer"></div>
                 </div>
@@ -111,9 +111,13 @@ export default {
 
 <style scoped>
 
-  .container{
-    display: flex; /*Para que aparezcan uno detrás de otro*/
-  }
+  /* .container{
+    display:flex;
+  } */
+
+  .grids-container{
+    display: flex
+  }  
 
   .grid-user {
     width: 400px;

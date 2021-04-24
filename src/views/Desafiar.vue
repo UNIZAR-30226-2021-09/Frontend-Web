@@ -38,9 +38,7 @@
 
             <ListaAmigos/>
         </div>
-    
       </div>
-
     </div>
 </template>
 
