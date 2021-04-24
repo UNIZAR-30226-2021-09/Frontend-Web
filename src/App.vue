@@ -1,14 +1,16 @@
 <template>
-  <div id="app" class="container text-center">
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
-    <Cabecera></Cabecera>
+  <div class="bg-light">
+    <div id="app" class="container text-center">
+      <!-- <div id="nav">
+        <router-link to="/">Home</router-link> |
+        <router-link to="/about">About</router-link>
+      </div> -->
+      <Cabecera></Cabecera>
 
-    <router-view/>
-    
-    <Infobar></Infobar>   <!-- Información adicional -->
+      <router-view/>
+      
+      <Infobar></Infobar>   <!-- Información adicional -->
+    </div>
   </div>
   
 </template>
