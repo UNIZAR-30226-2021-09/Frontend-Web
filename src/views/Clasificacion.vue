@@ -75,7 +75,7 @@ export default {
           })
           .then(resp => {
               console.log('1');
-              console.log(resp.data.ranking);
+              console.log(resp.data);
               console.log(resp.data.posicion);
               this.setClasificacion(resp.data.ranking);
               console.log('2');
