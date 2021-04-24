@@ -66,9 +66,13 @@ export default {
   methods: {
 
   },
-  created: function() {
+  mounted() {
     const userGrid = document.querySelector('.grid-user')
-    console.log(userGrid)
+    const gridIdentifier = userGrid.attributes.item(0).name
+    // console.log('User grid:')
+    // console.log(userGrid)
+    // console.log('El identificador del grid del usuario es ' + gridIdentifier)
+
     // const computerGrid = document.querySelector('.grid-computer')
     // const displayGrid = document.querySelector('.grid-display')
     // const ships = document.querySelectorAll('.ship')
@@ -77,28 +81,25 @@ export default {
     // const cruiser = document.querySelector('.cruiser-container')
     // const battleship = document.querySelector('.battleship-container')
     // const carrier = document.querySelector('.carrier-container')
-    
-    
+        
     let userSquares = []
     const width = 10
 
-    for (let i = 0; i < width*width; i++){
-        const square = document.createElement('div') //Creamos 100 divs
-        square.dataset.id = i
-        userGrid.appendChild(square)
-        userSquares.push(square)
-
-    }
-
+    createBoard(userGrid, userSquares)
+    
     //Create Board
-    /*function createBoard(grid, squares) {
+    function createBoard(grid, squares) {
       for (let i = 0; i < width*width; i++) {
         const square = document.createElement('div')
         square.dataset.id = i
+        //Hay que meterle el identificador interno que le pone vue al padre, porque sino no coge los estilos bien
+        var t = document.createAttribute(gridIdentifier) 
+        square.attributes.setNamedItem(t)
+        //
         grid.appendChild(square)
         squares.push(square)
       }
-    }*/
+    }
 
     
   }
@@ -123,10 +124,9 @@ export default {
     margin: 20px;
   }
 
-   .battleship-grid div { /*Cualquier grid que esté en un div tendrá este estilo */
+  .battleship-grid div { /*Cualquier grid que esté en un div tendrá este estilo */
     width: 40px;
     height: 40px;
-    background-color: red;
   }
 
   .grid-computer {
@@ -188,6 +188,7 @@ export default {
   .ship div{
     width: 40px;
     height: 40px;
+    cursor: grab;
   }
 
 
