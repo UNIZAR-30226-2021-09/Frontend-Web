@@ -7,18 +7,18 @@
          <div class="row g-3">           
             <div class="col-sm-9">
 
-           <!-- Contenido de la pantalla -->
-
+              <!-- Contenido de la pantalla -->
                 <h2>{{titulo}}</h2>
 
+
+
+
+
+
             </div>
-
-
             <ListaAmigos/>
         </div>
-    
       </div>
-
     </div>
 </template>
 
@@ -26,6 +26,8 @@
 <script>
 import ListaAmigos from '@/components/ListaAmigos.vue'
 
+let gamemode = 'j'
+console.log(gamemode)
 export default {
   name: 'PantallaJuego',
   components: {
@@ -45,3 +47,8 @@ export default {
   }
 }
 </script>
+
+
+<style scoped>
+
+</style>

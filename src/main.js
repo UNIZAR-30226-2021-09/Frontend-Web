@@ -37,7 +37,7 @@ new Vue({
       //this.$router.push('login');
     }else{
       console.log('El token es: ' + this.perfil.token)
-      this.$socket.emit("logMe", { nombreUsuario: "User4"});
+      //this.$socket.emit("logMe", { nombreUsuario: "User4"});
     }
   } ,
   computed:{

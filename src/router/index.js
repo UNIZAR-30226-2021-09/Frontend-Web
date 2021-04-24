@@ -60,11 +60,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "agregarAmigo" */ '../views/AgregarAmigo.vue')
   },
   {
-    path: '/pantallaJuego',
-    name: 'PantallaJuego',
-    component: () => import(/* webpackChunkName: "pantallaJuego" */ '../views/PantallaJuego.vue')
-  },
-  {
     path: '/perfil',
     name: 'Perfil',
     component: () => import(/* webpackChunkName: "perfil" */ '../views/Perfil.vue')

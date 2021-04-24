@@ -70,11 +70,11 @@ export default {
           datosInvalidos: false
         }
   },
-  sockets: {
-    llegaInvitacion: function () {
-        console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)')
-    }
-  },
+  // sockets: {
+  //   llegaInvitacion: function () {
+  //       console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)')
+  //   }
+  // },
   methods: {
     ...mapMutations([
       'getToken'
@@ -83,7 +83,7 @@ export default {
     enviarPeticion: function(){
         //console.log('click!', this.correo, ' - ' , this.contrasena)
       //let token = this.getToken();
-      this.$socket.emit("friendPetition", { nombreUsuario: "User4"});
+      //this.$socket.emit("friendPetition", { nombreUsuario: "User4"});
       /*axios
       .post('https://proyecto-software-09.herokuapp.com/user/addfriend', {
           nombreUsuario:"User3",

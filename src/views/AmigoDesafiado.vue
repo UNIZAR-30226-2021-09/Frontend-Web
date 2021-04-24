@@ -23,7 +23,7 @@
 
                 <p></p>
 
-                <router-link id="btnStart" to="pantallaJuego" class="btn btn-primary disabled" type="button" >Iniciar desafío</router-link>
+                <router-link id="btnStart" to="partida" class="btn btn-primary disabled" type="button" >Iniciar desafío</router-link>
 
             </div>
 
