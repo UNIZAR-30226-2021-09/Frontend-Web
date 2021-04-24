@@ -92,7 +92,6 @@ export default {
         this.setToken(resp.data.accessToken)
         this.setHistorial(resp.data.historial)
         this.setPuntos(13)
-        this.setPartidas([])
 
         //Faltaría actualizar los puntos del usuario y sus partidas actuales (?) 
 

@@ -97,7 +97,7 @@ span.red {
             <a class="nav-link" href="/clasificacion">Clasificacion</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/partidasEnCurso">Partidas en curso <span class="red">{{numPartidas}}</span> </a>
+            <a class="nav-link" href="/partidasEnCurso">Partidas en curso <span class="red">{{numTeToca}}</span> </a>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link" href="/AmigoDesafiado" to="Inicio">inicio?</a>
@@ -122,13 +122,17 @@ export default {
   components: {
     //ListaAmigos
   },
+  data() {
+        return{ 
+          nombrePag: 'Partidas en curso',
+          numTeToca: 0
+        }
+  },
+  created: function(){
+      this.numTeToca = this.perfil.partidasEnCurso.filter(partida => partida.turno == this.perfil.nombreUsuario ).length;
+  },
   computed: {
     ...mapState(['perfil']), //Para recoger los datos de la lista de amigos que están almacenados en el store
-
-    numPartidas(){
-      
-      return this.perfil.partidasEnCurso.filter(partida => partida.turno == this.perfil.nombreUsuario ).length;
-    }
   }
 }
 </script>

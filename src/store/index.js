@@ -38,9 +38,9 @@ export default new Vuex.Store({
         // {nombre: 'easyGame'}
       ],
       partidasEnCurso: [
-        // {rival: 'fulanito', turno: 'Usuario1'},
-        // {rival: 'fulanito', turno: 'fulanito'},
-        // {rival: 'fulanito', turno: 'Usuario1'}
+         {contrincante: 'fulanito', tipo: 'amistoso', id: '1', turno: 'adrian'},
+         //{contrincante: 'fulanito', tipo: 'amistoso', id: '2',  turno: 'fulanito'},
+         //{contrincante: 'fulanito', tipo: 'amistoso', id: '3', turno: 'adrian'}
       ]
       
     },

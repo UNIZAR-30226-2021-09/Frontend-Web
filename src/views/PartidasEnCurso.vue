@@ -5,32 +5,42 @@
 
     <div class="mt-5"> 
          <div class="row g-3">
-            <div class="col-sm-9">
+            <div class="col-sm-9 bg-secondary text-white">
 
-                <h2>{{nombrePag}}</h2>
+                <br>
+                <h2 class="fw-lighter">{{nombrePag}}</h2>
+                <br>
+
+
+                <i v-if="numPartidas!=0">
+                    <div v-for="(partida) in perfil.partidasEnCurso" v-bind:key="partida.id">
+
+                        <br>
+
+                        <div v-if="partida.turno === perfil.nombreUsuario">
+                          <li class="list-group-item list-group-item-success">
+                            Partida contra {{partida.contrincante}} 
+                            <router-link to="partida" class="btn btn-light btn-sm mb-1 mt-1" type="button" >Continuar la partida</router-link>
+                          </li>
+                        </div>
+
+                        
+
+                        <div v-else>
+                          <li class="list-group-item list-group-item-warning">
+                            Partida contra {{partida.contrincante}}, esperando a movimiento del contrincante
+                          </li>
+                        </div>
+
+                    </div>
+                </i>
 
                 <br> <br> <br>
-                <div v-for="(index,partida) in partidasEnCurso" v-bind:key="index">
-
-                    <div v-if="partida.turno === this.perfil.nombreUsuario">
-                      <li class="list-group-item list-group-item-success">
-                        Partida contra {{partida.rival}} 
-                        <router-link to="partida" class="btn btn-light btn-sm mb-1 mt-1" type="button" >Continuar la partida</router-link>
-                      </li>
-                    </div>
-
-                    <div v-else>
-                      <li class="list-group-item list-group-item-warning">
-                        Partida contra {{partida.rival}}, esperando a movimiento del contrincante
-                      </li>
-                    </div>
-
-                </div>
-
                 <i v-if="numPartidas==0">Actualmente no tienes partidas en curso.</i>
 
+                <br> <br>
             </div>
-            <ListaAmigos/>
+             <ListaAmigos/>
          </div>
     </div>
 
@@ -57,10 +67,7 @@ export default {
   methods: {
 
   },
-  asyncComputed: {
-      ...mapState(['perfil']), //Para recoger los datos de la lista de amigos que están almacenados en el store
-      partidasEnCurso(){
-
+  created: function(){
           let dir = this.host + '/game/inProgress'  
           axios
           .post(dir, {
@@ -69,16 +76,16 @@ export default {
           })
           .then(resp => {
               this.setPartidas(resp.data);
-              this.numPartidas = this.parfil.partidasEnCurso.lenth;
-              return this.perfil.partidasEnCurso;
+              this.numPartidas = this.perfil.partidasEnCurso.length;
             })
 
           .catch(error => {
             //Error al hacer login
-            console.log(error.response.request.response)
+            console.log(error.response)
             });
-          return [];
-      },
+  },
+  computed: {
+      ...mapState(['perfil','host']), //Para recoger los datos de la lista de amigos que están almacenados en el store
   }
 }
 
