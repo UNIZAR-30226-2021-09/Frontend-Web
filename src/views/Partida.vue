@@ -131,6 +131,8 @@ export default {
   .battleship-grid div { /*Cualquier grid que esté en un div tendrá este estilo */
     width: 40px;
     height: 40px;
+    outline: 0.5px solid blue;
+    background-color: lightblue;
   }
 
   .grid-computer {
