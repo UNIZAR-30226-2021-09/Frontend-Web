@@ -38,17 +38,17 @@ export default new Vuex.Store({
         // {nombre: 'easyGame'}
       ],
       partidasEnCurso: [
-         {contrincante: 'fulanito', tipo: 'amistoso', id: '1', turno: 'adrian'},
+         //{contrincante: 'fulanito', tipo: 'amistoso', id: '1', turno: 'adrian'},
          //{contrincante: 'fulanito', tipo: 'amistoso', id: '2',  turno: 'fulanito'},
          //{contrincante: 'fulanito', tipo: 'amistoso', id: '3', turno: 'adrian'}
       ]
       
     },
     clasificacion:[
-      // {nombre: 'alguien', puntos: 100},
-      // {nombre: 'Usuario1', puntos: 80},
-      // {nombre: 'tercero', puntos: 50},
-      // {nombre: 'amigo4', puntos: 20},
+       {nombre: 'alguien', puntos: 100},
+       {nombre: 'Usuario1', puntos: 80},
+       {nombre: 'tercero', puntos: 50},
+       {nombre: 'amigo4', puntos: 20},
     ],
     amigoDesafiado: ''
   },
@@ -99,6 +99,9 @@ export default new Vuex.Store({
     setPartidas(state, newPartidas){
       // console.log("Actualizando partidas: " + newPartidas)
       state.perfil.partidasEnCurso = newPartidas
+    },
+    setClasificacion(state,newClasificacion){
+      state.clasificacion = newClasificacion;
     },
     //______________________________GETTERS______________________________
     getToken(state){

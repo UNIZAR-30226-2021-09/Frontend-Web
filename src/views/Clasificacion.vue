@@ -8,7 +8,7 @@
             <div class="col-sm-9">
                 
                 <h2>{{nombrePag}}</h2>
-                
+                aaaaaaaa - {{posicion}}
                   <div class="mt-4">
                     <div class="list-group" v-for="(clasificacion) in clasificacion" v-bind:key="clasificacion.nombre">
                       <!-- Se muestran a todos los usuarios  -->
@@ -50,6 +50,7 @@
 <script>
 import {mapState} from 'vuex';
 import ListaAmigos from '@/components/ListaAmigos.vue'
+import axios from 'axios'
 
 export default {
   name: 'Pendientes',
@@ -59,13 +60,36 @@ export default {
   data() {
         return{ 
           nombrePag: 'Clasificación',
-          titulo: 'Log in',
-          nombre: '',
-          correo: '',
-          contrasena: '',
-          esEnviado: false,
-          correoInvalido: false
+          posicion: 0,
+          numClasificados: 0
         }
+  },
+  created: function(){
+          let dir = this.host + '/user/ranking'  
+          console.log(dir)
+          console.log(this.clasificacion)
+          axios
+          .post(dir, {
+              nombreUsuario: this.perfil.nombreUsuario,
+              accessToken: this.perfil.accessToken
+          })
+          .then(resp => {
+              console.log('1');
+              console.log(resp.data.ranking);
+              console.log(resp.data.posicion);
+              this.setClasificacion(resp.data.ranking);
+              console.log('2');
+              this.numClasificados = this.clasificacion.length;
+              console.log('3');
+              this.posicion = resp.data.posicion;
+              console.log('4');
+              console.log(this.clasificacion);
+            })
+
+          .catch(error => {
+            //Error al hacer login
+            console.log(error.response)
+            });
   },
   methods: {
       enviarDatos: function(){
@@ -73,7 +97,7 @@ export default {
 
   },
   computed:{
-      ...mapState(['clasificacion', 'perfil']), //Para recoger los datos de la lista de amigos que están almacenados en el store
+      ...mapState(['clasificacion', 'perfil','host']), //Para recoger los datos de la lista de amigos que están almacenados en el store
   },
 }
 </script>

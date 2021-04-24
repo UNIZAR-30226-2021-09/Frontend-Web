@@ -1,4 +1,4 @@
-<template>
+<template >
   <div class="bg-light">
     <div id="app" class="container text-center">
       <!-- <div id="nav">
@@ -15,6 +15,7 @@
   
 </template>
 
+
 <script>
 // @ is an alias to /src
 import Infobar from '@/components/Infobar.vue'
@@ -27,5 +28,7 @@ export default {
     Cabecera
   }
 }
+
+
 
 </script>
