@@ -8,17 +8,18 @@
             <div class="col-sm-9">
                 
                 <h2>{{nombrePag}}</h2>
-                aaaaaaaa - {{posicion}}
                   <div class="mt-4">
-                    <div class="list-group" v-for="(clasificacion) in clasificacion" v-bind:key="clasificacion.nombre">
+                    <div class="list-group text-left" v-for="(clasificado) in this.clasificacion" v-bind:key="clasificado.nombre">
                       <!-- Se muestran a todos los usuarios  -->
-                      <div v-if="clasificacion.nombre != perfil.nombreUsuario">
-                        <router-link to="perfil" class="list-group-item list-group-item-action" type="button" >{{clasificacion.nombre}} - {{clasificacion.puntos}} puntos</router-link>
+                      <div v-if="clasificado.nombreUsuario != perfil.nombreUsuario">
+                        <router-link to="perfil" class="list-group-item list-group-item-action " type="button" >Nombre de jugador: {{clasificado.nombreUsuario}} ---- 
+                          Numero de puntos: {{clasificado.puntos}} ---- Total de victorias: {{clasificado.partidasGanadas}} ---- Total de derrotas: {{clasificado.partidasPerdidas}} </router-link>
                       </div>
 
                       <!-- Al usuario se le colorea diferente para que se le vea mejor -->
-                      <div v-if="clasificacion.nombre === perfil.nombreUsuario">
-                        <router-link to="perfil" class="list-group-item list-group-item-action list-group-item-primary" type="button" >{{clasificacion.nombre}} - {{clasificacion.puntos}} puntos</router-link>
+                      <div v-if="clasificado.nombreUsuario == perfil.nombreUsuario" >
+                        <router-link to="perfil" class="list-group-item list-group-item-action list-group-item-primary " type="button" >Nombre de jugador: {{clasificado.nombreUsuario}} ---- 
+                          Numero de puntos: {{clasificado.puntos}} ---- Total de victorias: {{clasificado.partidasGanadas}} ---- Total de derrotas: {{clasificado.partidasPerdidas}} </router-link>
                       </div>                 
 
                     </div>
@@ -48,7 +49,7 @@
 
 #######################################SCRIPT#######################################
 <script>
-import {mapState} from 'vuex';
+import {mapState,mapMutations} from 'vuex';
 import ListaAmigos from '@/components/ListaAmigos.vue'
 import axios from 'axios'
 
@@ -65,25 +66,16 @@ export default {
         }
   },
   created: function(){
-          let dir = this.host + '/user/ranking'  
-          console.log(dir)
-          console.log(this.clasificacion)
+          let dir = this.host + '/user/ranking'
           axios
           .post(dir, {
               nombreUsuario: this.perfil.nombreUsuario,
-              accessToken: this.perfil.accessToken
+              accessToken: this.perfil.token
           })
           .then(resp => {
-              console.log('1');
-              console.log(resp.data);
-              console.log(resp.data.posicion);
               this.setClasificacion(resp.data.ranking);
-              console.log('2');
               this.numClasificados = this.clasificacion.length;
-              console.log('3');
               this.posicion = resp.data.posicion;
-              console.log('4');
-              console.log(this.clasificacion);
             })
 
           .catch(error => {
@@ -92,8 +84,9 @@ export default {
             });
   },
   methods: {
-      enviarDatos: function(){
-    }
+      ...mapMutations([
+      'getToken','imprimePerfil','setClasificacion'
+    ]),
 
   },
   computed:{

@@ -90,12 +90,15 @@ export default {
         this.setEntrantes(resp.data.solicitudesEntrantes)
         this.setSalientes(resp.data.solicitudesSalientes)
         this.setToken(resp.data.accessToken)
+          console.log('token ' + resp.data.accessToken);
         this.setHistorial(resp.data.historial)
         this.setPuntos(13)
 
         //Faltaría actualizar los puntos del usuario y sus partidas actuales (?) 
 
         this.imprimePerfil()
+
+        console.log('perfil es ' + this.perfil);
 
 //        const tok = this.$store.getters.getToken  //!!!Conseguir el token introducido 
 //        console.log(tok)
@@ -118,7 +121,7 @@ export default {
 
   },
   computed:{
-      ...mapState(['host']),
+      ...mapState(['host','perfil']),
   }
 }
 </script>
