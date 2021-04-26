@@ -84,7 +84,6 @@ export default {
     enviarPeticion: function(){
       this.datosInvalidos = false
       this.esEnviado = false
-      console.log(this.host)
       let dir = this.host + '/user/addfriend'
       axios
       .post(dir, {
@@ -107,10 +106,6 @@ export default {
         });
 
       this.nombre = ""
-    },
-    emularError: function(){
-      this.datosInvalidos = true
-      this.esEnviado = false
     }
 
   }

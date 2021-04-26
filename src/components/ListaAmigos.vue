@@ -24,8 +24,8 @@
                     <li class="list-group-item bg-secundary" v-if="numPeticionesRecibidas==0" bg>
                         <i>No hay peticiones</i>
                     </li>
-                    <li class="list-group-item bg-secundary" v-for="(jugador,index) in peticionesRecibidasF" v-bind:key="jugador.nombre" bg>
-                        <a class="dropdown-item" > {{jugador.nombre }}
+                    <li class="list-group-item bg-secundary" v-for="(jugador,index) in peticionesRecibidasF" v-bind:key="jugador" bg>
+                        <a class="dropdown-item" > {{jugador }}
                                 <button  class="btn btn-outline-success btn-sm mb-1" type="button" @click='aceptarAmigo(jugador.nombre,index)'>Aceptar</button>
                                 <button  class="btn btn-outline-danger btn-sm mb-1" type="button" @click='rechazarAmigo(index)'>Rechazar</button>
                             </a>
@@ -61,12 +61,12 @@
 </template>
 
 <script>
-
+import axios from 'axios'
 import {mapState,mapMutations} from 'vuex';
 export default {
   name: 'ListaAmigos',
   computed:{
-      ...mapState(['perfil']), //Para recoger los datos de la lista de amigos que están almacenados en el store
+      ...mapState(['perfil','host']), //Para recoger los datos de la lista de amigos que están almacenados en el store
 
 
       amigos(){
@@ -101,6 +101,25 @@ export default {
         //Implementar las otras funciones de capturar la lista de amigos, el nombre del usuario
   },
   created: function() {
+    //Actualizamos la lista de amigos
+    console.log(this.host)
+    let dir = this.host + '/user/friendList'
+    axios
+    .post(dir, {
+        nombreUsuario: this.perfil.nombreUsuario,
+        accessToken: this.perfil.token
+    })
+    .then(resp => {
+    //Petición enviada correctamente
+    console.log("Petición enviada. Respuesta: " + resp)
+    })
+    
+    .catch(error => {
+    //Error al enviar la petición
+    console.log(error.response.request.response)
+    });
+
+
     this.numPeticionesRecibidas = this.perfil.peticionesRecibidas.length
     this.numAmigos = this.perfil.listaAmigos.length
     
