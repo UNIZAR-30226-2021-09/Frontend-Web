@@ -103,7 +103,7 @@ export default {
   created: function() {
     //Actualizamos la lista de amigos
     console.log(this.host)
-    let dir = this.host + '/user/friendList'
+    let dir = this.host + '/user/incomingRequests'
     axios
     .post(dir, {
         nombreUsuario: this.perfil.nombreUsuario,
