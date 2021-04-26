@@ -31,6 +31,11 @@
           Enviado!
         </div>
       </div>
+
+      <!-- Enviando datos... -->
+      <div v-if=enviando class="alert alert-warning" role="alert">
+        Enviando datos...
+      </div>
       
       <!-- Mensaje de correo erróneo -->
       <div class="mt-3">
@@ -58,7 +63,8 @@ export default {
           nombre: '',
           contrasena: '',
           esEnviado: false,
-          invalido: false
+          invalido: false,
+          enviando: false
         }
   },
   methods: {
@@ -72,6 +78,8 @@ export default {
         return hashHex;
     },
     enviarDatos: async function(){
+      this.invalido = false
+      this.enviando = true
       // console.log(this.host)
       let dir = this.host + '/login'
       let conHash = await this.digestMessage(this.contrasena); //Hasheamos la contraseña
@@ -83,6 +91,7 @@ export default {
       .then(resp => {
         //Login correcto
         //console.log("Voy a meter el token " + resp.data.accessToken)
+        this.enviando = false
         
         this.setNombreUsuario(resp.data.nombreUsuario)
         this.setEmail(resp.data.email)
@@ -107,6 +116,7 @@ export default {
         })
         
       .catch(error => {
+        this.enviando = false
         //Error al hacer login
         console.log(error.response.request.response)
         this.invalido = true;

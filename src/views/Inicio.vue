@@ -48,7 +48,7 @@
                   </div>
                   <div class="carousel-inner h-50">
                     <div class="carousel-item active" data-bs-interval="4000">
-                      <router-link to="ciegas"><img src="@/assets/vs_ciegas.jpg" width="1000" height="700" class="d-block" alt="@/assets/logo.png"></router-link>
+                      <router-link to="ciegas"><img src="@/assets/vs_ciegas.jpg" width="750" height="550" class="d-block" alt="@/assets/logo.png"></router-link>
 
                       <div class="carousel-caption d-none d-md-block bg-white rounded-pill">
                         <h4>
@@ -61,7 +61,7 @@
                       </div>
                     </div>
                     <div class="carousel-item" data-bs-interval="4000">
-                      <router-link to="desafiar"><img src="@/assets/vs_amigo.jpeg" width="1000" height="700" class="d-block" alt="@/assets/logo.png" ></router-link>
+                      <router-link to="desafiar"><img src="@/assets/vs_amigo.jpeg" width="750" height="550" class="d-block" alt="@/assets/logo.png" ></router-link>
                       <div class="carousel-caption d-none d-md-block bg-white rounded-pill">
                         <h4>
                           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
@@ -73,7 +73,7 @@
                       </div>
                     </div>
                     <div class="carousel-item" data-bs-interval="4000">
-                      <router-link to="torneo"><img src="@/assets/vs_torneo.jpg" width="1000" height="700" class="d-block" alt="@/assets/logo.png" ></router-link>
+                      <router-link to="torneo"><img src="@/assets/vs_torneo.jpg" width="750" height="550" class="d-block" alt="@/assets/logo.png" ></router-link>
                       <div class="carousel-caption d-none d-md-block bg-white rounded-pill">
                         <h4>
                           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-diagram-3" viewBox="0 0 16 16">
@@ -85,7 +85,7 @@
                       </div>
                     </div>
                     <div class="carousel-item" data-bs-interval="4000">
-                      <router-link to="pendientes"><img src="@/assets/logo.png" width="1000" height="700" class="d-block" alt="@/assets/logo.png" ></router-link>
+                      <router-link to="pendientes"><img src="@/assets/logo.png" width="750" height="550" class="d-block" alt="@/assets/logo.png" ></router-link>
                       <div class="carousel-caption d-none d-md-block bg-white rounded-pill">
                         <h4>
                           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16">
@@ -98,7 +98,7 @@
                       </div>
                     </div>
                     <div class="carousel-item h-50">
-                      <router-link to="partida"><img src="@/assets/vs_IA.jpg" width="1000" height="700" class="d-block" alt="@/assets/logo.png" ></router-link>
+                      <router-link to="partida"><img src="@/assets/vs_IA.jpg" width="750" height="550" class="d-block" alt="@/assets/logo.png" ></router-link>
                       <div class="carousel-caption d-none d-md-block bg-white rounded-pill">
                         <h4>
                           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-cpu" viewBox="0 0 16 16">

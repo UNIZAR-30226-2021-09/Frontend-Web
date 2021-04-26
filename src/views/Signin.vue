@@ -31,6 +31,11 @@
 
             <button class="btn btn-primary" @click="registrarse">Registrarse</button>
 
+            <!-- Enviando datos... -->
+            <div v-if=enviando class="alert alert-warning" role="alert">
+                Enviando datos...
+            </div>
+
             <!-- Mensaje de error -->
             <div class="mt-3">
                 <div v-if=error class="alert alert-danger" role="alert">
@@ -65,7 +70,8 @@ export default {
             respuesta: '',
             token: '',
             error: false,
-            errorMSG: ''
+            errorMSG: '',
+            enviando: false
         }
   },
   methods:{
@@ -82,7 +88,8 @@ export default {
             this.errorMSG = "Las contraseñas no coinciden"
             
         }else{
-            this.contDif = false;
+            this.enviando = true
+            this.contDif = false
             let dir = this.host + '/signin'
             let conHash = await this.digestMessage(this.contrasena); //Hasheamos la contraseña
             let ret = axios
@@ -92,6 +99,7 @@ export default {
                 contrasena: conHash
             })
             .then(resp => {
+                this.enviando = false
                 //Registro correcto
                 console.log("Voy a meter el token " + resp.data.accessToken)
                 this.setToken(resp.data.accessToken)
@@ -101,6 +109,7 @@ export default {
                 this.$router.push('Inicio'); //Vamos al inicio con el usuario identificado
                 })
             .catch(error => {
+                this.enviando = false
                 //Error al hacer signin
                 console.log(error)
                 this.error = true;
