@@ -78,15 +78,16 @@ export default {
     const cruiser = document.querySelector('.cruiser-container')
     const battleship = document.querySelector('.battleship-container')
     const carrier = document.querySelector('.carrier-container')
-    // const startButton = document.querySelector('#start')
+    const startButton = document.querySelector('#start')
     const rotateButton = document.querySelector('#rotate')
-    // const turnDisplay = document.querySelector('#whose-go')
+    const turnDisplay = document.querySelector('#whose-go')
     // const infoDisplay = document.querySelector('#info')
     // const setupButtons = document.getElementById('setup-buttons')
         
     let userSquares = []
     let computerSquares = []
     let isHorizontal = true
+    let currentPlayer = 'user'
     // let allShipsPlaced = false
 
     //Array de los barcos con sus posibles orientaciones (horizontal y vertical)
@@ -143,9 +144,26 @@ export default {
         squares.push(square)
       }
     }
+
+    //Función que pone algunos barquitos para ver si se pueden seleccionar bien
+    function createDebugBoard(grid, squares, id){
+      for (let i = 0; i < width*width; i++) {
+        const square = document.createElement('div')
+        square.dataset.id = i
+        //Hay que meterle el identificador interno que le pone vue al padre, porque sino no coge los estilos bien
+        var t = document.createAttribute(id) 
+        square.attributes.setNamedItem(t)
+        //
+        if(i%3 == 0){
+          square.classList.add('taken', 'destroyer')
+        }
+        grid.appendChild(square)
+        squares.push(square)
+      }
+    }
     
     createBoard(userGrid, userSquares, gridIdentifier)
-    createBoard(computerGrid, computerSquares, compGridIdentifier)
+    createDebugBoard(computerGrid, computerSquares, compGridIdentifier)
 
     //Función para rotar los barcos
     function rotate() {
@@ -273,6 +291,33 @@ export default {
       // console.log('dragend')
     }
 
+    //Lógica del juego
+    function playGame() {
+      if (currentPlayer === 'user'){
+        turnDisplay.innerHTML = 'Mi turno'
+        computerSquares.forEach(square => square.addEventListener('click', function(e){
+          revealSquare(square)
+          console.log(e)
+        }))
+      }
+      if (currentPlayer === 'computer'){
+        turnDisplay.innerHTML = 'Turno del rival'
+      }
+    }
+
+    playGame() //############################################################################################################################################################
+
+    startButton.addEventListener('click', playGame)
+
+    function revealSquare(square) {
+      if(square.classList.contains('taken')){ //He clickado en una posición donde había un barco
+        console.log('BOOM')
+        square.classList.add('boom') //Marcamos que he acertado
+      }else{
+        square.classList.add('miss')
+        console.log('miss~~')
+      }
+    }
 
   }
 
@@ -429,6 +474,14 @@ export default {
     width: 40px;
     height: 40px;
     cursor: grab;
+  }
+
+  .boom{
+    background-color: red;
+  }
+
+  .miss{
+    background-color: blue;
   }
 
 
