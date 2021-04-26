@@ -1,3 +1,38 @@
+<style>
+body {
+  font-family: Helvetica Neue, Arial, sans-serif;
+  font-size: 14px;
+  color: #444;
+}
+
+table {
+  border: 2px solid #007bff;
+  border-radius: 3px;
+  background-color: #fff;
+}
+
+th {
+  background-color: #007bff;
+  color: rgba(255,255,255,0.66);
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+td,tr {
+  background-color: #f9f9f9;
+}
+
+th, td, tr {
+  min-width: 100px;
+  padding: 10px 40px;
+}
+
+
+</style>
+
 <template>
     <div align="center" class="container mt-5" id="app">
       
@@ -9,20 +44,54 @@
                 
                 <h2>{{nombrePag}}</h2>
                   <div class="mt-4">
-                    <div class="list-group text-left" v-for="(clasificado) in this.clasificacion" v-bind:key="clasificado.nombre">
-                      <!-- Se muestran a todos los usuarios  -->
-                      <div v-if="clasificado.nombreUsuario != perfil.nombreUsuario">
-                        <router-link to="perfil" class="list-group-item list-group-item-action " type="button" >Nombre de jugador: {{clasificado.nombreUsuario}} ---- 
-                          Numero de puntos: {{clasificado.puntos}} ---- Total de victorias: {{clasificado.partidasGanadas}} ---- Total de derrotas: {{clasificado.partidasPerdidas}} </router-link>
+                    <table>
+                        <thead>
+                          <tr>
+                            <th v-for="key in columnas" v-bind:key="key">
+                              {{key}}
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="(entry,index) in this.clasificacion" v-bind:key="entry.nombreUsuario" >
+
+                            <td v-if="index+1 == me.posicion" class="d-flex justify-content-center bg-info">{{index + 1}}</td>
+                            <td v-else class="d-flex justify-content-center">{{index + 1}}</td>
+
+                            <td v-for="key in columnasRespuesta" v-bind:key="key">
+                              <div class="d-flex justify-content-center">{{entry[key]}}</div>
+                            </td>
+                          </tr>
+                      
+                        </tbody>
+                        
+                      </table> 
+                      <br> <br>
+                      
+                      <div v-if="this.posicion > 10">
+                          <table>
+                            <thead>
+                              <tr>
+                                <th v-for="key in columnas" v-bind:key="key">
+                                  {{key}}
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr style="bg-info">
+                                  <td class="d-flex justify-content-center bg-info">{{me.posicion}}</td>
+
+                                  <td v-for="key in columnasRespuesta" v-bind:key="key" class="bg-info">
+                                    <div class="d-flex justify-content-center">{{me[key]}}</div>
+                                  </td>
+                                </tr>
+                            </tbody>
+                          </table> 
                       </div>
 
-                      <!-- Al usuario se le colorea diferente para que se le vea mejor -->
-                      <div v-if="clasificado.nombreUsuario == perfil.nombreUsuario" >
-                        <router-link to="perfil" class="list-group-item list-group-item-action list-group-item-primary " type="button" >Nombre de jugador: {{clasificado.nombreUsuario}} ---- 
-                          Numero de puntos: {{clasificado.puntos}} ---- Total de victorias: {{clasificado.partidasGanadas}} ---- Total de derrotas: {{clasificado.partidasPerdidas}} </router-link>
-                      </div>                 
+                      <br> <br>
 
-                    </div>
+
                   </div>
                   
 
@@ -61,8 +130,12 @@ export default {
   data() {
         return{ 
           nombrePag: 'Clasificación',
-          posicion: 0,
-          numClasificados: 0
+          posicion: 11,
+          numClasificados: 0,
+          columnas:['Posicion','Nombre','Puntos','Victorias','Derrotas'],
+          columnasRespuesta:['nombreUsuario','puntos','partidasGanadas','partidasPerdidas'],
+          me: []
+
         }
   },
   created: function(){
@@ -75,7 +148,9 @@ export default {
           .then(resp => {
               this.setClasificacion(resp.data.ranking);
               this.numClasificados = this.clasificacion.length;
-              this.posicion = resp.data.posicion;
+              this.posicion = resp.data.me.posicion;
+              this.me = resp.data.me;
+              console.log(this.me);
             })
 
           .catch(error => {
