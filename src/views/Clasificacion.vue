@@ -1,37 +1,3 @@
-<style>
-body {
-  font-family: Helvetica Neue, Arial, sans-serif;
-  font-size: 14px;
-  color: #444;
-}
-
-table {
-  border: 2px solid #007bff;
-  border-radius: 3px;
-  background-color: #fff;
-}
-
-th {
-  background-color: #007bff;
-  color: rgba(255,255,255,0.66);
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-td,tr {
-  background-color: #f9f9f9;
-}
-
-th, td, tr {
-  min-width: 100px;
-  padding: 10px 40px;
-}
-
-
-</style>
 
 <template>
     <div align="center" class="container mt-5" id="app">
@@ -168,4 +134,41 @@ export default {
       ...mapState(['clasificacion', 'perfil','host']), //Para recoger los datos de la lista de amigos que están almacenados en el store
   },
 }
+
+
 </script>
+
+<style scoped>
+body {
+  font-family: Helvetica Neue, Arial, sans-serif;
+  font-size: 14px;
+  color: #444;
+}
+
+table {
+  border: 2px solid #007bff;
+  border-radius: 3px;
+  background-color: #fff;
+}
+
+th {
+  background-color: #007bff;
+  color: rgba(255,255,255,0.66);
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+td,tr {
+  background-color: #f9f9f9;
+}
+
+th, td, tr {
+  min-width: 100px;
+  padding: 10px 40px;
+}
+
+
+</style>

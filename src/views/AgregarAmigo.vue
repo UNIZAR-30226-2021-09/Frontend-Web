@@ -16,15 +16,12 @@
                   <input type="text" class="form-control" placeholder="Nombre de usuario" v-model="nombre" v-on:keyup.enter="enviarPeticion">
                 </div>
 
-                <div class="input-group mb-3">
+                <!-- <div class="input-group mb-3">
                   <span class="input-group-text" id="basic-addon1">@</span>
                   <input type="text" class="form-control" placeholder="Enlace de invitación" v-model="link" v-on:keyup.enter="enviarPeticion">
-                </div>
+                </div> -->
 
                 <button class="btn btn-primary mt-3" @click="enviarPeticion">Enviar invitación</button>
-
-                <!-- TODO: Este botón es para emular la respuesta del servidor si se intenta añadir un usuario inexistente -->
-                <button class="btn btn-warning mt-3" @click="emularError">~Usuario desconocido~</button>
 
                 <!-- Mensaje de éxito -->
                 <div class="mt-3">
@@ -36,7 +33,7 @@
                 <!-- Mensaje de error -->
                 <div class="mt-3">
                   <div v-if=datosInvalidos class="alert alert-danger" role="alert">
-                    Usuario desconocido
+                    Ha habido un error al enviar la invitación. Comprueba el nombre y prueba otra vez
                   </div>
                 </div>
 
@@ -53,11 +50,15 @@
 
 #######################################SCRIPT#######################################
 <script>
+import axios from 'axios'
 import ListaAmigos from '@/components/ListaAmigos.vue'
-import {mapMutations} from 'vuex';
+import {mapState,mapMutations} from 'vuex';
 //import axios from 'axios'
 export default {
   name: 'AgregarAmigo',
+  computed:{
+      ...mapState(['perfil','host']) //Para recoger los datos de la lista de amigos que están almacenados en el store
+  },
   components: {
     ListaAmigos
   },
@@ -81,16 +82,31 @@ export default {
     ]),
 
     enviarPeticion: function(){
-        //console.log('click!', this.correo, ' - ' , this.contrasena)
-      //let token = this.getToken();
-      //this.$socket.emit("friendPetition", { nombreUsuario: "User4"});
-      /*axios
-      .post('https://proyecto-software-09.herokuapp.com/user/addfriend', {
-          nombreUsuario:"User3",
-          nombreAmigo: "User4",
-          accessToken: token
+      this.datosInvalidos = false
+      this.esEnviado = false
+      console.log(this.host)
+      let dir = this.host + '/user/addfriend'
+      axios
+      .post(dir, {
+          nombreUsuario: this.perfil.nombreUsuario,
+          nombreAmigo: this.nombre,
+          accessToken: this.perfil.token
       })
-      .then(resp => (this.respuesta = resp))*/
+      .then(resp => {
+        //Petición enviada correctamente
+        console.log("Petición enviada. Respuesta: " + resp)
+        this.esEnviado = true
+        this.datosInvalidos = false
+        })
+        
+      .catch(error => {
+        //Error al enviar la petición
+        this.esEnviado = false
+        this.datosInvalidos = true
+        console.log(error.response.request.response)
+        });
+
+      this.nombre = ""
     },
     emularError: function(){
       this.datosInvalidos = true

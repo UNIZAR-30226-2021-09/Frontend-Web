@@ -72,6 +72,12 @@ export default {
     // prueba: function(){
     //   this.$store.commit('setDesafiado')
     // }
+  },
+  created: function() {
+    if(this.perfil.listaAmigos.length == 0){
+      this.msg = 'Necesitas añadir a amigos antes de invitarlos :('
+    }
+    
   }
 }
 </script>
