@@ -155,7 +155,7 @@ export default {
         square.attributes.setNamedItem(t)
         //
         if(i%3 == 0){
-          square.classList.add('taken', 'destroyer')
+          square.classList.add('taken', 'cruiser')
         }
         grid.appendChild(square)
         squares.push(square)
@@ -372,7 +372,7 @@ export default {
   .destroyer-container {
     width: 80px;
     height: 40px;
-    background-color: orange;
+    background-image: url('~@/assets/barco_2.png');
     margin: 10px;
     display: flex;
   }
@@ -380,20 +380,20 @@ export default {
   .destroyer-container-vertical {
     width: 40px;
     height: 80px;
-    background-color: orange;
+    background-image: url('~@/assets/barco_2.png');
     margin: 10px;
     display: flex;
     flex-wrap: wrap;
   }
   
   .destroyer {
-    background-color: orange;
+    background-image: url('~@/assets/barco_2.png');
   }
 
   .submarine-container {
     width: 120px;
     height: 40px;
-    background-color: pink;
+    background-image: url('~@/assets/barco_3.jpg');
     margin: 10px;
     display: flex;
   }
@@ -401,13 +401,13 @@ export default {
   .submarine-container-vertical {
     width: 40px;
     height: 120px;
-    background-color: pink;
+    background-image: url('~@/assets/barco_3.jpg');
     margin: 10px;
     display: flex;
   }
 
   .submarine{
-    background-color: pink;
+    background-image: url('~@/assets/barco_3.jpg');
   }
 
   .cruiser-container {
