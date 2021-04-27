@@ -85,7 +85,7 @@
                       </div>
                     </div>
                     <div class="carousel-item" data-bs-interval="4000">
-                      <router-link to="pendientes"><img src="@/assets/logo.png" width="750" height="550" class="d-block" alt="@/assets/logo.png" ></router-link>
+                      <router-link to="partidasEnCurso"><img src="@/assets/logo.png" width="750" height="550" class="d-block" alt="@/assets/logo.png" ></router-link>
                       <div class="carousel-caption d-none d-md-block bg-white rounded-pill">
                         <h4>
                           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16">

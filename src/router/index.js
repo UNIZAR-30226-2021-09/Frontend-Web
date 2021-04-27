@@ -40,11 +40,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "ciegas" */ '../views/Ciegas.vue')
   },
   {
-    path: '/pendientes',
-    name: 'Pendientes',
-    component: () => import(/* webpackChunkName: "pendientes" */ '../views/Pendientes.vue')
-  },
-  {
     path: '/desafiar',
     name: 'Desafiar',
     component: () => import(/* webpackChunkName: "desafiar" */ '../views/Desafiar.vue')

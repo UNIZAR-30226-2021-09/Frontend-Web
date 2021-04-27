@@ -19,9 +19,24 @@
         </h4>
 
         <div class="mt-3">
-            <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Peticiones recibidas </h5>
+            <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Peticiones de amistad recibidas </h5>
             <ul class="dropdown-menu">
                     <li class="list-group-item bg-secundary" v-if="numPeticionesRecibidas==0" bg>
+                        <i>No hay peticiones</i>
+                    </li>
+                    <li class="list-group-item bg-secundary" v-for="(jugador,index) in peticionesRecibidasF" v-bind:key="jugador" bg>
+                        <a class="dropdown-item" > {{jugador }}
+                                <button  class="btn btn-outline-success btn-sm mb-1" type="button" @click='aceptarAmigo(jugador.nombre,index)'>Aceptar</button>
+                                <button  class="btn btn-outline-danger btn-sm mb-1" type="button" @click='rechazarAmigo(index)'>Rechazar</button>
+                            </a>
+                    </li>
+            </ul>
+        </div>
+
+        <div class="mt-3">
+            <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Peticiones de amistad enviadas </h5>
+            <ul class="dropdown-menu">
+                    <li class="list-group-item bg-secundary" v-if="numPeticionesEnviadas==0" bg>
                         <i>No hay peticiones</i>
                     </li>
                     <li class="list-group-item bg-secundary" v-for="(jugador,index) in peticionesRecibidasF" v-bind:key="jugador" bg>
@@ -74,11 +89,15 @@ export default {
       },
       peticionesRecibidasF(){
             return this.perfil.peticionesRecibidas;
+      },
+      peticionesEnviadasF(){
+            return this.perfil.peticionesEnviadas;
       }
   },
   data() {
         return{ 
           numPeticionesRecibidas: -1,
+          numPeticionesEnviadas: -1,
           numAmigos: -1
         }
   },
@@ -121,6 +140,7 @@ export default {
 
 
     this.numPeticionesRecibidas = this.perfil.peticionesRecibidas.length
+    this.numPeticionesEnviadas = this.perfil.peticionesEnviadas.length
     this.numAmigos = this.perfil.listaAmigos.length
     
   }

@@ -89,7 +89,7 @@ import ListaAmigos from '@/components/ListaAmigos.vue'
 import axios from 'axios'
 
 export default {
-  name: 'Pendientes',
+  name: 'Lista de amigos',
   components: {
     ListaAmigos
   },

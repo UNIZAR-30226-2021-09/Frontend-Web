@@ -27,20 +27,20 @@ export default new Vuex.Store({
         // {contrincante: 'a2', resultado: 'Derrota', codigo: 112},
         // {contrincante: 'a3', resultado: 'Victoria', codigo: 113}
       ],
-      pendientes:[
-        // {contrincante: 'a1', codigo: 111},
-        // {contrincante: 'a2', codigo: 112},
-        // {contrincante: 'a3', codigo: 113}
-      ],
       peticionesRecibidas: [
         // {nombre: 'roberto_jose'},
         // {nombre: 'algo123'},
         // {nombre: 'easyGame'}
       ],
+      peticionesEnviadas: [
+        // {nombre: 'roberto_jose'},
+        // {nombre: 'algo123'},
+        // {nombre: 'easyGame'}
+      ],
       partidasEnCurso: [
-         //{contrincante: 'fulanito', tipo: 'amistoso', id: '1', turno: 'adrian'},
-         //{contrincante: 'fulanito', tipo: 'amistoso', id: '2',  turno: 'fulanito'},
-         //{contrincante: 'fulanito', tipo: 'amistoso', id: '3', turno: 'adrian'}
+         {contrincante: 'fulanito', tipo: 'amistoso', id: '1', turno: 'adrian'},
+         {contrincante: 'fulanito', tipo: 'amistoso', id: '2',  turno: 'fulanito'},
+         {contrincante: 'fulanito', tipo: 'amistoso', id: '3', turno: 'adrian'}
       ]
       
     },
@@ -76,13 +76,13 @@ export default new Vuex.Store({
       // console.log("Actualizando lista de amigos: " + newAmigos)
       state.perfil.listaAmigos = newAmigos
     },
-    setEntrantes(state, newEntrantes){
+    setEntrantes(state, newRecibidas){
       // console.log("Actualizando entrantes: " + newEntrantes)
-      state.perfil.peticionesRecibidas = newEntrantes
+      state.perfil.peticionesRecibidas = newRecibidas
     },
-    setSalientes(state, newSalientes){
+    setSalientes(state, newEnviadas){
       // console.log("Actualizando salientes: " + newSalientes)
-      state.perfil.pendientes = newSalientes
+      state.perfil.peticionesEnviadas = newEnviadas
     },
     setToken(state, newToken){
       // console.log("Actualizando token: " + newToken)

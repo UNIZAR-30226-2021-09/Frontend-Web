@@ -75,7 +75,8 @@ export default {
               accessToken: this.perfil.accessToken
           })
           .then(resp => {
-              this.setPartidas(resp.data);
+              //this.setPartidas(resp.data);
+              console.log(resp.data)
               this.numPartidas = this.perfil.partidasEnCurso.length;
             })
 
