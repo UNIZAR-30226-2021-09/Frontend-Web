@@ -166,7 +166,7 @@ export default {
     // }else{
     //   this.$socket.emit("logMe", { nombreUsuario: "User4"});
     // }
-    console.log('perfil es ' + this.perfil);
+    console.log('b');
   }
 
 }
