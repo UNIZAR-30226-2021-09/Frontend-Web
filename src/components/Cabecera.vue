@@ -79,7 +79,7 @@ span.red {
             <a class="nav-link" href="/ciegas">Ciegas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/perfil">Perfil</a>
+            <a class="nav-link" href="/perfil" @click="cambiarBuscado()">Perfil</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/agregarAmigo">Agregar</a>
@@ -94,7 +94,7 @@ span.red {
             <a class="nav-link" href="/partida">Partida</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/clasificacion">Clasificacion</a>
+            <a class="nav-link" href="/clasificacion" @click="cambiarBuscado()">Clasificacion</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/partidasEnCurso">Partidas en curso <span style="background-color: coral;" class="badge">{{numTeToca}}</span> </a>
@@ -116,7 +116,7 @@ span.red {
 
 <script>
 //import ListaAmigos from '@/components/ListaAmigos.vue'
-import {mapState} from 'vuex';
+import {mapState,mapMutations} from 'vuex';
 export default {
   name: 'Cabecera',
   components: {
@@ -131,8 +131,17 @@ export default {
   created: function(){
       this.numTeToca = this.perfil.partidasEnCurso.filter(partida => partida.turno == this.perfil.nombreUsuario ).length;
   },
+  methods: {
+      ...mapMutations([
+      'setUsuarioBuscado']),
+
+      cambiarBuscado: function(){
+          //this.setUsuarioBuscado(this.perfil.nombreUsuario);
+          this.setUsuarioBuscado(this.perfil.nombreUsuario);
+      } 
+    },
   computed: {
-    ...mapState(['perfil']), //Para recoger los datos de la lista de amigos que están almacenados en el store
+    ...mapState(['perfil','usuarioBuscado']), //Para recoger los datos de la lista de amigos que están almacenados en el store
   }
 }
 </script>

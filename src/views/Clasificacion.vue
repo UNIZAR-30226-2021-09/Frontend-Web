@@ -89,7 +89,7 @@ import ListaAmigos from '@/components/ListaAmigos.vue'
 import axios from 'axios'
 
 export default {
-  name: 'Lista de amigos',
+  name: 'Clasificacion',
   components: {
     ListaAmigos
   },
@@ -106,13 +106,18 @@ export default {
   },
   created: function(){
           let dir = this.host + '/user/ranking'
+          let usuario = this.usuarioBuscado;
+          console.log('Buscado es ' + usuario);
           axios
           .post(dir, {
-              nombreUsuario: this.perfil.nombreUsuario,
+              nombreUsuario: usuario,
               accessToken: this.perfil.token
           })
           .then(resp => {
+              console.log('1');
+              console.log(resp.data);
               this.setClasificacion(resp.data.ranking);
+              
               this.numClasificados = this.clasificacion.length;
               this.posicion = resp.data.me.posicion;
               this.me = resp.data.me;
@@ -131,7 +136,7 @@ export default {
 
   },
   computed:{
-      ...mapState(['clasificacion', 'perfil','host']), //Para recoger los datos de la lista de amigos que están almacenados en el store
+      ...mapState(['clasificacion', 'perfil','host','usuarioBuscado']), //Para recoger los datos de la lista de amigos que están almacenados en el store
   },
 }
 

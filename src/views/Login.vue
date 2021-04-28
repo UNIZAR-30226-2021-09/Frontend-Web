@@ -68,7 +68,7 @@ export default {
         }
   },
   methods: {
-    ...mapMutations(['setNombreUsuario','setEmail','setAmigos','setEntrantes','setSalientes','setToken','setHistorial','setPuntos','setPartidas','imprimePerfil']),
+    ...mapMutations(['setNombreUsuario','setEmail','setAmigos','setEntrantes','setSalientes','setToken','setHistorial','setPartidas','imprimePerfil','setUsuarioBuscado']),
     
     digestMessage: async function(message) {
         const msgUint8 = new TextEncoder().encode(message);                           // encode as (utf-8) Uint8Array
@@ -93,15 +93,15 @@ export default {
         //console.log("Voy a meter el token " + resp.data.accessToken)
         this.enviando = false
         
-        this.setNombreUsuario(resp.data.nombreUsuario)
-        this.setEmail(resp.data.email)
-        this.setAmigos(resp.data.amigos)
-        this.setEntrantes(resp.data.solicitudesEntrantes)
-        this.setSalientes(resp.data.solicitudesSalientes)
-        this.setToken(resp.data.accessToken)
+        this.setNombreUsuario(resp.data.nombreUsuario);
+        this.setEmail(resp.data.email);
+        //this.setAmigos(resp.data.amigos);
+        this.setEntrantes(resp.data.solicitudesEntrantes);
+        this.setSalientes(resp.data.solicitudesSalientes);
+        this.setToken(resp.data.accessToken);
           console.log('token ' + resp.data.accessToken);
-        this.setHistorial(resp.data.historial)
-        this.setPuntos(13)
+        this.setHistorial(resp.data.historial);
+        this.setUsuarioBuscado(resp.data.nombreUsuario);
 
         //Faltaría actualizar los puntos del usuario y sus partidas actuales (?) 
 

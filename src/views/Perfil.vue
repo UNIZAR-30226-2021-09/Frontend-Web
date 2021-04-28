@@ -8,15 +8,15 @@
             <div class="col-sm-9 ">
 
            <!-- Contenido de la pantalla -->
-                <h1>{{perfil.nombreUsuario}}</h1>
+                <h1>{{usuarioBuscado}}</h1>
                 
                 <div class="text-start">
 
                   <h5 class="mt-5">
-                    Nombre: {{perfil.nombreUsuario}} </h5>
+                    Nombre: {{usuarioBuscado}} </h5>
 
                   <h5 class="mt-5">
-                    Email: {{perfil.email}} </h5>
+                    Email: {{email}} </h5>
 
                   <h5 class="mt-5">
                     Partidas jugadas: {{ganadas + perdidas}}
@@ -28,8 +28,11 @@
                   </h5>
 
                   <h5 class="mt-5">
-                    Puntos: {{perfil.puntos}} 
-                    <router-link to="clasificacion" class="btn btn-primary btn-sm mb-1" type="button" >Ver Clasificación</router-link></h5>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-award-fill" viewBox="0 0 16 16">
+                      <path d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z"/>
+                      <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                    </svg>
+                    <router-link to="clasificacion" class="btn btn-primary btn-sm mb-1" type="button" >Ver posicion en la clasificación</router-link></h5>
                 
                 </div>
 
@@ -105,6 +108,8 @@ export default {
   },
   data() {
         return{ 
+            nombre: '',
+            email: '',
             ganadas: 0,
             perdidas: 0,
             torneos: 0
@@ -112,13 +117,17 @@ export default {
   },
   created: function(){
           let dir = this.host + '/user/me'  
+          let usuario = this.usuarioBuscado;
+          console.log('Buscado es ' + usuario);
           axios
           .post(dir, {
-              nombreUsuario: this.perfil.nombreUsuario,
+              nombreUsuario: usuario,
               accessToken: this.perfil.token
           })
           .then(resp => {
               
+              this.nombre = resp.data.nombreUsuario;
+              this.email = resp.data.email; //nos lo tienen que mandar
               this.ganadas = resp.data.partidasGanadas;
               this.perdidas = resp.data.partidasPerdidas;
               this.torneos = resp.data.torneosGanados;
@@ -130,7 +139,7 @@ export default {
             });
   },
   computed:{
-      ...mapState(['perfil','host']), //Para recoger los datos de la lista de amigos que están almacenados en el store
+      ...mapState(['perfil','host','usuarioBuscado']), //Para recoger los datos de la lista de amigos que están almacenados en el store
   },
   methods: {
 

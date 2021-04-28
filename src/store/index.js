@@ -15,11 +15,11 @@ export default new Vuex.Store({
       email: '',
       token: '',
       listaAmigos: [
-          // {nombre: 'Amigo1'},
-          // {nombre: 'Amigo2'},
-          // {nombre: 'Amigo3'},
-          // {nombre: 'Amigo4'},
-          // {nombre: 'Amigo5'}
+           {nombre: 'Amigo1'},
+           {nombre: 'Amigo2'},
+           {nombre: 'Amigo3'},
+           {nombre: 'Amigo4'},
+           {nombre: 'Amigo5'}
       ],
       puntos: '-1',
       partidas:[
@@ -50,7 +50,8 @@ export default new Vuex.Store({
        //{nombre: 'tercero', puntos: 50},
        //{nombre: 'amigo4', puntos: 20},
     ],
-    amigoDesafiado: ''
+    amigoDesafiado: '',
+    usuarioBuscado: ''
   },
   mutations: {
 
@@ -102,6 +103,9 @@ export default new Vuex.Store({
     },
     setClasificacion(state,newClasificacion){
       state.clasificacion = newClasificacion;
+    },
+    setUsuarioBuscado(state,user){
+      state.usuarioBuscado = user;
     },
     //______________________________GETTERS______________________________
     getToken(state){
