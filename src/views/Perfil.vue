@@ -20,11 +20,11 @@
 
                   <h5 class="mt-5">
                     Partidas jugadas: {{ganadas + perdidas}}
-                    <p style="margin-top: 10px; margin-left: 100px;">Ganadas: {{ganadas}}</p>
-                    <p style="margin-top: 10px; margin-left: 100px;">Perdidas: {{perdidas}}</p>
-                    <p style="margin-top: 10px; margin-left: 100px;">Torneos ganados: {{torneos}}</p>
-                    <p v-if="ganadas+perdidas == 0" style="margin-top: 10px; margin-left: 100px;">Proporcion de victorias: No existen datos para calcular</p>
-                    <p v-else style="margin-top: 10px; margin-left: 100px;">Proporcion de victorias: {{ganadas / perdidas}}</p>
+                    <p  class="fw-lighter" style="margin-top: 10px; margin-left: 100px;">Ganadas: {{ganadas}}</p>
+                    <p  class="fw-lighter" style="margin-top: 10px; margin-left: 100px;">Perdidas: {{perdidas}}</p>
+                    <p  class="fw-lighter" style="margin-top: 10px; margin-left: 100px;">Torneos ganados: {{torneos}}</p>
+                    <p  class="fw-lighter" v-if="ganadas+perdidas == 0" style="margin-top: 10px; margin-left: 100px;">Proporcion de victorias: No existen datos para calcular</p>
+                    <p  class="fw-lighter" v-else style="margin-top: 10px; margin-left: 100px;">Proporcion de victorias: {{ganadas / perdidas}}</p>
                   </h5>
 
                   <h5 class="mt-5">
