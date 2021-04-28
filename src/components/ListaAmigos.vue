@@ -66,7 +66,7 @@
 
         <!-- Lista de amigos conectados -->
         <ul class="mt-2">
-            <div class="overflow-auto p-3 mb-3 mb-md-0 mr-md-3 bg-light" style="max-width: 260px; max-height: 400px;">
+            <div class="overflow-auto p-3 mb-3 mb-md-0 mr-md-3 bg-light" style="max-width: 260px; max-height: 420px;">
                 <div v-for="amigo in amigos" v-bind:key="amigo.nombre" >
                     <a class="container btn border border-3" href="/Perfil" role="button" @click="cambiarBuscado(amigo.nombre)">
                     <p style="margin: 7px;"> 
