@@ -23,7 +23,8 @@
                     <p style="margin-top: 10px; margin-left: 100px;">Ganadas: {{ganadas}}</p>
                     <p style="margin-top: 10px; margin-left: 100px;">Perdidas: {{perdidas}}</p>
                     <p style="margin-top: 10px; margin-left: 100px;">Torneos ganados: {{torneos}}</p>
-                    <p style="margin-top: 10px; margin-left: 100px;">Proporcion de victorias: {{ganadas / perdidas}}</p>
+                    <p v-if="ganadas+perdidas == 0" style="margin-top: 10px; margin-left: 100px;">Proporcion de victorias: No existen datos para calcular</p>
+                    <p v-else style="margin-top: 10px; margin-left: 100px;">Proporcion de victorias: {{ganadas / perdidas}}</p>
                   </h5>
 
                   <h5 class="mt-5">
@@ -114,9 +115,10 @@ export default {
           axios
           .post(dir, {
               nombreUsuario: this.perfil.nombreUsuario,
-              accessToken: this.perfil.accessToken
+              accessToken: this.perfil.token
           })
           .then(resp => {
+              
               this.ganadas = resp.data.partidasGanadas;
               this.perdidas = resp.data.partidasPerdidas;
               this.torneos = resp.data.torneosGanados;
