@@ -119,6 +119,7 @@ span.red {
 <script>
 //import ListaAmigos from '@/components/ListaAmigos.vue'
 import {mapState,mapMutations} from 'vuex';
+import axios from 'axios'
 export default {
   name: 'Cabecera',
   components: {
@@ -132,6 +133,25 @@ export default {
   },
   created: function(){
       this.numTeToca = this.perfil.partidasEnCurso.filter(partida => partida.turno == this.perfil.nombreUsuario ).length;
+
+      //cada 5 segundos se ejecutara esto para actualizar las partidas en curso y el numero de notificacion de la cabecera
+      setInterval(() => {
+            let dir = this.host + '/game/inProgress'
+            axios
+            .post(dir, {
+                nombreUsuario: this.perfil.nombreUsuario,
+                accessToken: this.perfil.token
+            })
+            .then(resp => {
+                //Petición enviada correctamente
+                this.setPartidas(resp.data);
+                this.numTeToca = resp.data.length;
+            })
+            .catch(error => {
+            //Error al enviar la petición
+              console.log(error.response)
+            });
+      }, (5000));
   },
   methods: {
       ...mapMutations([
@@ -148,8 +168,8 @@ export default {
       } 
     },
   computed: {
-    ...mapState(['perfil','usuarioBuscado']), //Para recoger los datos de la lista de amigos que están almacenados en el store
-  }
+    ...mapState(['perfil','usuarioBuscado','host']), //Para recoger los datos de la lista de amigos que están almacenados en el store
+  },
 }
 </script>
 
