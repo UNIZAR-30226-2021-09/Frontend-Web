@@ -106,7 +106,7 @@ span.red {
           
 
           </ul>
-          <button v-if="perfil.token != ''" class=" btn btn btn-outline-danger d-flex" @click="cerrarSesion" type="submit">Cerrar sesión</button>
+          <button v-if="perfil.token != ''" class=" btn btn-danger d-flex" @click="cerrarSesion" type="submit">Cerrar sesión</button>
         </div>
       </div>
     </nav>
