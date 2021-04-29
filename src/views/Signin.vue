@@ -17,12 +17,13 @@
 
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">#</span>
-                <input type="password" class="form-control" placeholder="Contraseña" v-model="contrasena" v-on:keyup.enter="registrarse">
+                <input type="password" class="form-control" placeholder="Contraseña" v-model="contrasena" v-on:keyup.enter="registrarse" required>
             </div>
 
-            <div class="input-group mb-3">
+            <div class="input-group has-validation mb-3">
                 <span class="input-group-text" id="basic-addon1">#</span>
-                <input type="password" class="form-control" placeholder="Repetir Contraseña" v-model="rep_contrasena" v-on:keyup.enter="registrarse">
+                <input type="password" class="form-control" placeholder="Repetir Contraseña" v-model="rep_contrasena" v-on:keyup.enter="registrarse" required>
+                
             </div>
 
             <div class="input-group mt-3 mb-3">
@@ -103,6 +104,7 @@ export default {
                 //Registro correcto
                 console.log("Voy a meter el token " + resp.data.accessToken)
                 this.setToken(resp.data.accessToken)
+                this.setNombreUsuario(resp.data.nombreUsuario)
                 
                 const tok = this.$store.getters.getToken  //!!!Conseguir el token introducido 
                 console.log(tok)
@@ -126,7 +128,7 @@ export default {
         this.rep_contrasena = ""
     },
     ...mapMutations([
-      'setToken'
+      'setToken','setNombreUsuario'
     ])
 
   },

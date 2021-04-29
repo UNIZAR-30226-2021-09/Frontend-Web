@@ -63,48 +63,50 @@ span.red {
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/login">Log-in</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/signin">Sign-in</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/inicio">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/ciegas">Ciegas</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/perfil" @click="cambiarBuscado()">Perfil</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/agregarAmigo">Agregar</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/desafiar">Desafiar</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/amigoDesafiado">Desafiado</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/partida">Partida</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/clasificacion" @click="cambiarBuscado()">Clasificacion</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/partidasEnCurso">Partidas en curso <span style="background-color: coral;" class="badge">{{numTeToca}}</span> </a>
-          </li>
+            <li v-if="perfil.token === ''" class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li v-if="perfil.token === ''" class="nav-item">
+              <a class="nav-link" href="/login">Log-in</a>
+            </li>
+            <li v-if="perfil.token === ''" class="nav-item">
+              <a class="nav-link" href="/signin">Sign-in</a>
+            </li>
+            <li v-if="perfil.token != ''" class="nav-item">
+              <a class="nav-link" href="/inicio">Inicio</a>
+            </li>
+            <li v-if="perfil.token != ''" class="nav-item">
+              <a class="nav-link" href="/ciegas">Ciegas</a>
+            </li>
+            <li v-if="perfil.token != ''" class="nav-item">
+              <a class="nav-link" href="/perfil" @click="cambiarBuscado()">Perfil</a>
+            </li>
+            <li v-if="perfil.token != ''" class="nav-item">
+              <a class="nav-link" href="/agregarAmigo">Agregar</a>
+            </li>
+            <li v-if="perfil.token != ''" class="nav-item">
+              <a class="nav-link" href="/desafiar">Desafiar</a>
+            </li>
+            <li v-if="perfil.token != ''" class="nav-item">
+              <a class="nav-link" href="/amigoDesafiado">Desafiado</a>
+            </li>
+            <li v-if="perfil.token != ''" class="nav-item">
+              <a class="nav-link" href="/partida">Partida</a>
+            </li>
+            <li v-if="perfil.token != ''" class="nav-item">
+              <a class="nav-link" href="/clasificacion" @click="cambiarBuscado()">Clasificacion</a>
+            </li>
+            <li v-if="perfil.token != ''" class="nav-item">
+              <a class="nav-link" href="/partidasEnCurso">Partidas en curso <span style="background-color: coral;" class="badge">{{numTeToca}}</span> </a>
+            </li>
+          
           <!-- <li class="nav-item">
             <a class="nav-link" href="/AmigoDesafiado" to="Inicio">inicio?</a>
           </li> -->
           
 
           </ul>
+          <button v-if="perfil.token != ''" class=" btn btn btn-outline-danger d-flex" @click="cerrarSesion" type="submit">Cerrar sesión</button>
         </div>
       </div>
     </nav>
@@ -133,7 +135,12 @@ export default {
   },
   methods: {
       ...mapMutations([
-      'setUsuarioBuscado']),
+      'setUsuarioBuscado','resetToken']),
+
+      cerrarSesion: function(){
+        this.resetToken()
+        this.$router.push('/');
+      },
 
       cambiarBuscado: function(){
           //this.setUsuarioBuscado(this.perfil.nombreUsuario);

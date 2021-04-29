@@ -20,7 +20,7 @@
               <p></p>
 
               <div class="d-grid gap-2 col-6 mx-auto mt-4" >
-                  <button v-for="(amigo) in perfil.listaAmigos" v-bind:key="amigo.nombre" @click='modificarDesafiado(amigo.nombre)' to="amigoDesafiado" class="btn btn-outline-info" type="button" >{{amigo.nombre}}</button>
+                  <button v-for="(amigo) in perfil.listaAmigos" v-bind:key="amigo.nombre" @click='modificarDesafiado(amigo)' class="btn btn-outline-info" type="button" >{{amigo}}</button>
 
               </div>
 
@@ -32,7 +32,14 @@
 
               <p></p>
 
-              <router-link id="btnSend" to="amigoDesafiado" class="btn btn-success disabled" type="button" >Enviar invitación</router-link>
+              <button id="btnSend" to="amigoDesafiado" class="btn btn-success disabled" @click="desafiarAmigo" type="button" >Enviar invitación</button>
+
+              <!-- Mensaje de error -->
+              <div class="mt-3">
+                <div v-if=errorPeti class="alert alert-danger" role="alert">
+                  Ha ocurrido un error, vuélvelo a intentar más tarde.
+                </div>
+              </div>
 
             </div>
 
@@ -46,6 +53,7 @@
 <script>
 import ListaAmigos from '@/components/ListaAmigos.vue'
 import {mapState, mapMutations} from 'vuex';
+import axios from 'axios'
 
 export default {
   name: 'Desafiar',
@@ -55,10 +63,11 @@ export default {
   data() {
         return{ 
           nombrePag: 'Desafiar a un amigo',
-          msg: 'Selecciona un amigo al que desafiar'
+          msg: 'Selecciona un amigo al que desafiar',
+          errorPeti: false
         }
   },
-  computed: mapState(['perfil', 'amigoDesafiado']),
+  computed: mapState(['perfil', 'amigoDesafiado','host']),
   methods: {
     ...mapMutations([
       'setDesafiado'
@@ -68,6 +77,34 @@ export default {
       this.msg =  'Vas a invitar a ' + amigo;
       var element = document.getElementById("btnSend");
       element.classList.remove("disabled");
+    },
+    desafiarAmigo: function(){
+      this.errorPeti = false
+
+      //Desafiar a un amigo a un desafío amistoso
+      let dir = this.host + '/game/friend'
+      axios
+      .post(dir, {
+          nombreUsuario: this.perfil.nombreUsuario,
+          nombreAmigo: this.amigoDesafiado,
+          accessToken: this.perfil.token
+      })
+      .then(resp => {
+      //Petición enviada correctamente
+        if(resp.data.mensaje === 'Token inválido'){
+          this.errorPeti = true
+        }else{
+          console.log("Éxito en la petición ")
+          console.log(resp)
+        }
+        
+      
+      })
+      .catch(error => {
+      //Error al enviar la petición
+        console.log(error)
+        this.errorPeti = true
+      });
     }
     // prueba: function(){
     //   this.$store.commit('setDesafiado')

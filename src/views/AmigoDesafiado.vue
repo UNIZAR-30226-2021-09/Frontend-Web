@@ -38,7 +38,7 @@
 #######################################SCRIPT#######################################
 <script>
 import ListaAmigos from '@/components/ListaAmigos.vue'
-import {mapState} from 'vuex';
+import {mapState,mapMutations} from 'vuex';
 
 export default {
   name: 'AmigoDesafiado',
@@ -55,11 +55,20 @@ export default {
         }
   },
   methods: {
+    ...mapMutations([
+      'getDesafiado'
+    ]),
     emularAceptar: function(){
       this.estadoAmigo =  'Listo';
       var element = document.getElementById("btnStart");
       element.classList.remove("disabled");
     }
+  },
+  created: function() {
+    console.log(this.amigoDesafiado)
+
+    
+
   }
 }
 </script>

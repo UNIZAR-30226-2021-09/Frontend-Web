@@ -78,7 +78,7 @@ export default {
   // },
   methods: {
     ...mapMutations([
-      'getToken'
+      'getToken','setSalientes'
     ]),
 
     enviarPeticion: function(){
@@ -93,7 +93,7 @@ export default {
       })
       .then(resp => {
         //Petición enviada correctamente
-        console.log("Petición enviada. Respuesta: " + resp)
+        this.setSalientes(resp.data)
         this.esEnviado = true
         this.datosInvalidos = false
         })
