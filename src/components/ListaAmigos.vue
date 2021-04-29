@@ -6,6 +6,7 @@
     
     <div class="col-sm-3">
         
+        <!-- Nombre del usuario -->
         <h4 class="text-sm-left">{{perfil.nombreUsuario}} 
             <div class="btn-group">
                 <a class="btn btn-primary btn-sm mb-1" type="button" href="/perfil" @click="cambiarBuscado(perfil.nombreUsuario)">Mi Perfil</a>
@@ -18,38 +19,38 @@
             
         </h4>
 
+        <!-- Lista de peticiones recibidas -->
         <div class="mt-3">
             <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Peticiones de amistad recibidas </h5>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu list-group-flush">
                     <li class="list-group-item bg-secundary" v-if="numPeticionesRecibidas==0" bg>
                         <i>No hay peticiones</i>
                     </li>
-                    <li class="list-group-item bg-secundary" v-for="(jugador,index) in peticionesRecibidasF" v-bind:key="jugador" bg>
+                    <li class="list-group-item bg-secundary" v-else v-for="(jugador) in peticionesRecibidasF" v-bind:key="jugador" bg>
                         <a class="dropdown-item" > {{jugador }}
-                                <button  class="btn btn-outline-success btn-sm mb-1" type="button" @click='aceptarAmigo(jugador.nombre,index)'>Aceptar</button>
-                                <button  class="btn btn-outline-danger btn-sm mb-1" type="button" @click='rechazarAmigo(index)'>Rechazar</button>
+                                <button  class="btn btn-outline-success btn-sm mb-1" type="button" @click='aceptarAmigo(jugador)'>Aceptar</button>
+                                <button  class="btn btn-outline-danger btn-sm mb-1" type="button" @click='rechazarAmigo(jugador)'>Rechazar</button>
                             </a>
                     </li>
             </ul>
         </div>
 
+        <!-- Lista de peticiones enviadas -->
         <div class="mt-3">
             <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Peticiones de amistad enviadas </h5>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu list-group-flush">
                     <li class="list-group-item bg-secundary" v-if="numPeticionesEnviadas==0" bg>
                         <i>No hay peticiones</i>
                     </li>
-                    <li class="list-group-item bg-secundary" v-for="(jugador,index) in peticionesRecibidasF" v-bind:key="jugador" bg>
-                        <a class="dropdown-item" > {{jugador }}
-                                <button  class="btn btn-outline-success btn-sm mb-1" type="button" @click='aceptarAmigo(jugador.nombre,index)'>Aceptar</button>
-                                <button  class="btn btn-outline-danger btn-sm mb-1" type="button" @click='rechazarAmigo(index)'>Rechazar</button>
-                            </a>
+                    <li class="list-group-item bg-secundary" v-else v-for="(jugador) in peticionesEnviadasF" v-bind:key="jugador" bg>
+                        <a class="dropdown-item" > {{jugador}}</a>
                     </li>
             </ul>
         </div>
 
         <br>
 
+        <!-- Lista de amigos -->
         <div>
             <h5 style="display:inline">Amigos </h5>  
             <router-link to="agregarAmigo" class="btn btn-outline-success btn-sm mb-1" type="button">
@@ -60,23 +61,22 @@
                 </svg>
             </router-link>
         </div>
-        <p></p>
 
         <i v-if="numAmigos==0">Aún no has añadido a ningún amigo</i>
 
         <!-- Lista de amigos conectados -->
         <ul class="mt-2">
             <div class="overflow-auto p-3 mb-3 mb-md-0 mr-md-3 bg-light" style="max-width: 260px; max-height: 420px;">
-                <div v-for="amigo in amigos" v-bind:key="amigo.nombre" >
-                    <a class="container btn border border-3" href="/Perfil" role="button" @click="cambiarBuscado(amigo.nombre)">
-                    <p style="margin: 7px;"> 
+                <div v-for="amigo in amigos" v-bind:key="amigo" style="border-color: green">
+                    <a class="container btn border border-3 mt-2" href="/Perfil" role="button" @click="cambiarBuscado(amigo)" >
+                    <p style="margin: 5px;"> 
                             <svg style="margin-right: 10px;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-file-person" viewBox="0 0 16 16">
                                 <path d="M12 1a1 1 0 0 1 1 1v10.755S12 11 8 11s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
                                 <path d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                            </svg> {{amigo.nombre}}
+                            </svg> {{amigo}}
                     </p>
                     </a>
-                    <p style="background-color: coral;">-</p>
+                    <!-- <p style="background-color: coral;">-</p> -->
                 </div>
             </div>
 
@@ -95,10 +95,20 @@ export default {
   name: 'ListaAmigos',
   computed:{
       ...mapState(['perfil','host','usuarioBuscado']), //Para recoger los datos de la lista de amigos que están almacenados en el store
-
+    
+      numPeticionesRecibidas(){
+        return this.perfil.peticionesRecibidas.length
+      },
+      numPeticionesEnviadas(){
+        return this.perfil.peticionesEnviadas.length
+      },
+      numAmigos(){
+        return this.perfil.listaAmigos.length
+      },
 
       amigos(){
-            return this.perfil.listaAmigos;
+          //console.log(this.perfil.listaAmigos)
+          return this.perfil.listaAmigos;
       },
       peticionesRecibidasF(){
             return this.perfil.peticionesRecibidas;
@@ -109,27 +119,54 @@ export default {
       
   },
   data() {
-        return{ 
-          numPeticionesRecibidas: -1,
-          numPeticionesEnviadas: -1,
-          numAmigos: -1
+        return{
         }
   },
   methods:{
     ...mapMutations([
-      'anyadirAmigo','setUsuarioBuscado'
+      'anyadirAmigo','setUsuarioBuscado','setEntrantes','setSalientes','setAmigos'
     ]),
     recuperarNombre: function(){
         
     },
-    aceptarAmigo: function(amigo,index){
+    aceptarAmigo: function(amigo){
 
-        this.perfil.peticionesRecibidas.splice(index, 1);
-        this.anyadirAmigo(amigo);
+        let dir = this.host + '/user/accept'
+        axios
+        .post(dir, {
+            nombreUsuario: this.perfil.nombreUsuario,
+            nombreAmigo: amigo,
+            accessToken: this.perfil.token
+        })
+        .then(resp => {
+        //Petición enviada correctamente
+        this.setAmigos(resp.data)
+        })
+        .catch(error => {
+        //Error al enviar la petición
+        console.log(error.response.request.response)
+        });
+
+        // this.perfil.peticionesRecibidas.splice(index, 1);
+        // this.anyadirAmigo(amigo);
     },
-    rechazarAmigo: function(index){
+    rechazarAmigo: function(amigo){
 
-        this.perfil.peticionesRecibidas.splice(index, 1);
+        let dir = this.host + '/user/dismiss'
+        axios
+        .post(dir, {
+            nombreUsuario: this.perfil.nombreUsuario,
+            nombreAmigo: amigo,
+            accessToken: this.perfil.token
+        })
+        .then(resp => {
+        //Petición enviada correctamente
+        this.setEntrantes(resp.data)
+        })
+        .catch(error => {
+        //Error al enviar la petición
+        console.log(error.response.request.response)
+        });
     },
     cambiarBuscado: function(nom){
           //this.setUsuarioBuscado(this.perfil.nombreUsuario);
@@ -140,7 +177,9 @@ export default {
   },
   created: function() {
     //Actualizamos la lista de amigos
-    console.log(this.host)
+    //console.log(this.host)
+
+    //Actualizamos las peticiones entrantes
     let dir = this.host + '/user/incomingRequests'
     axios
     .post(dir, {
@@ -149,18 +188,50 @@ export default {
     })
     .then(resp => {
     //Petición enviada correctamente
-    console.log("Petición enviada. Respuesta: " + resp)
+    this.setEntrantes(resp.data)
+    //this.setEntrantes(['prueba2','prueba3'])
     })
-    
     .catch(error => {
     //Error al enviar la petición
     console.log(error.response.request.response)
     });
 
+    //Actualizamos las peticiones salientes
+    dir = this.host + '/user/outgoingRequests'
+    axios
+    .post(dir, {
+        nombreUsuario: this.perfil.nombreUsuario,
+        accessToken: this.perfil.token
+    })
+    .then(resp => {
+    //Petición enviada correctamente
+    this.setSalientes(resp.data)
+    })
+    .catch(error => {
+    //Error al enviar la petición
+    console.log(error.response.request.response)
+    });
 
-    this.numPeticionesRecibidas = this.perfil.peticionesRecibidas.length
-    this.numPeticionesEnviadas = this.perfil.peticionesEnviadas.length
-    this.numAmigos = this.perfil.listaAmigos.length
+    //Actualizamos la lista de amigos
+    dir = this.host + '/user/friendList'
+    axios
+    .post(dir, {
+        nombreUsuario: this.perfil.nombreUsuario,
+        accessToken: this.perfil.token
+    })
+    .then(resp => {
+    //Petición enviada correctamente
+    this.setAmigos(resp.data)
+    })
+    .catch(error => {
+    //Error al enviar la petición
+    console.log(error)
+    });
+
+
+    // this.numPeticionesRecibidas = this.perfil.peticionesRecibidas.length
+    // this.numPeticionesEnviadas = this.perfil.peticionesEnviadas.length
+    // this.numAmigos = this.perfil.listaAmigos.length
     
   }
 }

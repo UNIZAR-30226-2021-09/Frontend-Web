@@ -59,10 +59,14 @@ export default new Vuex.Store({
       console.log("Nombre de usuario: " + state.perfil.nombreUsuario);
     },
     setDesafiado(state, nombre){
+      //console.log("He desafiado a " + nombre)
       state.amigoDesafiado = nombre
     },
     anyadirAmigo(state,name){
       state.perfil.listaAmigos.push({nombre: name, estado: 'No conectado'});
+    },
+    resetToken(state){
+      state.perfil.token = ''
     },
     //______________________________SETTERS______________________________
     setNombreUsuario(state, newNombreUsuario){
