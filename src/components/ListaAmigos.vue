@@ -61,23 +61,22 @@
                 </svg>
             </router-link>
         </div>
-        <p></p>
 
         <i v-if="numAmigos==0">Aún no has añadido a ningún amigo</i>
 
         <!-- Lista de amigos conectados -->
         <ul class="mt-2">
             <div class="overflow-auto p-3 mb-3 mb-md-0 mr-md-3 bg-light" style="max-width: 260px; max-height: 420px;">
-                <div v-for="amigo in amigos" v-bind:key="amigo" >
-                    <a class="container btn border border-3" href="/Perfil" role="button" @click="cambiarBuscado(amigo)">
-                    <p style="margin: 7px;"> 
+                <div v-for="amigo in amigos" v-bind:key="amigo" style="border-color: green">
+                    <a class="container btn border border-3 mt-2" href="/Perfil" role="button" @click="cambiarBuscado(amigo)" >
+                    <p style="margin: 5px;"> 
                             <svg style="margin-right: 10px;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-file-person" viewBox="0 0 16 16">
                                 <path d="M12 1a1 1 0 0 1 1 1v10.755S12 11 8 11s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
                                 <path d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                             </svg> {{amigo}}
                     </p>
                     </a>
-                    <p style="background-color: coral;">-</p>
+                    <!-- <p style="background-color: coral;">-</p> -->
                 </div>
             </div>
 
