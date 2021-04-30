@@ -242,26 +242,33 @@ export default {
     function dragDrop() {
       let shipNameWithLastId = draggedShip.lastChild.id
       let shipClass = shipNameWithLastId.slice(0, -2)
-      console.log('Barco: ' + shipClass)
+      //console.log('Barco: ' + shipClass)
       let lastShipIndex = parseInt(shipNameWithLastId.substr(-1))
       let shipLastId = lastShipIndex + parseInt(this.dataset.id)
-      // console.log(shipLastId)
       const notAllowedHorizontal = [0,10,20,30,40,50,60,70,80,90,1,11,21,31,41,51,61,71,81,91,2,22,32,42,52,62,72,82,92,3,13,23,33,43,53,63,73,83,93]
       const notAllowedVertical = [99,98,97,96,95,94,93,92,91,90,89,88,87,86,85,84,83,82,81,80,79,78,77,76,75,74,73,72,71,70,69,68,67,66,65,64,63,62,61,60]
       
       let newNotAllowedHorizontal = notAllowedHorizontal.splice(0, 10 * lastShipIndex)
       let newNotAllowedVertical = notAllowedVertical.splice(0, 10 * lastShipIndex)
 
-      console.log('Cojo ' + selectedShipNameWithIndex)
+      //console.log('Cojo ' + selectedShipNameWithIndex)
 
       let selectedShipIndex = parseInt(selectedShipNameWithIndex.substr(-1))
 
-      shipLastId = shipLastId - selectedShipIndex
-      console.log('Acaba: ' + shipLastId)
+      // console.log('selected ship index: ' + selectedShipIndex)
+      // console.log('shiplastid: ' + shipLastId)
+      if (isHorizontal){
+        shipLastId = shipLastId - selectedShipIndex
+      }else{
+        shipLastId = shipLastId - (selectedShipIndex * width)
+      }
+      
+      // console.log('Acaba: ' + shipLastId)
+      // console.log('???: ' + this.dataset.id)
 
       let empty = isEmpty(isHorizontal, draggedShipLength, selectedShipIndex, parseInt(this.dataset.id))
 
-      console.log('Empty = ' + empty)
+      //console.log('Empty = ' + empty)
 
       if (isHorizontal && !newNotAllowedHorizontal.includes(shipLastId) && empty) {
         for (let i=0; i < draggedShipLength; i++) {
@@ -404,6 +411,7 @@ export default {
     background-image: url('~@/assets/barco_3.jpg');
     margin: 10px;
     display: flex;
+    flex-wrap: wrap;
   }
 
   .submarine{
@@ -424,6 +432,7 @@ export default {
     background-color: purple;
     margin: 10px;
     display: flex;
+    flex-wrap: wrap;
   }
 
   .cruiser {
@@ -444,6 +453,7 @@ export default {
     background-color: aqua;
     margin: 10px;
     display: flex;
+    flex-wrap: wrap;
   }
 
   .battleship {
@@ -464,6 +474,7 @@ export default {
     background-color: green;
     margin: 10px;
     display: flex;
+    flex-wrap: wrap;
   }
 
   .carrier {
