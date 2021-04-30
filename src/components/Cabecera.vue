@@ -137,6 +137,7 @@ export default {
       //cada 5 segundos se ejecutara esto para actualizar las partidas en curso y el numero de notificacion de la cabecera
       setInterval(() => {
             let dir = this.host + '/game/inProgress'
+            console.log('aaaaaaaa');
             axios
             .post(dir, {
                 nombreUsuario: this.perfil.nombreUsuario,
@@ -145,17 +146,17 @@ export default {
             .then(resp => {
                 //Petición enviada correctamente
                 this.setPartidas(resp.data);
-                this.numTeToca = resp.data.length;
+                this.numTeToca = resp.data.filter(partida => partida.turno == this.perfil.nombreUsuario ).length;
             })
             .catch(error => {
             //Error al enviar la petición
               console.log(error.response)
             });
-      }, (5000));
+      }, (3000));
   },
   methods: {
       ...mapMutations([
-      'setUsuarioBuscado','resetToken']),
+      'setUsuarioBuscado','resetToken','setPartidas']),
 
       cerrarSesion: function(){
         this.resetToken()
