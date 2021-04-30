@@ -132,12 +132,10 @@ export default {
         }
   },
   created: function(){
-      this.numTeToca = this.perfil.partidasEnCurso.filter(partida => partida.turno == this.perfil.nombreUsuario ).length;
 
       //cada 5 segundos se ejecutara esto para actualizar las partidas en curso y el numero de notificacion de la cabecera
       setInterval(() => {
             let dir = this.host + '/game/inProgress'
-            console.log('aaaaaaaa');
             axios
             .post(dir, {
                 nombreUsuario: this.perfil.nombreUsuario,

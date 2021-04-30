@@ -8,7 +8,7 @@
          <div class="row g-3">
             <div class="col-sm-9">
                 
-                <h2>{{nombrePag}}</h2>
+                <h2>{{nombrePag}}: {{usuarioBuscado}} </h2>
                   <div class="mt-4">
                     <table>
                         <thead>
@@ -21,7 +21,7 @@
                         <tbody>
                           <tr v-for="(entry,index) in this.clasificacion" v-bind:key="entry.nombreUsuario" >
 
-                            <td v-if="index+1 == me.posicion" class="d-flex justify-content-center bg-info">{{index + 1}}</td>
+                            <td v-if="entry.nombreUsuario == me.nombreUsuario" class="d-flex justify-content-center bg-info">{{index + 1}}</td>
                             <td v-else class="d-flex justify-content-center">{{index + 1}}</td>
 
                             <td v-for="key in columnasRespuesta" v-bind:key="key">
@@ -34,7 +34,7 @@
                       </table> 
                       <br> <br>
                       
-                      <div v-if="this.posicion > 10">
+                      <div v-if="me.posicion > 10">
                           <table>
                             <thead>
                               <tr>
@@ -96,31 +96,45 @@ export default {
   data() {
         return{ 
           nombrePag: 'Clasificación',
-          posicion: 11,
           numClasificados: 0,
           columnas:['Posicion','Nombre','Puntos','Victorias','Derrotas'],
           columnasRespuesta:['nombreUsuario','puntos','partidasGanadas','partidasPerdidas'],
-          me: []
+          me: {}
 
         }
   },
   created: function(){
           let dir = this.host + '/user/ranking'
+          axios
+          .post(dir, {
+              nombreUsuario: this.perfil.nombreUsuario,
+              accessToken: this.perfil.token
+          })
+          .then(resp => {
+              this.setClasificacion(resp.data.ranking);
+              this.numClasificados = this.clasificacion.length;
+            })
+
+          .catch(error => {
+            //Error al hacer login
+            console.log(error.response)
+            });
+
+          dir = this.host + '/profile'
+          console.log('aaa');
           let usuario = this.usuarioBuscado;
           console.log('Buscado es ' + usuario);
           axios
           .post(dir, {
-              nombreUsuario: usuario,
-              accessToken: this.perfil.token
+              nombreUsuario: usuario
           })
           .then(resp => {
-              console.log('1');
-              console.log(resp.data);
-              this.setClasificacion(resp.data.ranking);
-              
-              this.numClasificados = this.clasificacion.length;
-              this.posicion = resp.data.me.posicion;
-              this.me = resp.data.me;
+               
+              this.me.nombreUsuario = resp.data.nombreUsuario;
+              this.me.puntos = resp.data.puntos;
+              this.me.partidasGanadas = resp.data.partidasGanadas;
+              this.me.partidasPerdidas = resp.data.partidasPerdidas;
+              this.me.posicion = resp.data.posicion;
               console.log(this.me);
             })
 

@@ -8,12 +8,12 @@
             <div class="col-sm-9 ">
 
            <!-- Contenido de la pantalla -->
-                <h1>{{usuarioBuscado}}</h1>
+                <h1>Perfil: {{nombre}}</h1>
                 
                 <div class="text-start">
 
                   <h5 class="mt-5">
-                    Nombre: {{usuarioBuscado}} </h5>
+                    Nombre: {{nombre}} </h5>
 
                   <h5 class="mt-5">
                     Email: {{email}} </h5>
@@ -116,13 +116,12 @@ export default {
         }
   },
   created: function(){
-          let dir = this.host + '/user/me'  
+          let dir = this.host + '/profile'  
           let usuario = this.usuarioBuscado;
           console.log('Buscado es ' + usuario);
           axios
           .post(dir, {
-              nombreUsuario: usuario,
-              accessToken: this.perfil.token
+              nombreUsuario: usuario
           })
           .then(resp => {
               
