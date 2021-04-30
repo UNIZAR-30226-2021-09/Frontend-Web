@@ -21,7 +21,7 @@
                         <tbody>
                           <tr v-for="(entry,index) in this.clasificacion" v-bind:key="entry.nombreUsuario" >
 
-                            <td v-if="entry.nombreUsuario == me.nombreUsuario" class="d-flex justify-content-center bg-info">{{index + 1}}</td>
+                            <td v-if="entry.nombreUsuario == usuarioBuscado" class="d-flex justify-content-center bg-info">{{index + 1}}</td>
                             <td v-else class="d-flex justify-content-center">{{index + 1}}</td>
 
                             <td v-for="key in columnasRespuesta" v-bind:key="key">

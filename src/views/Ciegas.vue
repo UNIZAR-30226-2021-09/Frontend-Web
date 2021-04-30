@@ -9,6 +9,11 @@
                 
                 <h2 class="mt-3">{{nombrePag}}</h2>
                 <br><br><br><br><br><br><br>
+
+                <div v-if="disabledButton" class="spinner-border" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+
                 <div  class="container mt-5">
                     <button type="button" class="btn btn-lg btn-primary" :disabled='disabledButton' @click="buscarPartidaCiegas" >Buscar contrincante</button>
                 </div>
@@ -65,6 +70,10 @@ export default {
                     position: "bottom-left", 
                     duration : 10000
                   });
+
+                      
+                  setTimeout(() => this.disabledButton = false, 2000);
+                  
               }
               else{
                   console.log(resp.data);
