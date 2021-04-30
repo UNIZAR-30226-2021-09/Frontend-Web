@@ -8,14 +8,10 @@
             <div class="col-sm-9">
                 
               <h2>{{nombrePag}}</h2>
-              
-              <h4 class="mt-5">
-                  {{perfil.nombreUsuario}}: Listo
-              </h4>
 
               <p></p>
 
-              <h6 class="mt-4">Invita a un jugador...</h6>
+              <h4 class="mt-4">Invita a un jugador...</h4>
 
               <p></p>
 
@@ -26,9 +22,12 @@
 
               <p></p>
 
-              <h6>
-                {{msg}}
-              </h6>
+              <div class="mt-4 mb-3">
+                <h5>
+                  {{msg}}
+                </h5>
+              </div>
+              
 
               <p></p>
 
@@ -82,7 +81,7 @@ export default {
       this.errorPeti = false
 
       //Desafiar a un amigo a un desafío amistoso
-      let dir = this.host + '/game/friend'
+      let dir = this.host + '/game/newGame'
       axios
       .post(dir, {
           nombreUsuario: this.perfil.nombreUsuario,
@@ -97,6 +96,14 @@ export default {
           console.log("Éxito en la petición ")
           console.log(resp)
         }
+        this.$toasted.show("Has desafiado a " + resp.data.participante2 + ". Se ha añadido la partida a tu lista de partidas en curso.", { 
+                    theme: "toasted-primary", 
+                    position: "bottom-left", 
+                    duration : 4000
+                  });
+        this.msg =  'Selecciona a un amigo al que desafiar ';
+        var element = document.getElementById("btnSend");
+        element.classList.add("disabled");
         
       
       })

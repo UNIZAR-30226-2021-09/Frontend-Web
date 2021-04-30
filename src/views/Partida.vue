@@ -17,8 +17,8 @@
 
                 <div class="container hidden-info">
                   <div class="setup-buttons" id="setup-buttons">
-                    <button id="start" class="btn">Start Game</button>
-                    <button id="rotate" class="btn" >Rotate Your Ships</button>
+                    <button id="start" class="btn btn-primary">Empezar partida</button>
+                    <button id="rotate" class="btn btn-primary" >Rotar los barcos</button>
                   </div>
                   <h3 id="whose-go" class="info-text">Your Go</h3>
                   <h3 id="info" class="info-text"></h3>
