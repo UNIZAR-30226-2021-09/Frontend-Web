@@ -178,14 +178,6 @@ export default {
   data() {
         return{ 
           nombrePag: 'Partidas en curso',
-          numPartidasIA: 0,
-          teTocaIA: 0,
-          numPartidasCiegas: 0,
-          teTocaCiegas: 0,
-          numPartidasAmigos: 0,
-          teTocaAmigos: 0,
-          numPartidasTorneo: 0,
-          teTocaTorneo: 0
         }
   },
   methods: {
@@ -202,15 +194,6 @@ export default {
               //this.setPartidas(resp.data);
               console.log(resp.data)
               console.log(this.perfil.partidasEnCurso)
-              this.numPartidasIA = this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ia').length;
-              this.numPartidasCiegas = this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ciegas').length;
-              this.numPartidasAmigos = this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'amistoso').length;
-              this.numPartidasTorneo = this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo').length;
-
-              this.teTocaIA = this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ia' && partida.turno == this.perfil.nombreUsuario).length;
-              this.teTocaCiegas = this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ciegas' && partida.turno == this.perfil.nombreUsuario).length;
-              this.teTocaAmigos = this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'amistoso' && partida.turno == this.perfil.nombreUsuario).length;
-              this.teTocaTorneo = this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo' && partida.turno == this.perfil.nombreUsuario).length;
             })
 
           .catch(error => {
@@ -221,18 +204,56 @@ export default {
   computed: {
       ...mapState(['perfil','host']), //Para recoger los datos de la lista de amigos que están almacenados en el store
 
+
+      numPartidasIA :function(){
+
+          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ia').length;
+      },
+      teTocaIA :function(){
+
+          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ia' && partida.turno == this.perfil.nombreUsuario).length;
+      }, 
       partidasIA: function(){
             return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ia');
       },
+
+
+      numPartidasCiegas :function(){
+
+          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ciegas').length;
+      },
+      teTocaCiegas :function(){
+          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ciegas' && partida.turno == this.perfil.nombreUsuario).length;
+      },    
       partidasCiegas: function(){
             return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ciegas');
       },
+      
+
+      numPartidasAmigos :function(){
+
+          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'amistoso').length;
+      },
+      teTocaAmigos :function(){
+
+          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'amistoso' && partida.turno == this.perfil.nombreUsuario).length;
+      },                  
       partidasAmigos: function(){
             return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'amistoso');
       },
-      partidasTorneo: function(){
-            return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo');
+
+
+      numPartidasTorneo :function(){
+
+          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo').length;
       },
+      teTocaTorneo :function(){
+
+          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo' && partida.turno == this.perfil.nombreUsuario).length;
+      },           
+      partidasTorneo: function(){
+          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo');
+      }
     
   }
 }
