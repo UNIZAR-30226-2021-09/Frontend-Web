@@ -119,7 +119,6 @@ export default {
   created: function(){
 
       //cada 5 segundos se ejecutara esto para actualizar las partidas en curso y el numero de notificacion de la cabecera
-      setInterval(() => {
             let dir = this.host + '/game/inProgress'
             axios
             .post(dir, {
@@ -135,7 +134,6 @@ export default {
             //Error al enviar la petición
               console.log(error.response)
             });
-      }, (3000));
   },
   methods: {
       ...mapMutations([
