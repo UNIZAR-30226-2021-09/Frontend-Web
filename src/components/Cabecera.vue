@@ -73,9 +73,6 @@
               <a class="nav-link" href="/desafiar">Desafiar</a>
             </li>
             <li v-if="perfil.token != ''" class="nav-item">
-              <a class="nav-link" href="/amigoDesafiado">Desafiado</a>
-            </li>
-            <li v-if="perfil.token != ''" class="nav-item">
               <a class="nav-link" href="/partida">Partida</a>
             </li>
             <li v-if="perfil.token != ''" class="nav-item">
