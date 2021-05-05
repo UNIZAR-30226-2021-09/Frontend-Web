@@ -84,6 +84,9 @@ export default {
     enviarPeticion: function(){
       this.datosInvalidos = false
       this.esEnviado = false
+      
+      const amigoPeti = this.nombre
+      console.log('Voy a enviar petición a ' + amigoPeti)
       let dir = this.host + '/user/addfriend'
       axios
       .post(dir, {
@@ -97,7 +100,8 @@ export default {
         this.setSalientes(resp.data)
         this.esEnviado = true
         this.datosInvalidos = false
-        this.$socket.emit("friendPetition", {nombreUsuario: this.nombre});
+        console.log('Voy a enviar petición a ' + amigoPeti)
+        this.$socket.emit("friendPetition", {nombreUsuario: amigoPeti});
         })
         
       .catch(error => {
@@ -105,7 +109,7 @@ export default {
         this.esEnviado = false
         this.datosInvalidos = true
         console.log(error.response.request.response)
-        });
+      });
 
       this.nombre = ""
     }

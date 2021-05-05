@@ -65,7 +65,7 @@
         <i v-if="numAmigos==0">Aún no has añadido a ningún amigo</i>
 
         <!-- Lista de amigos conectados -->
-        <ul class="mt-2">
+        <ul>
             <div class="overflow-auto p-3 mb-3 mb-md-0 mr-md-3 bg-light" style="max-width: 260px; max-height: 420px;">
                 <div v-for="amigo in amigos" v-bind:key="amigo" style="border-color: green">
                     <a class="container btn border border-3 mt-2" href="/Perfil" role="button" @click="cambiarBuscado(amigo)" >
@@ -138,15 +138,37 @@ export default {
             accessToken: this.perfil.token
         })
         .then(resp => {
-        //Petición enviada correctamente
-        this.setAmigos(resp.data)
-        })
+            //Petición enviada correctamente
+            this.setAmigos(resp.data)
+
+            //Actualizamos la lista
+            dir = this.host + '/user/incomingRequests'
+            axios
+            .post(dir, {
+                nombreUsuario: this.perfil.nombreUsuario,
+                accessToken: this.perfil.token
+            })
+            .then(resp => {
+                //Petición enviada correctamente
+                this.setEntrantes(resp.data)
+                //this.setEntrantes(['prueba2','prueba3'])
+                })
+                .catch(error => {
+                //Error al enviar la petición
+                console.log('Error en post de incoming requests de aceptar amigo')
+                console.log(error.response.request.response)
+            });
+            
+            this.$socket.emit("aceptarInvitacionAmigo", {nombreUsuario: amigo});
+            
+            })
         .catch(error => {
         //Error al enviar la petición
+        console.log('Error en post de incoming requests')
         console.log(error.response.request.response)
         });
 
-        // this.perfil.peticionesRecibidas.splice(index, 1);
+        //this.perfil.peticionesRecibidas.splice(index, 1);
         // this.anyadirAmigo(amigo);
     },
     rechazarAmigo: function(amigo){
@@ -164,6 +186,7 @@ export default {
         })
         .catch(error => {
         //Error al enviar la petición
+        console.log('Error en dimiss de rechazar amigo')
         console.log(error.response.request.response)
         });
     },
@@ -192,6 +215,7 @@ export default {
     })
     .catch(error => {
     //Error al enviar la petición
+    console.log('Error en incoming requests de created')
     console.log(error.response.request.response)
     });
 
@@ -208,6 +232,7 @@ export default {
     })
     .catch(error => {
     //Error al enviar la petición
+    console.log('Error en outgoing requests de created')
     console.log(error.response.request.response)
     });
 

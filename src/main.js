@@ -39,14 +39,14 @@ new Vue({
       //this.$router.push('login');
     }else{
       console.log('El token es: ' + this.perfil.token)
+      console.log('El nombre de usuario es ' + this.perfil.nombreUsuario)
       this.$socket.emit("logMe", { nombreUsuario: this.perfil.nombreUsuario});
     }
   } ,
-   sockets:{
+  sockets:{
     llegaInvitacion: function (){
       if (this.perfil.token != ''){
         //this.host me sale undefined
-        console.log("llega invitacion");
       let dir = this.host + '/user/incomingRequests';
       console.log(dir);
       axios
@@ -57,18 +57,57 @@ new Vue({
       .then(resp => {
       //Petición enviada correctamente
       console.log("Petición enviada. Respuesta: " + resp.data);
-      this.setEntrante(resp.data);
+      this.setEntrantes(resp.data);
       console.log(this.perfil.peticionesRecibidas);
       })
-      
       .catch(error => {
       //Error al enviar la petición
       console.log(error.response.request.response)
       });
       }
+    },
+    llegaAceptarInvitacionAmigo: function (){
+      if (this.perfil.token != ''){
+        //this.host me sale undefined
+      let dir = this.host + '/user/friendList';
+      console.log(dir);
+      axios
+      .post(dir, {
+          nombreUsuario: this.perfil.nombreUsuario,
+          accessToken: this.perfil.token
+      })
+      .then(resp => {
+      //Petición enviada correctamente
+      this.setAmigos(resp.data)
+      })
+      .catch(error => {
+      //Error al enviar la petición
+      console.log(error.response.request.response)
+      })
+
+      //Actualizo la lista de salientes
+      dir = this.host + '/user/outgoingRequests'
+      axios
+      .post(dir, {
+          nombreUsuario: this.perfil.nombreUsuario,
+          accessToken: this.perfil.token
+      })
+      .then(resp => {
+      //Petición enviada correctamente
+      this.setSalientes(resp.data)
+      })
+      .catch(error => {
+      //Error al enviar la petición
+      console.log(error.response.request.response)
+      })
+
+      }
     }
   },
   computed:{
-    ...mapState(['perfil'])
+    ...mapState(['perfil', 'host'])
+  },
+  methods:{
+    ...mapMutations(['setEntrantes','setAmigos', 'setSalientes'])
   }
 }).$mount('#app')

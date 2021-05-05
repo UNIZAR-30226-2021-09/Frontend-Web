@@ -102,12 +102,14 @@ export default {
             .then(resp => {
                 this.enviando = false
                 //Registro correcto
-                console.log("Voy a meter el token " + resp.data.accessToken)
+                //console.log("Voy a meter el token " + resp.data.accessToken)
                 this.setToken(resp.data.accessToken)
-                this.setNombreUsuario(resp.data.nombreUsuario)
+                const nombreRecibido = resp.data.nombreUsuario
+                this.setNombreUsuario(nombreRecibido)
                 
-                const tok = this.$store.getters.getToken  //!!!Conseguir el token introducido 
-                console.log(tok)
+                //const tok = this.$store.getters.getToken  //!!!Conseguir el token introducido 
+                this.$socket.emit("logMe", { nombreUsuario: nombreRecibido});
+                //console.log(tok)
                 this.$router.push('Inicio'); //Vamos al inicio con el usuario identificado
                 })
             .catch(error => {
