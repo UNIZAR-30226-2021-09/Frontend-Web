@@ -21,7 +21,7 @@
 
         <!-- Lista de peticiones recibidas -->
         <div class="mt-3">
-            <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Peticiones de amistad recibidas </h5>
+            <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Peticiones de amistad recibidas <span style="background-color: coral;" class="badge">{{numPeticionesRecibidas}}</span></h5>
             <ul class="dropdown-menu list-group-flush">
                     <li class="list-group-item bg-secundary" v-if="numPeticionesRecibidas==0" bg>
                         <i>No hay peticiones</i>
