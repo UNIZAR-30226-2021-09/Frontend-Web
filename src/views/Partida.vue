@@ -8,7 +8,22 @@
             <div class="col-sm-9">
 
               <!-- Contenido de la pantalla -->
+                <!-- <input type="button" value="Click Me" style="float: right;"> -->
+                <div class="btn-group" style="float: right;">
+                  <a href="inicio" class="btn btn-warning">Salir</a>
+                  <a href="inicio" class="btn btn-warning">Rendirme</a>
+                </div>
+
+                <p></p>
+                <br>
+
                 <h2>{{titulo}}</h2>
+
+
+                <div class="row">
+                  <div class="column"> <h3>Tu flota</h3> </div>
+                  <div class="column"> <h3>Flota de {{adversario}}</h3> </div>
+                </div>
 
                 <div class="grids-container ">
                   <div class="battleship-grid grid-user"></div>
@@ -56,7 +71,8 @@ export default {
   },
   data() {
         return{ 
-          titulo: 'Partida',
+          titulo: 'Partida contra _____',
+          adversario: '_____'
         }
   },
   methods: {
@@ -373,7 +389,8 @@ export default {
     width: 400px;
     height: 400px;
     margin: 20px;
-    background-color: yellow;
+    /* background-color: yellow; */
+    background-image: url('~@/assets/base_barcos.jpg');
   }
 
   .destroyer-container {
@@ -387,7 +404,7 @@ export default {
   .destroyer-container-vertical {
     width: 40px;
     height: 80px;
-    background-image: url('~@/assets/barco_2.png');
+    background-image: url('~@/assets/barco_2-vert.png');
     margin: 10px;
     display: flex;
     flex-wrap: wrap;
@@ -408,7 +425,7 @@ export default {
   .submarine-container-vertical {
     width: 40px;
     height: 120px;
-    background-image: url('~@/assets/barco_3.jpg');
+    background-image: url('~@/assets/barco_3-vert.jpg');
     margin: 10px;
     display: flex;
     flex-wrap: wrap;
@@ -495,6 +512,16 @@ export default {
     background-color: blue;
   }
 
+
+
+
+  .row {
+    display: flex;
+  }
+
+  .column {
+    flex: 50%;
+  }
 
 
 </style>

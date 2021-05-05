@@ -8,19 +8,19 @@ import Toasted from 'vue-toasted';
  
 Vue.use(Toasted)
 // import SocketIO from "socket.io-client";
-import VueSocketIO from 'vue-socket.io';
+// import VueSocketIO from 'vue-socket.io';
 
-const options = { path: '/my-app/' }; //Options object to pass into SocketIO
+// const options = { path: '/my-app/' }; //Options object to pass into SocketIO
 
-Vue.use(new VueSocketIO({
-  debug: true,
-  connection: VueSocketIO('http://localhost:3001', options),
-  vuex: {
-      store,
-      actionPrefix: 'SOCKET_',
-      mutationPrefix: 'SOCKET_'
-  }
-}))
+// Vue.use(new VueSocketIO({
+//   debug: true,
+//   connection: VueSocketIO('http://localhost:3001', options),   //TODO: CAMBIAR LA DIRECCIÓN A LA BUENA PARA PODER HACER LAS PETIS
+//   vuex: {
+//       store,
+//       actionPrefix: 'SOCKET_',
+//       mutationPrefix: 'SOCKET_'
+//   }
+// }))
 
 import {mapState} from 'vuex'
 

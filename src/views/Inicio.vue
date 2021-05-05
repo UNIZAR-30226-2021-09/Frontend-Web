@@ -57,7 +57,7 @@
                           </svg>
                           Partida a Ciegas
                           </h4>
-                        <p>Busca una nueva partida contra un usuario aleatorio. Una vez se cree la partida, se añadirá automáticamente a tu lista de partidas.</p>
+                        <p>Busca una nueva partida contra un usuario aleatorio. Una vez se cree la partida, se añadirá automáticamente a tu lista de partidas</p>
                       </div>
                     </div>
                     <div class="carousel-item" data-bs-interval="4000">
@@ -69,7 +69,7 @@
                           </svg>
                           Desafiar a un amigo
                         </h4>
-                        <p>Selecciona un amigo de tu lista para jugar una partida contra él.</p>
+                        <p>Selecciona un amigo de tu lista para jugar una partida contra él</p>
                       </div>
                     </div>
                     <div class="carousel-item" data-bs-interval="4000">
@@ -81,7 +81,7 @@
                           </svg>
                           Modo torneo
                         </h4>
-                        <p>Crea o inscríbete en un torneo en el que participarán X jugadores.</p>
+                        <p>Crea un torneo con otros 3 amigos</p>
                       </div>
                     </div>
                     <div class="carousel-item" data-bs-interval="4000">
@@ -94,7 +94,7 @@
                           </svg>
                           Partidas en curso
                           </h4>
-                        <p>Visualiza las partidas que tienes actualmente abiertas.</p>
+                        <p>Visualiza las partidas que tienes actualmente abiertas</p>
                       </div>
                     </div>
                     <div class="carousel-item h-50">
@@ -106,7 +106,7 @@
                           </svg>
                           Partida contra la IA
                           </h4>
-                        <p>Juega una partida contra el ordenador. Estas partidas no modificarán tus puntos.</p>
+                        <p>Juega una partida contra el ordenador. Estas partidas no modificarán tus puntos</p>
                       </div>
                     </div>
                   </div>

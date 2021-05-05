@@ -11,10 +11,6 @@
       
       <Infobar></Infobar>   <!-- Información adicional -->
     </div>
-    <!-- <br> <br> <br> <br> <br> <br>
-    <br> <br> <br> <br> <br> <br>
-    <br> <br> <br> <br> <br> <br>
-    <br> <br> <br> <br> <br> <br> -->
   </div>
   
 </template>

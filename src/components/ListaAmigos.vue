@@ -76,7 +76,6 @@
                             </svg> {{amigo}}
                     </p>
                     </a>
-                    <!-- <p style="background-color: coral;">-</p> -->
                 </div>
             </div>
 
