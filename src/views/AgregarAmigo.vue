@@ -93,9 +93,11 @@ export default {
       })
       .then(resp => {
         //Petición enviada correctamente
+        console.log("Petición enviada. Respuesta: " + resp);
         this.setSalientes(resp.data)
         this.esEnviado = true
         this.datosInvalidos = false
+        this.$socket.emit("friendPetition", {nombreUsuario: this.nombre});
         })
         
       .catch(error => {

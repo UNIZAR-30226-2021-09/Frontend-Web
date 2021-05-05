@@ -7,22 +7,17 @@ import VueAxios from 'vue-axios';
 import Toasted from 'vue-toasted';
  
 Vue.use(Toasted)
-// import SocketIO from "socket.io-client";
-// import VueSocketIO from 'vue-socket.io';
+import SocketIO from "socket.io-client";
+import VueSocketIO from 'vue-socket.io';
 
-// const options = { path: '/my-app/' }; //Options object to pass into SocketIO
+import {mapState, mapMutations} from 'vuex'
 
-// Vue.use(new VueSocketIO({
-//   debug: true,
-//   connection: VueSocketIO('http://localhost:3001', options),   //TODO: CAMBIAR LA DIRECCIÓN A LA BUENA PARA PODER HACER LAS PETIS
-//   vuex: {
-//       store,
-//       actionPrefix: 'SOCKET_',
-//       mutationPrefix: 'SOCKET_'
-//   }
-// }))
+const options = { withCredentials: false };
 
-import {mapState} from 'vuex'
+Vue.use(new VueSocketIO({
+  debug: true,
+  connection: SocketIO('https://proyecto-software-09.herokuapp.com', options)
+}));
 
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
@@ -44,9 +39,35 @@ new Vue({
       //this.$router.push('login');
     }else{
       console.log('El token es: ' + this.perfil.token)
-      //this.$socket.emit("logMe", { nombreUsuario: "User4"});
+      this.$socket.emit("logMe", { nombreUsuario: this.perfil.nombreUsuario});
     }
   } ,
+   sockets:{
+    llegaInvitacion: function (){
+      if (this.perfil.token != ''){
+        //this.host me sale undefined
+        console.log("llega invitacion");
+      let dir = this.host + '/user/incomingRequests';
+      console.log(dir);
+      axios
+      .post(dir, {
+          nombreUsuario: this.perfil.nombreUsuario,
+          accessToken: this.perfil.token
+      })
+      .then(resp => {
+      //Petición enviada correctamente
+      console.log("Petición enviada. Respuesta: " + resp.data);
+      this.setEntrante(resp.data);
+      console.log(this.perfil.peticionesRecibidas);
+      })
+      
+      .catch(error => {
+      //Error al enviar la petición
+      console.log(error.response.request.response)
+      });
+      }
+    }
+  },
   computed:{
     ...mapState(['perfil'])
   }
