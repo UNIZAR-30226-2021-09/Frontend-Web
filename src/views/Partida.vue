@@ -17,7 +17,7 @@
                 <p></p>
                 <br>
 
-                <h2>{{titulo}}</h2>
+                <h2>{{mensaje}}</h2>
 
 
                 <div class="row">
@@ -66,13 +66,30 @@ import ListaAmigos from '@/components/ListaAmigos.vue'
 
 export default {
   name: 'Partida',
+  computed:{
+    mensaje :function(){
+      let retVal = 'Partida contra ' + this.adversario + ': ';
+      if (this.colocarFlota){
+        retVal += 'Coloca tus barcos';
+      }else{ //La flota ya está colocada
+        if (this.miTurno){
+          retVal += 'Tu turno';
+        }else{
+          retVal += 'Turno de ' + this.adversario;
+        }
+      }
+      return retVal;
+    }
+  },
   components: {
     ListaAmigos
   },
   data() {
         return{ 
           titulo: 'Partida contra _____',
-          adversario: '_____'
+          adversario: '_____',
+          miTurno: true,
+          colocarFlota: true
         }
   },
   methods: {
