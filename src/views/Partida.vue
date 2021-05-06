@@ -42,11 +42,11 @@
 
                 <div class="container">
                   <div class="grid-display">
-                    <div class="ship destroyer-container" draggable="true"><div id="destroyer-0"></div><div id="destroyer-1"></div></div>
-                    <div class="ship submarine-container" draggable="true"><div id="submarine-0"></div><div id="submarine-1"></div><div id="submarine-2"></div></div>
-                    <div class="ship cruiser-container" draggable="true"><div id="cruiser-0"></div><div id="cruiser-1"></div><div id="cruiser-2"></div></div>
-                    <div class="ship battleship-container" draggable="true"><div id="battleship-0"></div><div id="battleship-1"></div><div id="battleship-2"></div><div id="battleship-3"></div></div>
-                    <div class="ship carrier-container" draggable="true"><div id="carrier-0"></div><div id="carrier-1"></div><div id="carrier-2"></div><div id="carrier-3"></div><div id="carrier-4"></div></div>
+                    <div id="destroyer" class="ship destroyer-container" draggable="true"><div id="destroyer-0"></div><div id="destroyer-1"></div></div>
+                    <div id="submarine" class="ship submarine-container" draggable="true"><div id="submarine-0"></div><div id="submarine-1"></div><div id="submarine-2"></div></div>
+                    <div id="cruiser" class="ship cruiser-container" draggable="true"><div id="cruiser-0"></div><div id="cruiser-1"></div><div id="cruiser-2"></div></div>
+                    <div id="battleship" class="ship battleship-container" draggable="true"><div id="battleship-0"></div><div id="battleship-1"></div><div id="battleship-2"></div><div id="battleship-3"></div></div>
+                    <div id="carrier" class="ship carrier-container" draggable="true"><div id="carrier-0"></div><div id="carrier-1"></div><div id="carrier-2"></div><div id="carrier-3"></div><div id="carrier-4"></div></div>
                   </div>
                 </div>
 
@@ -116,6 +116,14 @@ export default {
     const rotateButton = document.querySelector('#rotate')
     const restartButton = document.querySelector('#restart')
     const turnDisplay = document.querySelector('#whose-go')
+
+    //Nos guardamos los barcos por si hay que volverlos a poner en el grid inferior
+    const destroyer_saved = document.querySelector('#destroyer')
+    const submarine_saved = document.querySelector('#submarine')
+    const cruiser_saved = document.querySelector('#cruiser')
+    const battleship_saved = document.querySelector('#battleship')
+    const carrier_saved = document.querySelector('#carrier')
+
     // const infoDisplay = document.querySelector('#info')
     // const setupButtons = document.getElementById('setup-buttons')
         
@@ -218,12 +226,26 @@ export default {
     }
 
     function restartGrid() {
-      //createBoard(userGrid, userSquares, gridIdentifier)
-
+      //Limpiar el tablero
       userSquares.forEach(element => element.className = "")  //Borramos el tablero actual
       //userSquares.forEach(element => console.log(element.classList)) //Imprimimos las clases de cada uno de los recuadros
-      console.log(displayGrid)
-      //classList.add('taken', shipClass)
+      
+      //Limpiamos el tablero
+      displayGrid.children.forEach(elem => displayGrid.removeChild(document.querySelector(('#'+elem.id))))
+      
+      // displayGrid.removeChild(document.querySelector('#destroyer'))
+      // displayGrid.removeChild(document.querySelector('#submarine'))
+      // displayGrid.removeChild(document.querySelector('#cruiser'))
+      // displayGrid.removeChild(document.querySelector('#battleship'))
+      // displayGrid.removeChild(document.querySelector('#carrier'))
+
+      //Y volvemos a meterlos todos
+      displayGrid.appendChild(destroyer_saved)
+      displayGrid.appendChild(submarine_saved)
+      displayGrid.appendChild(cruiser_saved)
+      displayGrid.appendChild(battleship_saved)
+      displayGrid.appendChild(carrier_saved)
+
     }
 
     rotateButton.addEventListener('click', rotate)
