@@ -31,9 +31,10 @@
                 </div>
 
                 <div class="container hidden-info">
-                  <div class="setup-buttons" id="setup-buttons">
-                    <button id="start" class="btn btn-primary">Empezar partida</button>
-                    <button id="rotate" class="btn btn-primary" >Rotar los barcos</button>
+                  <div class="setup-buttons btn-group" id="setup-buttons">
+                    <button id="start" class="btn btn-outline-primary">Empezar partida</button>
+                    <button id="rotate" class="btn btn-outline-primary" >Rotar los barcos</button>
+                    <button id="restart" class="btn btn-outline-primary" >Reiniciar mi tablero</button>
                   </div>
                   <h3 id="whose-go" class="info-text">Your Go</h3>
                   <h3 id="info" class="info-text"></h3>
@@ -113,6 +114,7 @@ export default {
     const carrier = document.querySelector('.carrier-container')
     const startButton = document.querySelector('#start')
     const rotateButton = document.querySelector('#rotate')
+    const restartButton = document.querySelector('#restart')
     const turnDisplay = document.querySelector('#whose-go')
     // const infoDisplay = document.querySelector('#info')
     // const setupButtons = document.getElementById('setup-buttons')
@@ -205,6 +207,7 @@ export default {
       cruiser.classList.toggle('cruiser-container-vertical')
       battleship.classList.toggle('battleship-container-vertical')
       carrier.classList.toggle('carrier-container-vertical')
+      displayGrid.classList.toggle('grid-display-vertical')
       if (isHorizontal) {
         isHorizontal = false
         return
@@ -214,8 +217,17 @@ export default {
       }
     }
 
-    rotateButton.addEventListener('click', rotate)
+    function restartGrid() {
+      //createBoard(userGrid, userSquares, gridIdentifier)
 
+      userSquares.forEach(element => element.className = "")  //Borramos el tablero actual
+      //userSquares.forEach(element => console.log(element.classList)) //Imprimimos las clases de cada uno de los recuadros
+      console.log(displayGrid)
+      //classList.add('taken', shipClass)
+    }
+
+    rotateButton.addEventListener('click', rotate)
+    restartButton.addEventListener('click', restartGrid)
     //A cada barco le asignamos la función dragStart si ocurre el evento de drag
     ships.forEach(ship => ship.addEventListener('dragstart', dragStart))
     //A los cuadraditos les asignamos todos los eventos necesarios
@@ -273,6 +285,7 @@ export default {
     }
 
     function dragDrop() {
+      console.log(draggedShip)
       let shipNameWithLastId = draggedShip.lastChild.id
       let shipClass = shipNameWithLastId.slice(0, -2)
       //console.log('Barco: ' + shipClass)
@@ -408,6 +421,15 @@ export default {
     margin: 20px;
     /* background-color: yellow; */
     background-image: url('~@/assets/base_barcos.jpg');
+  }
+
+  .grid-display-vertical{
+    width: 400px;
+    height: 400px;
+    margin: 20px;
+    /* background-color: yellow; */
+    background-image: url('~@/assets/base_barcos.jpg');
+    display: flex;
   }
 
   .destroyer-container {
