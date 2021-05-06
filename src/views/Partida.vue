@@ -397,9 +397,9 @@ export default {
     function playGame() {
       if (currentPlayer === 'user'){
         turnDisplay.innerHTML = 'Mi turno'
-        computerSquares.forEach(square => square.addEventListener('click', function(e){
+        computerSquares.forEach(square => square.addEventListener('click', function(){
           revealSquare(square)
-          console.log(e)
+          //console.log(e)
         }))
       }
       if (currentPlayer === 'computer'){
