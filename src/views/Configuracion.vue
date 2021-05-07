@@ -31,9 +31,9 @@
                       {{configuracion.barcos}}
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                      <li><p class="dropdown-item" @click="setColor('Azul')" >Azul</p></li>
+                      <li><p class="dropdown-item" @click="setColor('Rojo')" >Rojo</p></li>
+                      <li><p class="dropdown-item" @click="setColor('Verde')" >Verde</p></li>
                     </ul>
                   </div>
 
@@ -43,9 +43,11 @@
                       {{configuracion.tablero}}
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                      <li><p class="dropdown-item" @click="setTablero('Océano')" >Océano</p></li>
+                      <li><p class="dropdown-item" @click="setTablero('Desierto')" >Desierto</p></li>
+                      <li><p class="dropdown-item" @click="setTablero('Césped')" >Césped</p></li>
+                      <li><p class="dropdown-item" @click="setTablero('Espacio')" >Espacio</p></li>
+                      <li><p class="dropdown-item" @click="setTablero('Lava')" >Lava</p></li>
                     </ul>
                   </div>
                   
@@ -55,7 +57,7 @@
                       {{configuracion.idioma}}
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <li><p class="dropdown-item" >Español</p></li>
+                      <li><p class="dropdown-item" @click="setIdioma('Español')" >Español</p></li>
                       <li><p class="dropdown-item" @click="setIdioma('Inglés')" >Inglés</p></li>
                     </ul>
                   </div>

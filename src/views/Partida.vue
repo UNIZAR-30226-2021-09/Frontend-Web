@@ -38,7 +38,7 @@
 
                 <div class="grids-container ">
                   <div class="battleship-grid grid-user"></div>
-                  <div class="battleship-grid grid-computer"></div>
+                  <div style=" background-image: url('@/assets/oceano.jpg'); " class="battleship-grid grid-computer"></div>
                 </div>
 
                 <div class="container hidden-info">
@@ -514,7 +514,8 @@ export default {
     height: 400px;
     display: flex; /* Esto sirve para que los cuadraditos estén juntos */
     flex-wrap: wrap;
-    background-color: lightgreen;
+    /* background-color: lightgreen; */
+    /* background-image: url('~@/assets/oceano.jpg'); */
     margin: 20px;
   }
 
