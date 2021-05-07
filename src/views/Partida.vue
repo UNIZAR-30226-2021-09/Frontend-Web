@@ -60,7 +60,7 @@
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="currentColor" class="bi bi-eraser" viewBox="0 0 16 18">
                         <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm2.121.707a1 1 0 0 0-1.414 0L4.16 7.547l5.293 5.293 4.633-4.633a1 1 0 0 0 0-1.414l-3.879-3.879zM8.746 13.547 3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"/>
                       </svg>
-                      Reiniciar mi tablero
+                      Quitar mis barcos
                     </button>
                   </div>
                   <h3 id="whose-go" class="info-text">Your Go</h3>
@@ -69,7 +69,7 @@
 
                 <div class="container">
                   <div class="grid-display">
-                    <div id="destroyer" class="ship destroyer-container" draggable="true"><div id="destroyer-0"></div><div id="destroyer-1"></div></div>
+                    <div @click="bomb" id="destroyer" class="ship destroyer-container" draggable="true"><div  id="destroyer-0"></div><div id="destroyer-1"></div></div>
                     <div id="submarine" class="ship submarine-container" draggable="true"><div id="submarine-0"></div><div id="submarine-1"></div><div id="submarine-2"></div></div>
                     <div id="cruiser" class="ship cruiser-container" draggable="true"><div id="cruiser-0"></div><div id="cruiser-1"></div><div id="cruiser-2"></div></div>
                     <div id="battleship" class="ship battleship-container" draggable="true"><div id="battleship-0"></div><div id="battleship-1"></div><div id="battleship-2"></div><div id="battleship-3"></div></div>
@@ -90,9 +90,20 @@
 #######################################SCRIPT#######################################
 <script>
 import ListaAmigos from '@/components/ListaAmigos.vue'
+import useSound from 'vue-use-sound'
+import bombSfx from '../assets/bomb.mp3'
+import waterSfx from '../assets/water.mp3'
 
 
 export default {
+  setup() {
+    const [bomb] = useSound(bombSfx)
+    const [water] = useSound(waterSfx)
+    return {
+      bomb,
+      water
+    }
+  },
   name: 'Partida',
   computed:{
     mensaje :function(){
@@ -117,48 +128,278 @@ export default {
           titulo: 'Partida contra _____',
           adversario: '_____',
           miTurno: true,
-          colocarFlota: true
+          colocarFlota: true,
+
+          //Variables de la lógica del juego
+          userGrid: '',
+          computerGrid: '',
+          gridIdentifier: '',
+          compGridIdentifier: '',
+
+          displayGrid: '',
+          ships: '',
+          destroyer: '',
+          submarine: '',
+          cruiser: '',
+          battleship: '',
+          carrier: '',
+
+          startButton: '',
+          restartButton: '',
+          rotateButton: '',
+          turnDisplay: '',
+
+          destroyer_saved: '',
+          submarine_saved: '',
+          cruiser_saved: '',
+          battleship_saved: '',
+          carrier_saved: '',
+
+          userSquares: [],
+          computerSquares: [],
+          isHorizontal: true,
+          currentPlayer: 'user',
+
+          width: 10,
+
+          //Variables que nos servirán para guardar información relevante
+          selectedShipNameWithIndex: '',
+          draggedShip: '',
+          draggedShipLength: '',
+
         }
   },
   methods: {
+    //Game logic
+    //Create Board
+    createBoard: function (grid, squares, id) {
+      for (let i = 0; i < this.width*this.width; i++) {
+        const square = document.createElement('div')
+        square.dataset.id = i
+        //Hay que meterle el identificador interno que le pone vue al padre, porque sino no coge los estilos bien
+        var t = document.createAttribute(id) 
+        square.attributes.setNamedItem(t)
+        //
+        grid.appendChild(square)
+        squares.push(square)
+      }
+    },
+    //Función que pone algunos barquitos para ver si se pueden seleccionar bien
+    createDebugBoard: function (grid, squares, id){
+      for (let i = 0; i < this.width*this.width; i++) {
+        const square = document.createElement('div')
+        square.dataset.id = i
+        //Hay que meterle el identificador interno que le pone vue al padre, porque sino no coge los estilos bien
+        var t = document.createAttribute(id) 
+        square.attributes.setNamedItem(t)
+        //
+        if(i%3 == 0){
+          square.classList.add('taken', 'cruiser')
+        }
+        grid.appendChild(square)
+        squares.push(square)
+      }
+    },
+    //Función para rotar los barcos
+    rotate: function () {
+      this.destroyer.classList.toggle('destroyer-container-vertical')
+      this.submarine.classList.toggle('submarine-container-vertical')
+      this.cruiser.classList.toggle('cruiser-container-vertical')
+      this.battleship.classList.toggle('battleship-container-vertical')
+      this.carrier.classList.toggle('carrier-container-vertical')
+      this.displayGrid.classList.toggle('grid-display-vertical')
+      if (this.isHorizontal) {
+        this.isHorizontal = false
+        return
+      }else { //Está en vertical
+        this.isHorizontal = true
+        return
+      }
+    },
+    restartGrid: function () {
+      //Limpiar el tablero
+      this.userSquares.forEach(element => element.className = "")  //Borramos el tablero actual
+      //userSquares.forEach(element => console.log(element.classList)) //Imprimimos las clases de cada uno de los recuadros
+      
+      //Limpiamos el tablero
+      this.displayGrid.children.forEach(elem => this.displayGrid.removeChild(document.querySelector('#'+elem.id)))
+      
+      // displayGrid.removeChild(document.querySelector('#destroyer'))
+      // displayGrid.removeChild(document.querySelector('#submarine'))
+      // displayGrid.removeChild(document.querySelector('#cruiser'))
+      // displayGrid.removeChild(document.querySelector('#battleship'))
+      // displayGrid.removeChild(document.querySelector('#carrier'))
 
+      //Y volvemos a meterlos todos
+      this.displayGrid.appendChild(this.destroyer_saved)
+      this.displayGrid.appendChild(this.submarine_saved)
+      this.displayGrid.appendChild(this.cruiser_saved)
+      this.displayGrid.appendChild(this.battleship_saved)
+      this.displayGrid.appendChild(this.carrier_saved)
+
+    },
+    dragStart: function () {
+      //Nos guardamos la información de qué barco estamos cogiendo y qué longitud tiene
+      console.log(this)
+      console.log(this.ships)
+      this.draggedShip = this
+      this.draggedShipLength = this.childNodes.length
+      // console.log(draggedShip)
+    },
+    dragOver: function (e) {
+      e.preventDefault()
+    },
+    dragEnter: function (e) {
+      e.preventDefault()
+    },
+    dragLeave: function () {
+      // console.log('drag leave')
+    },
+    isEmpty: function (isH, dragLen, selectedShipIndex, id) {
+      let seems = true
+      if(isH){
+        for (let i=0; i < dragLen; i++) {
+          let element = this.userSquares[id - selectedShipIndex + i]
+          if ((' ' + element.className + ' ').indexOf('taken') > -1) seems = false
+        }
+      }else{
+        for (let i=0; i < dragLen; i++) {
+          let element = this.userSquares[id - selectedShipIndex * i]
+          if ((' ' + element.className + ' ').indexOf('taken') > -1) seems = false
+        }
+      }
+      return seems
+
+    },
+    dragDrop: function () {
+      console.log(this.draggedShip)
+      let shipNameWithLastId = this.draggedShip.lastChild.id
+      let shipClass = shipNameWithLastId.slice(0, -2)
+      //console.log('Barco: ' + shipClass)
+      let lastShipIndex = parseInt(shipNameWithLastId.substr(-1))
+      let shipLastId = lastShipIndex + parseInt(this.dataset.id)
+      const notAllowedHorizontal = [0,10,20,30,40,50,60,70,80,90,1,11,21,31,41,51,61,71,81,91,2,22,32,42,52,62,72,82,92,3,13,23,33,43,53,63,73,83,93]
+      const notAllowedVertical = [99,98,97,96,95,94,93,92,91,90,89,88,87,86,85,84,83,82,81,80,79,78,77,76,75,74,73,72,71,70,69,68,67,66,65,64,63,62,61,60]
+      
+      let newNotAllowedHorizontal = notAllowedHorizontal.splice(0, 10 * lastShipIndex)
+      let newNotAllowedVertical = notAllowedVertical.splice(0, 10 * lastShipIndex)
+
+      //console.log('Cojo ' + selectedShipNameWithIndex)
+
+      let selectedShipIndex = parseInt(this.selectedShipNameWithIndex.substr(-1))
+
+      // console.log('selected ship index: ' + selectedShipIndex)
+      // console.log('shiplastid: ' + shipLastId)
+      if (this.isHorizontal){
+        shipLastId = shipLastId - selectedShipIndex
+      }else{
+        shipLastId = shipLastId - (selectedShipIndex * this.width)
+      }
+      
+      // console.log('Acaba: ' + shipLastId)
+      // console.log('???: ' + this.dataset.id)
+
+      let empty = this.isEmpty(this.isHorizontal, this.draggedShipLength, selectedShipIndex, parseInt(this.dataset.id))
+
+      //console.log('Empty = ' + empty)
+
+      if (this.isHorizontal && !newNotAllowedHorizontal.includes(shipLastId) && empty) {
+        for (let i=0; i < this.draggedShipLength; i++) {
+          // // let directionClass
+          // // if (i === 0) directionClass = 'start'
+          // // if (i === draggedShipLength - 1) directionClass = 'end'
+          //Pintamos el barco en el tablero
+          this.userSquares[parseInt(this.dataset.id) - selectedShipIndex + i].classList.add('taken', shipClass)
+        }
+      //As long as the index of the ship you are dragging is not in the newNotAllowedVertical array! This means that sometimes if you drag the ship by its
+      //index-1 , index-2 and so on, the ship will rebound back to the displayGrid.
+      } else if (!this.isHorizontal && !newNotAllowedVertical.includes(shipLastId) && empty) {
+        for (let i=0; i < this.draggedShipLength; i++) {
+          // let directionClass
+          // if (i === 0) directionClass = 'start'
+          // if (i === draggedShipLength - 1) directionClass = 'end'
+          this.userSquares[parseInt(this.dataset.id) - selectedShipIndex + this.width*i].classList.add('taken', shipClass)
+        }
+      } else return
+      // console.log(userSquares)
+
+      console.log(this.displayGrid)
+      this.displayGrid.removeChild(this.draggedShip) //Quitamos el barco de abajo
+      // if(!displayGrid.querySelector('.ship')) allShipsPlaced = true
+    },
+    dragEnd: function () {
+      // console.log('dragend')
+    },
+    revealSquare: function (square) {
+       if(square.classList.contains('taken')){ //He clickado en una posición donde había un barco
+         console.log('BOOM')
+         square.classList.add('boom') //Marcamos que he acertado
+
+       }else{
+         square.classList.add('miss')
+         console.log('miss~~')
+       }
+    },
+    //Lógica del juego
+    playGame: function () {
+      if (this.currentPlayer === 'user'){
+        this.turnDisplay.innerHTML = 'Mi turno'
+        let self = this; //Para usar este this dentro de la función de flecha! :D (https://forum.vuejs.org/t/is-not-a-function/12444)
+        this.computerSquares.forEach(square => square.addEventListener('click', function(){
+          self.revealSquare(square)
+        }))
+      }
+      if (this.currentPlayer === 'computer'){
+        this.turnDisplay.innerHTML = 'Turno del rival'
+      }
+    },
+    
+
+
+    //Extra functions
+    disparo: function(square){
+      if(square.classList.contains('taken')){ //He clickado en una posición donde había un barco
+        console.log('BOOM')
+        square.classList.add('boom') //Marcamos que he acertado
+
+      }else{
+        square.classList.add('miss')
+        console.log('miss~~')
+      }
+    }
   },
   mounted() {
-    const userGrid = document.querySelector('.grid-user')
-    const computerGrid = document.querySelector('.grid-computer')
-    const gridIdentifier = userGrid.attributes.item(0).name
-    const compGridIdentifier = computerGrid.attributes.item(0).name
+    this.userGrid = document.querySelector('.grid-user')
+    this.computerGrid = document.querySelector('.grid-computer')
+    this.gridIdentifier = this.userGrid.attributes.item(0).name
+    this.compGridIdentifier = this.computerGrid.attributes.item(0).name
     // console.log('User grid:')
     // console.log(userGrid)
     // console.log('El identificador del grid del usuario es ' + gridIdentifier)
 
-    const displayGrid = document.querySelector('.grid-display')
-    const ships = document.querySelectorAll('.ship')
-    const destroyer = document.querySelector('.destroyer-container')
-    const submarine = document.querySelector('.submarine-container')
-    const cruiser = document.querySelector('.cruiser-container')
-    const battleship = document.querySelector('.battleship-container')
-    const carrier = document.querySelector('.carrier-container')
-    const startButton = document.querySelector('#start')
-    const rotateButton = document.querySelector('#rotate')
-    const restartButton = document.querySelector('#restart')
-    const turnDisplay = document.querySelector('#whose-go')
+    this.displayGrid = document.querySelector('.grid-display')
+    this.ships = document.querySelectorAll('.ship')
+    this.destroyer = document.querySelector('.destroyer-container')
+    this.submarine = document.querySelector('.submarine-container')
+    this.cruiser = document.querySelector('.cruiser-container')
+    this.battleship = document.querySelector('.battleship-container')
+    this.carrier = document.querySelector('.carrier-container')
+    
+    this.startButton = document.querySelector('#start')
+    this.restartButton = document.querySelector('#restart')
+    this.rotateButton = document.querySelector('#rotate')
+    this.turnDisplay = document.querySelector('#whose-go')
 
     //Nos guardamos los barcos por si hay que volverlos a poner en el grid inferior
-    const destroyer_saved = document.querySelector('#destroyer')
-    const submarine_saved = document.querySelector('#submarine')
-    const cruiser_saved = document.querySelector('#cruiser')
-    const battleship_saved = document.querySelector('#battleship')
-    const carrier_saved = document.querySelector('#carrier')
+    this.destroyer_saved = document.querySelector('#destroyer')
+    this.submarine_saved = document.querySelector('#submarine')
+    this.cruiser_saved = document.querySelector('#cruiser')
+    this.battleship_saved = document.querySelector('#battleship')
+    this.carrier_saved = document.querySelector('#carrier')
 
     // const infoDisplay = document.querySelector('#info')
     // const setupButtons = document.getElementById('setup-buttons')
         
-    let userSquares = []
-    let computerSquares = []
-    let isHorizontal = true
-    let currentPlayer = 'user'
-    // let allShipsPlaced = false
 
     //Array de los barcos con sus posibles orientaciones (horizontal y vertical)
     // const shipArray = [
@@ -199,227 +440,39 @@ export default {
     //   },
     // ]
 
-    const width = 10
 
-    //Create Board
-    function createBoard(grid, squares, id) {
-      for (let i = 0; i < width*width; i++) {
-        const square = document.createElement('div')
-        square.dataset.id = i
-        //Hay que meterle el identificador interno que le pone vue al padre, porque sino no coge los estilos bien
-        var t = document.createAttribute(id) 
-        square.attributes.setNamedItem(t)
-        //
-        grid.appendChild(square)
-        squares.push(square)
-      }
-    }
+  
+    this.createBoard(this.userGrid, this.userSquares, this.gridIdentifier)
+    this.createDebugBoard(this.computerGrid, this.computerSquares, this.compGridIdentifier)
 
-    //Función que pone algunos barquitos para ver si se pueden seleccionar bien
-    function createDebugBoard(grid, squares, id){
-      for (let i = 0; i < width*width; i++) {
-        const square = document.createElement('div')
-        square.dataset.id = i
-        //Hay que meterle el identificador interno que le pone vue al padre, porque sino no coge los estilos bien
-        var t = document.createAttribute(id) 
-        square.attributes.setNamedItem(t)
-        //
-        if(i%3 == 0){
-          square.classList.add('taken', 'cruiser')
-        }
-        grid.appendChild(square)
-        squares.push(square)
-      }
-    }
-    
-    createBoard(userGrid, userSquares, gridIdentifier)
-    createDebugBoard(computerGrid, computerSquares, compGridIdentifier)
 
-    //Función para rotar los barcos
-    function rotate() {
-      destroyer.classList.toggle('destroyer-container-vertical')
-      submarine.classList.toggle('submarine-container-vertical')
-      cruiser.classList.toggle('cruiser-container-vertical')
-      battleship.classList.toggle('battleship-container-vertical')
-      carrier.classList.toggle('carrier-container-vertical')
-      displayGrid.classList.toggle('grid-display-vertical')
-      if (isHorizontal) {
-        isHorizontal = false
-        return
-      }else { //Está en vertical
-        isHorizontal = true
-        return
-      }
-    }
-
-    function restartGrid() {
-      //Limpiar el tablero
-      userSquares.forEach(element => element.className = "")  //Borramos el tablero actual
-      //userSquares.forEach(element => console.log(element.classList)) //Imprimimos las clases de cada uno de los recuadros
-      
-      //Limpiamos el tablero
-      displayGrid.children.forEach(elem => displayGrid.removeChild(document.querySelector('#'+elem.id)))
-      
-      // displayGrid.removeChild(document.querySelector('#destroyer'))
-      // displayGrid.removeChild(document.querySelector('#submarine'))
-      // displayGrid.removeChild(document.querySelector('#cruiser'))
-      // displayGrid.removeChild(document.querySelector('#battleship'))
-      // displayGrid.removeChild(document.querySelector('#carrier'))
-
-      //Y volvemos a meterlos todos
-      displayGrid.appendChild(destroyer_saved)
-      displayGrid.appendChild(submarine_saved)
-      displayGrid.appendChild(cruiser_saved)
-      displayGrid.appendChild(battleship_saved)
-      displayGrid.appendChild(carrier_saved)
-
-    }
-
-    rotateButton.addEventListener('click', rotate)
-    restartButton.addEventListener('click', restartGrid)
+    this.rotateButton.addEventListener('click', this.rotate)
+    this.restartButton.addEventListener('click', this.restartGrid)
     //A cada barco le asignamos la función dragStart si ocurre el evento de drag
-    ships.forEach(ship => ship.addEventListener('dragstart', dragStart))
+    let self = this;
+    console.log(self)
+    this.ships.forEach(ship => ship.addEventListener('dragstart', self.dragStart))
     //A los cuadraditos les asignamos todos los eventos necesarios
-    userSquares.forEach(square => square.addEventListener('dragstart', dragStart))
-    userSquares.forEach(square => square.addEventListener('dragover', dragOver))
-    userSquares.forEach(square => square.addEventListener('dragenter', dragEnter))
-    userSquares.forEach(square => square.addEventListener('dragleave', dragLeave))
-    userSquares.forEach(square => square.addEventListener('drop', dragDrop))
-    userSquares.forEach(square => square.addEventListener('dragend', dragEnd))
-
-    //Variables que nos servirán para guardar información relevante
-    let selectedShipNameWithIndex
-    let draggedShip
-    let draggedShipLength
+    this.userSquares.forEach(square => square.addEventListener('dragstart', self.dragStart))
+    this.userSquares.forEach(square => square.addEventListener('dragover', self.dragOver))
+    this.userSquares.forEach(square => square.addEventListener('dragenter', self.dragEnter))
+    this.userSquares.forEach(square => square.addEventListener('dragleave', self.dragLeave))
+    this.userSquares.forEach(square => square.addEventListener('drop', self.dragDrop))
+    this.userSquares.forEach(square => square.addEventListener('dragend', self.dragEnd))
 
     //Para obtener los ids de los barcos que estamos cogiendo
-    ships.forEach(ship => ship.addEventListener('mousedown', (e) => {
-      selectedShipNameWithIndex = e.target.id
+    this.ships.forEach(ship => ship.addEventListener('mousedown', (e) => {
+      this.selectedShipNameWithIndex = e.target.id
     }))
 
-    function dragStart() {
-      //Nos guardamos la información de qué barco estamos cogiendo y qué longitud tiene
-      draggedShip = this
-      draggedShipLength = this.childNodes.length
-      // console.log(draggedShip)
-    }
 
-    function dragOver(e) {
-      e.preventDefault()
-    }
+    
 
-    function dragEnter(e) {
-      e.preventDefault()
-    }
+    this.playGame() //############################################################################################################################################################
 
-    function dragLeave() {
-      // console.log('drag leave')
-    }
+    this.startButton.addEventListener('click', this.playGame)
 
-    function isEmpty(isH, dragLen, selectedShipIndex, id) {
-      let seems = true
-      if(isH){
-        for (let i=0; i < dragLen; i++) {
-          let element = userSquares[id - selectedShipIndex + i]
-          if ((' ' + element.className + ' ').indexOf('taken') > -1) seems = false
-        }
-      }else{
-        for (let i=0; i < dragLen; i++) {
-          let element = userSquares[id - selectedShipIndex * i]
-          if ((' ' + element.className + ' ').indexOf('taken') > -1) seems = false
-        }
-      }
-      return seems
-
-    }
-
-    function dragDrop() {
-      console.log(draggedShip)
-      let shipNameWithLastId = draggedShip.lastChild.id
-      let shipClass = shipNameWithLastId.slice(0, -2)
-      //console.log('Barco: ' + shipClass)
-      let lastShipIndex = parseInt(shipNameWithLastId.substr(-1))
-      let shipLastId = lastShipIndex + parseInt(this.dataset.id)
-      const notAllowedHorizontal = [0,10,20,30,40,50,60,70,80,90,1,11,21,31,41,51,61,71,81,91,2,22,32,42,52,62,72,82,92,3,13,23,33,43,53,63,73,83,93]
-      const notAllowedVertical = [99,98,97,96,95,94,93,92,91,90,89,88,87,86,85,84,83,82,81,80,79,78,77,76,75,74,73,72,71,70,69,68,67,66,65,64,63,62,61,60]
-      
-      let newNotAllowedHorizontal = notAllowedHorizontal.splice(0, 10 * lastShipIndex)
-      let newNotAllowedVertical = notAllowedVertical.splice(0, 10 * lastShipIndex)
-
-      //console.log('Cojo ' + selectedShipNameWithIndex)
-
-      let selectedShipIndex = parseInt(selectedShipNameWithIndex.substr(-1))
-
-      // console.log('selected ship index: ' + selectedShipIndex)
-      // console.log('shiplastid: ' + shipLastId)
-      if (isHorizontal){
-        shipLastId = shipLastId - selectedShipIndex
-      }else{
-        shipLastId = shipLastId - (selectedShipIndex * width)
-      }
-      
-      // console.log('Acaba: ' + shipLastId)
-      // console.log('???: ' + this.dataset.id)
-
-      let empty = isEmpty(isHorizontal, draggedShipLength, selectedShipIndex, parseInt(this.dataset.id))
-
-      //console.log('Empty = ' + empty)
-
-      if (isHorizontal && !newNotAllowedHorizontal.includes(shipLastId) && empty) {
-        for (let i=0; i < draggedShipLength; i++) {
-          // // let directionClass
-          // // if (i === 0) directionClass = 'start'
-          // // if (i === draggedShipLength - 1) directionClass = 'end'
-          //Pintamos el barco en el tablero
-          userSquares[parseInt(this.dataset.id) - selectedShipIndex + i].classList.add('taken', shipClass)
-        }
-      //As long as the index of the ship you are dragging is not in the newNotAllowedVertical array! This means that sometimes if you drag the ship by its
-      //index-1 , index-2 and so on, the ship will rebound back to the displayGrid.
-      } else if (!isHorizontal && !newNotAllowedVertical.includes(shipLastId) && empty) {
-        for (let i=0; i < draggedShipLength; i++) {
-          // let directionClass
-          // if (i === 0) directionClass = 'start'
-          // if (i === draggedShipLength - 1) directionClass = 'end'
-          userSquares[parseInt(this.dataset.id) - selectedShipIndex + width*i].classList.add('taken', shipClass)
-        }
-      } else return
-      // console.log(userSquares)
-
-      displayGrid.removeChild(draggedShip) //Quitamos el barco de abajo
-      // if(!displayGrid.querySelector('.ship')) allShipsPlaced = true
-    }
-
-    function dragEnd() {
-      // console.log('dragend')
-    }
-
-    //Lógica del juego
-    function playGame() {
-      if (currentPlayer === 'user'){
-        turnDisplay.innerHTML = 'Mi turno'
-        computerSquares.forEach(square => square.addEventListener('click', function(){
-          revealSquare(square)
-          //console.log(e)
-        }))
-      }
-      if (currentPlayer === 'computer'){
-        turnDisplay.innerHTML = 'Turno del rival'
-      }
-    }
-
-    playGame() //############################################################################################################################################################
-
-    startButton.addEventListener('click', playGame)
-
-    function revealSquare(square) {
-      if(square.classList.contains('taken')){ //He clickado en una posición donde había un barco
-        console.log('BOOM')
-        square.classList.add('boom') //Marcamos que he acertado
-      }else{
-        square.classList.add('miss')
-        console.log('miss~~')
-      }
-    }
+    
 
   }
 
