@@ -11,7 +11,10 @@
       
       <Infobar></Infobar>   <!-- Información adicional -->
     </div>
+     
   </div>
+ 
+
   
 </template>
 
