@@ -73,6 +73,11 @@ const routes = [
     path: '/partidasEnCurso',
     name: 'PartidasEnCurso',
     component: () => import(/* webpackChunkName: "clasificacion" */ '../views/PartidasEnCurso.vue')
+  },
+  {
+    path: '/configuracion',
+    name: 'Configuracion',
+    component: () => import(/* webpackChunkName: "configuracion" */ '../views/Configuracion.vue')
   }
 ]
 

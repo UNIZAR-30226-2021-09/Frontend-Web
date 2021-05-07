@@ -51,7 +51,12 @@ export default new Vuex.Store({
        //{nombre: 'amigo4', puntos: 20},
     ],
     amigoDesafiado: '',
-    usuarioBuscado: ''
+    usuarioBuscado: '',
+    configuracion:{
+      idioma: 'Español',
+      barcos: 'Azul',
+      tablero: 'Mar'
+    }
   },
   mutations: {
 
@@ -110,6 +115,15 @@ export default new Vuex.Store({
     },
     setUsuarioBuscado(state,user){
       state.usuarioBuscado = user;
+    },
+    setColor(state, newColor){
+      state.configuracion.barcos = newColor
+    },
+    setTablero(state, newTablero){
+      state.configuracion.tablero = newTablero
+    },
+    setIdioma(state, newIdioma){
+      state.configuracion.idioma = newIdioma
     },
     //______________________________GETTERS______________________________
     getToken(state){

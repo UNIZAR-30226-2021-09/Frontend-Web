@@ -57,8 +57,8 @@
                       Rotar los barcos
                     </button>
                     <button id="restart" @click="restartGrid" class="btn btn-outline-primary" >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="currentColor" class="bi bi-eraser" viewBox="0 0 16 18">
-                        <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm2.121.707a1 1 0 0 0-1.414 0L4.16 7.547l5.293 5.293 4.633-4.633a1 1 0 0 0 0-1.414l-3.879-3.879zM8.746 13.547 3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"/>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="currentColor" class="bi bi-eraser-fill" viewBox="0 0 16 18">
+                        <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm.66 11.34L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"/>
                       </svg>
                       Quitar mis barcos
                     </button>
@@ -69,7 +69,7 @@
 
                 <div class="container">
                   <div class="grid-display">
-                    <div @click="bomb" id="destroyer" class="ship destroyer-container" draggable="true"><div  id="destroyer-0"></div><div id="destroyer-1"></div></div>
+                    <div id="destroyer" class="ship destroyer-container" draggable="true"><div  id="destroyer-0"></div><div id="destroyer-1"></div></div>
                     <div id="submarine" class="ship submarine-container" draggable="true"><div id="submarine-0"></div><div id="submarine-1"></div><div id="submarine-2"></div></div>
                     <div id="cruiser" class="ship cruiser-container" draggable="true"><div id="cruiser-0"></div><div id="cruiser-1"></div><div id="cruiser-2"></div></div>
                     <div id="battleship" class="ship battleship-container" draggable="true"><div id="battleship-0"></div><div id="battleship-1"></div><div id="battleship-2"></div><div id="battleship-3"></div></div>
@@ -93,15 +93,18 @@ import ListaAmigos from '@/components/ListaAmigos.vue'
 import useSound from 'vue-use-sound'
 import bombSfx from '../assets/bomb.mp3'
 import waterSfx from '../assets/water.mp3'
+import dropSfx from '../assets/drop.mp3'
 
 
 export default {
   setup() {
     const [bomb] = useSound(bombSfx)
     const [water] = useSound(waterSfx)
+    const [drop] = useSound(dropSfx)
     return {
       bomb,
-      water
+      water,
+      drop
     }
   },
   name: 'Partida',
@@ -240,12 +243,14 @@ export default {
 
     revealSquare: function (square) {
        if(square.classList.contains('taken')){ //He clickado en una posición donde había un barco
-         console.log('BOOM')
-         square.classList.add('boom') //Marcamos que he acertado
+        this.bomb()
+        console.log('BOOM')
+        square.classList.add('boom') //Marcamos que he acertado
 
        }else{
-         square.classList.add('miss')
-         console.log('miss~~')
+        this.water()
+        square.classList.add('miss')
+        console.log('miss~~')
        }
     },
     //Lógica del juego
@@ -433,6 +438,7 @@ export default {
       //console.log('Empty = ' + empty)
 
       if (self.isHorizontal && !newNotAllowedHorizontal.includes(shipLastId) && empty) {
+        self.drop()
         for (let i=0; i < self.draggedShipLength; i++) {
           // // let directionClass
           // // if (i === 0) directionClass = 'start'
@@ -443,6 +449,7 @@ export default {
       //As long as the index of the ship you are dragging is not in the newNotAllowedVertical array! This means that sometimes if you drag the ship by its
       //index-1 , index-2 and so on, the ship will rebound back to the displayGrid.
       } else if (!self.isHorizontal && !newNotAllowedVertical.includes(shipLastId) && empty) {
+        self.drop()
         for (let i=0; i < self.draggedShipLength; i++) {
           // let directionClass
           // if (i === 0) directionClass = 'start'
@@ -466,13 +473,7 @@ export default {
       this.selectedShipNameWithIndex = e.target.id
     }))
 
-
-    
-
     this.playGame() //############################################################################################################################################################
-
-
-    
 
   }
 

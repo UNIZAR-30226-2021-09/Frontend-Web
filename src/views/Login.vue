@@ -116,9 +116,10 @@ export default {
         })
         
       .catch(error => {
+        console.log("ERROR")
         this.enviando = false
         //Error al hacer login
-        console.log(error.response.request.response)
+        console.log(error)
         this.invalido = true;
         this.esEnviado = false;
         });
