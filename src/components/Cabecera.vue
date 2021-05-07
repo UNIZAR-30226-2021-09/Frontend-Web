@@ -39,8 +39,8 @@
       </div>
     </nav> -->
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;">
+      <div class="container-fluid" style="margin-left: 30px; margin-right: 30px;">
         <a v-if="perfil.token === ''" class="navbar-brand" href="/">Batalla Naval</a>
         <a v-if="perfil.token != ''" class="navbar-brand" href="/inicio">Batalla Naval</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
