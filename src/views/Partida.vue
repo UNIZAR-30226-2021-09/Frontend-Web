@@ -43,20 +43,20 @@
 
                 <div class="container hidden-info">
                   <div class="setup-buttons btn-group" id="setup-buttons">
-                    <button id="start" class="btn btn-outline-primary">
+                    <button id="start" @click="playGame" class="btn btn-outline-primary">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
                         <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
                       </svg>
                       Empezar partida
                     </button>
-                    <button id="rotate" class="btn btn-outline-primary" >
+                    <button id="rotate" @click="rotate" class="btn btn-outline-primary" >
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 18">
                         <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
                         <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
                       </svg>
                       Rotar los barcos
                     </button>
-                    <button id="restart" class="btn btn-outline-primary" >
+                    <button id="restart" @click="restartGrid" class="btn btn-outline-primary" >
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="currentColor" class="bi bi-eraser" viewBox="0 0 16 18">
                         <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm2.121.707a1 1 0 0 0-1.414 0L4.16 7.547l5.293 5.293 4.633-4.633a1 1 0 0 0 0-1.414l-3.879-3.879zM8.746 13.547 3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"/>
                       </svg>
@@ -144,9 +144,6 @@ export default {
           battleship: '',
           carrier: '',
 
-          startButton: '',
-          restartButton: '',
-          rotateButton: '',
           turnDisplay: '',
 
           destroyer_saved: '',
@@ -170,11 +167,6 @@ export default {
         }
   },
   methods: {
-    setDraggedShip: function (newDraggedShip){
-      console.log(newDraggedShip)
-      this.draggedShip = newDraggedShip
-      console.log(this.draggedShip)
-    },
     //Game logic
     //Create Board
     createBoard: function (grid, squares, id) {
@@ -207,7 +199,7 @@ export default {
     },
     //Función para rotar los barcos
     rotate: function () {
-      console.log(this.draggedShip)
+      //console.log(this.draggedShip)
 
       this.destroyer.classList.toggle('destroyer-container-vertical')
       this.submarine.classList.toggle('submarine-container-vertical')
@@ -245,101 +237,6 @@ export default {
       this.displayGrid.appendChild(this.carrier_saved)
 
     },
-
-
-    // dragStart: function () {
-    //   //Nos guardamos la información de qué barco estamos cogiendo y qué longitud tiene
-    //   console.log(this)
-    //   console.log(this.ships)
-    //   this.draggedShip = this
-    //   this.draggedShipLength = this.childNodes.length
-    //   // console.log(draggedShip)
-    // },
-    // dragOver: function (e) {
-    //   e.preventDefault()
-    // },
-    // dragEnter: function (e) {
-    //   e.preventDefault()
-    // },
-    // dragLeave: function () {
-    //   // console.log('drag leave')
-    // },
-    // isEmpty: function (isH, dragLen, selectedShipIndex, id) {
-    //   let seems = true
-    //   if(isH){
-    //     for (let i=0; i < dragLen; i++) {
-    //       let element = this.userSquares[id - selectedShipIndex + i]
-    //       if ((' ' + element.className + ' ').indexOf('taken') > -1) seems = false
-    //     }
-    //   }else{
-    //     for (let i=0; i < dragLen; i++) {
-    //       let element = this.userSquares[id - selectedShipIndex * i]
-    //       if ((' ' + element.className + ' ').indexOf('taken') > -1) seems = false
-    //     }
-    //   }
-    //   return seems
-
-    // },
-    // dragDrop: function () {
-    //   console.log(this.draggedShip)
-    //   let shipNameWithLastId = this.draggedShip.lastChild.id
-    //   let shipClass = shipNameWithLastId.slice(0, -2)
-    //   //console.log('Barco: ' + shipClass)
-    //   let lastShipIndex = parseInt(shipNameWithLastId.substr(-1))
-    //   let shipLastId = lastShipIndex + parseInt(this.dataset.id)
-    //   const notAllowedHorizontal = [0,10,20,30,40,50,60,70,80,90,1,11,21,31,41,51,61,71,81,91,2,22,32,42,52,62,72,82,92,3,13,23,33,43,53,63,73,83,93]
-    //   const notAllowedVertical = [99,98,97,96,95,94,93,92,91,90,89,88,87,86,85,84,83,82,81,80,79,78,77,76,75,74,73,72,71,70,69,68,67,66,65,64,63,62,61,60]
-      
-    //   let newNotAllowedHorizontal = notAllowedHorizontal.splice(0, 10 * lastShipIndex)
-    //   let newNotAllowedVertical = notAllowedVertical.splice(0, 10 * lastShipIndex)
-
-    //   //console.log('Cojo ' + selectedShipNameWithIndex)
-
-    //   let selectedShipIndex = parseInt(this.selectedShipNameWithIndex.substr(-1))
-
-    //   // console.log('selected ship index: ' + selectedShipIndex)
-    //   // console.log('shiplastid: ' + shipLastId)
-    //   if (this.isHorizontal){
-    //     shipLastId = shipLastId - selectedShipIndex
-    //   }else{
-    //     shipLastId = shipLastId - (selectedShipIndex * this.width)
-    //   }
-      
-    //   // console.log('Acaba: ' + shipLastId)
-    //   // console.log('???: ' + this.dataset.id)
-
-    //   let empty = this.isEmpty(this.isHorizontal, this.draggedShipLength, selectedShipIndex, parseInt(this.dataset.id))
-
-    //   //console.log('Empty = ' + empty)
-
-    //   if (this.isHorizontal && !newNotAllowedHorizontal.includes(shipLastId) && empty) {
-    //     for (let i=0; i < this.draggedShipLength; i++) {
-    //       // // let directionClass
-    //       // // if (i === 0) directionClass = 'start'
-    //       // // if (i === draggedShipLength - 1) directionClass = 'end'
-    //       //Pintamos el barco en el tablero
-    //       this.userSquares[parseInt(this.dataset.id) - selectedShipIndex + i].classList.add('taken', shipClass)
-    //     }
-    //   //As long as the index of the ship you are dragging is not in the newNotAllowedVertical array! This means that sometimes if you drag the ship by its
-    //   //index-1 , index-2 and so on, the ship will rebound back to the displayGrid.
-    //   } else if (!this.isHorizontal && !newNotAllowedVertical.includes(shipLastId) && empty) {
-    //     for (let i=0; i < this.draggedShipLength; i++) {
-    //       // let directionClass
-    //       // if (i === 0) directionClass = 'start'
-    //       // if (i === draggedShipLength - 1) directionClass = 'end'
-    //       this.userSquares[parseInt(this.dataset.id) - selectedShipIndex + this.width*i].classList.add('taken', shipClass)
-    //     }
-    //   } else return
-    //   // console.log(userSquares)
-
-    //   console.log(this.displayGrid)
-    //   this.displayGrid.removeChild(this.draggedShip) //Quitamos el barco de abajo
-    //   // if(!displayGrid.querySelector('.ship')) allShipsPlaced = true
-    // },
-    // dragEnd: function () {
-    //   // console.log('dragend')
-    // },
-
 
     revealSquare: function (square) {
        if(square.classList.contains('taken')){ //He clickado en una posición donde había un barco
@@ -396,9 +293,6 @@ export default {
     this.battleship = document.querySelector('.battleship-container')
     this.carrier = document.querySelector('.carrier-container')
     
-    this.startButton = document.querySelector('#start')
-    this.restartButton = document.querySelector('#restart')
-    this.rotateButton = document.querySelector('#rotate')
     this.turnDisplay = document.querySelector('#whose-go')
 
     //Nos guardamos los barcos por si hay que volverlos a poner en el grid inferior
@@ -457,8 +351,6 @@ export default {
     this.createDebugBoard(this.computerGrid, this.computerSquares, this.compGridIdentifier)
 
 
-    this.rotateButton.addEventListener('click', this.rotate)
-    this.restartButton.addEventListener('click', this.restartGrid)
     //A cada barco le asignamos la función dragStart si ocurre el evento de drag
     this.ships.forEach(ship => ship.addEventListener('dragstart', dragStart))
     //A los cuadraditos les asignamos todos los eventos necesarios
@@ -469,14 +361,14 @@ export default {
     this.userSquares.forEach(square => square.addEventListener('drop', dragDrop))
     this.userSquares.forEach(square => square.addEventListener('dragend', dragEnd))
 
-    let self = this;
+    let self = this; //Me guardo la instancia de this, porque al entrar en las funciones de abajo ésta cambia y 
+    //  si no me lo guardara, no podría acceder a las funciones/datos de la vista.
     function dragStart() {
-      console.log(this)
+      //console.log(this)
       //Nos guardamos la información de qué barco estamos cogiendo y qué longitud tiene
       self.draggedShip = this
-      self.setDraggedShip(this)
       self.draggedShipLength = this.childNodes.length
-      console.log(self.draggedShip)
+      //console.log(self.draggedShip)
     }
 
     function dragOver(e) {
@@ -509,7 +401,7 @@ export default {
     }
 
     function dragDrop() {
-      console.log(self.draggedShip)
+      //console.log(self.draggedShip)
       let shipNameWithLastId = self.draggedShip.lastChild.id
       let shipClass = shipNameWithLastId.slice(0, -2)
       //console.log('Barco: ' + shipClass)
@@ -579,7 +471,6 @@ export default {
 
     this.playGame() //############################################################################################################################################################
 
-    this.startButton.addEventListener('click', this.playGame)
 
     
 
