@@ -164,12 +164,17 @@ export default {
 
           //Variables que nos servirán para guardar información relevante
           selectedShipNameWithIndex: '',
-          draggedShip: '',
+          draggedShip: [],
           draggedShipLength: '',
 
         }
   },
   methods: {
+    setDraggedShip: function (newDraggedShip){
+      console.log(newDraggedShip)
+      this.draggedShip = newDraggedShip
+      console.log(this.draggedShip)
+    },
     //Game logic
     //Create Board
     createBoard: function (grid, squares, id) {
@@ -202,6 +207,8 @@ export default {
     },
     //Función para rotar los barcos
     rotate: function () {
+      console.log(this.draggedShip)
+
       this.destroyer.classList.toggle('destroyer-container-vertical')
       this.submarine.classList.toggle('submarine-container-vertical')
       this.cruiser.classList.toggle('cruiser-container-vertical')
@@ -238,98 +245,102 @@ export default {
       this.displayGrid.appendChild(this.carrier_saved)
 
     },
-    dragStart: function () {
-      //Nos guardamos la información de qué barco estamos cogiendo y qué longitud tiene
-      console.log(this)
-      console.log(this.ships)
-      this.draggedShip = this
-      this.draggedShipLength = this.childNodes.length
-      // console.log(draggedShip)
-    },
-    dragOver: function (e) {
-      e.preventDefault()
-    },
-    dragEnter: function (e) {
-      e.preventDefault()
-    },
-    dragLeave: function () {
-      // console.log('drag leave')
-    },
-    isEmpty: function (isH, dragLen, selectedShipIndex, id) {
-      let seems = true
-      if(isH){
-        for (let i=0; i < dragLen; i++) {
-          let element = this.userSquares[id - selectedShipIndex + i]
-          if ((' ' + element.className + ' ').indexOf('taken') > -1) seems = false
-        }
-      }else{
-        for (let i=0; i < dragLen; i++) {
-          let element = this.userSquares[id - selectedShipIndex * i]
-          if ((' ' + element.className + ' ').indexOf('taken') > -1) seems = false
-        }
-      }
-      return seems
 
-    },
-    dragDrop: function () {
-      console.log(this.draggedShip)
-      let shipNameWithLastId = this.draggedShip.lastChild.id
-      let shipClass = shipNameWithLastId.slice(0, -2)
-      //console.log('Barco: ' + shipClass)
-      let lastShipIndex = parseInt(shipNameWithLastId.substr(-1))
-      let shipLastId = lastShipIndex + parseInt(this.dataset.id)
-      const notAllowedHorizontal = [0,10,20,30,40,50,60,70,80,90,1,11,21,31,41,51,61,71,81,91,2,22,32,42,52,62,72,82,92,3,13,23,33,43,53,63,73,83,93]
-      const notAllowedVertical = [99,98,97,96,95,94,93,92,91,90,89,88,87,86,85,84,83,82,81,80,79,78,77,76,75,74,73,72,71,70,69,68,67,66,65,64,63,62,61,60]
+
+    // dragStart: function () {
+    //   //Nos guardamos la información de qué barco estamos cogiendo y qué longitud tiene
+    //   console.log(this)
+    //   console.log(this.ships)
+    //   this.draggedShip = this
+    //   this.draggedShipLength = this.childNodes.length
+    //   // console.log(draggedShip)
+    // },
+    // dragOver: function (e) {
+    //   e.preventDefault()
+    // },
+    // dragEnter: function (e) {
+    //   e.preventDefault()
+    // },
+    // dragLeave: function () {
+    //   // console.log('drag leave')
+    // },
+    // isEmpty: function (isH, dragLen, selectedShipIndex, id) {
+    //   let seems = true
+    //   if(isH){
+    //     for (let i=0; i < dragLen; i++) {
+    //       let element = this.userSquares[id - selectedShipIndex + i]
+    //       if ((' ' + element.className + ' ').indexOf('taken') > -1) seems = false
+    //     }
+    //   }else{
+    //     for (let i=0; i < dragLen; i++) {
+    //       let element = this.userSquares[id - selectedShipIndex * i]
+    //       if ((' ' + element.className + ' ').indexOf('taken') > -1) seems = false
+    //     }
+    //   }
+    //   return seems
+
+    // },
+    // dragDrop: function () {
+    //   console.log(this.draggedShip)
+    //   let shipNameWithLastId = this.draggedShip.lastChild.id
+    //   let shipClass = shipNameWithLastId.slice(0, -2)
+    //   //console.log('Barco: ' + shipClass)
+    //   let lastShipIndex = parseInt(shipNameWithLastId.substr(-1))
+    //   let shipLastId = lastShipIndex + parseInt(this.dataset.id)
+    //   const notAllowedHorizontal = [0,10,20,30,40,50,60,70,80,90,1,11,21,31,41,51,61,71,81,91,2,22,32,42,52,62,72,82,92,3,13,23,33,43,53,63,73,83,93]
+    //   const notAllowedVertical = [99,98,97,96,95,94,93,92,91,90,89,88,87,86,85,84,83,82,81,80,79,78,77,76,75,74,73,72,71,70,69,68,67,66,65,64,63,62,61,60]
       
-      let newNotAllowedHorizontal = notAllowedHorizontal.splice(0, 10 * lastShipIndex)
-      let newNotAllowedVertical = notAllowedVertical.splice(0, 10 * lastShipIndex)
+    //   let newNotAllowedHorizontal = notAllowedHorizontal.splice(0, 10 * lastShipIndex)
+    //   let newNotAllowedVertical = notAllowedVertical.splice(0, 10 * lastShipIndex)
 
-      //console.log('Cojo ' + selectedShipNameWithIndex)
+    //   //console.log('Cojo ' + selectedShipNameWithIndex)
 
-      let selectedShipIndex = parseInt(this.selectedShipNameWithIndex.substr(-1))
+    //   let selectedShipIndex = parseInt(this.selectedShipNameWithIndex.substr(-1))
 
-      // console.log('selected ship index: ' + selectedShipIndex)
-      // console.log('shiplastid: ' + shipLastId)
-      if (this.isHorizontal){
-        shipLastId = shipLastId - selectedShipIndex
-      }else{
-        shipLastId = shipLastId - (selectedShipIndex * this.width)
-      }
+    //   // console.log('selected ship index: ' + selectedShipIndex)
+    //   // console.log('shiplastid: ' + shipLastId)
+    //   if (this.isHorizontal){
+    //     shipLastId = shipLastId - selectedShipIndex
+    //   }else{
+    //     shipLastId = shipLastId - (selectedShipIndex * this.width)
+    //   }
       
-      // console.log('Acaba: ' + shipLastId)
-      // console.log('???: ' + this.dataset.id)
+    //   // console.log('Acaba: ' + shipLastId)
+    //   // console.log('???: ' + this.dataset.id)
 
-      let empty = this.isEmpty(this.isHorizontal, this.draggedShipLength, selectedShipIndex, parseInt(this.dataset.id))
+    //   let empty = this.isEmpty(this.isHorizontal, this.draggedShipLength, selectedShipIndex, parseInt(this.dataset.id))
 
-      //console.log('Empty = ' + empty)
+    //   //console.log('Empty = ' + empty)
 
-      if (this.isHorizontal && !newNotAllowedHorizontal.includes(shipLastId) && empty) {
-        for (let i=0; i < this.draggedShipLength; i++) {
-          // // let directionClass
-          // // if (i === 0) directionClass = 'start'
-          // // if (i === draggedShipLength - 1) directionClass = 'end'
-          //Pintamos el barco en el tablero
-          this.userSquares[parseInt(this.dataset.id) - selectedShipIndex + i].classList.add('taken', shipClass)
-        }
-      //As long as the index of the ship you are dragging is not in the newNotAllowedVertical array! This means that sometimes if you drag the ship by its
-      //index-1 , index-2 and so on, the ship will rebound back to the displayGrid.
-      } else if (!this.isHorizontal && !newNotAllowedVertical.includes(shipLastId) && empty) {
-        for (let i=0; i < this.draggedShipLength; i++) {
-          // let directionClass
-          // if (i === 0) directionClass = 'start'
-          // if (i === draggedShipLength - 1) directionClass = 'end'
-          this.userSquares[parseInt(this.dataset.id) - selectedShipIndex + this.width*i].classList.add('taken', shipClass)
-        }
-      } else return
-      // console.log(userSquares)
+    //   if (this.isHorizontal && !newNotAllowedHorizontal.includes(shipLastId) && empty) {
+    //     for (let i=0; i < this.draggedShipLength; i++) {
+    //       // // let directionClass
+    //       // // if (i === 0) directionClass = 'start'
+    //       // // if (i === draggedShipLength - 1) directionClass = 'end'
+    //       //Pintamos el barco en el tablero
+    //       this.userSquares[parseInt(this.dataset.id) - selectedShipIndex + i].classList.add('taken', shipClass)
+    //     }
+    //   //As long as the index of the ship you are dragging is not in the newNotAllowedVertical array! This means that sometimes if you drag the ship by its
+    //   //index-1 , index-2 and so on, the ship will rebound back to the displayGrid.
+    //   } else if (!this.isHorizontal && !newNotAllowedVertical.includes(shipLastId) && empty) {
+    //     for (let i=0; i < this.draggedShipLength; i++) {
+    //       // let directionClass
+    //       // if (i === 0) directionClass = 'start'
+    //       // if (i === draggedShipLength - 1) directionClass = 'end'
+    //       this.userSquares[parseInt(this.dataset.id) - selectedShipIndex + this.width*i].classList.add('taken', shipClass)
+    //     }
+    //   } else return
+    //   // console.log(userSquares)
 
-      console.log(this.displayGrid)
-      this.displayGrid.removeChild(this.draggedShip) //Quitamos el barco de abajo
-      // if(!displayGrid.querySelector('.ship')) allShipsPlaced = true
-    },
-    dragEnd: function () {
-      // console.log('dragend')
-    },
+    //   console.log(this.displayGrid)
+    //   this.displayGrid.removeChild(this.draggedShip) //Quitamos el barco de abajo
+    //   // if(!displayGrid.querySelector('.ship')) allShipsPlaced = true
+    // },
+    // dragEnd: function () {
+    //   // console.log('dragend')
+    // },
+
+
     revealSquare: function (square) {
        if(square.classList.contains('taken')){ //He clickado en una posición donde había un barco
          console.log('BOOM')
@@ -449,16 +460,114 @@ export default {
     this.rotateButton.addEventListener('click', this.rotate)
     this.restartButton.addEventListener('click', this.restartGrid)
     //A cada barco le asignamos la función dragStart si ocurre el evento de drag
-    let self = this;
-    console.log(self)
-    this.ships.forEach(ship => ship.addEventListener('dragstart', self.dragStart))
+    this.ships.forEach(ship => ship.addEventListener('dragstart', dragStart))
     //A los cuadraditos les asignamos todos los eventos necesarios
-    this.userSquares.forEach(square => square.addEventListener('dragstart', self.dragStart))
-    this.userSquares.forEach(square => square.addEventListener('dragover', self.dragOver))
-    this.userSquares.forEach(square => square.addEventListener('dragenter', self.dragEnter))
-    this.userSquares.forEach(square => square.addEventListener('dragleave', self.dragLeave))
-    this.userSquares.forEach(square => square.addEventListener('drop', self.dragDrop))
-    this.userSquares.forEach(square => square.addEventListener('dragend', self.dragEnd))
+    this.userSquares.forEach(square => square.addEventListener('dragstart', dragStart))
+    this.userSquares.forEach(square => square.addEventListener('dragover', dragOver))
+    this.userSquares.forEach(square => square.addEventListener('dragenter', dragEnter))
+    this.userSquares.forEach(square => square.addEventListener('dragleave', dragLeave))
+    this.userSquares.forEach(square => square.addEventListener('drop', dragDrop))
+    this.userSquares.forEach(square => square.addEventListener('dragend', dragEnd))
+
+    let self = this;
+    function dragStart() {
+      console.log(this)
+      //Nos guardamos la información de qué barco estamos cogiendo y qué longitud tiene
+      self.draggedShip = this
+      self.setDraggedShip(this)
+      self.draggedShipLength = this.childNodes.length
+      console.log(self.draggedShip)
+    }
+
+    function dragOver(e) {
+      e.preventDefault()
+    }
+
+    function dragEnter(e) {
+      e.preventDefault()
+    }
+
+    function dragLeave() {
+      // console.log('drag leave')
+    }
+
+    function isEmpty(isH, dragLen, selectedShipIndex, id) {
+      let seems = true
+      if(isH){
+        for (let i=0; i < dragLen; i++) {
+          let element = self.userSquares[id - selectedShipIndex + i]
+          if ((' ' + element.className + ' ').indexOf('taken') > -1) seems = false
+        }
+      }else{
+        for (let i=0; i < dragLen; i++) {
+          let element = self.userSquares[id - selectedShipIndex * i]
+          if ((' ' + element.className + ' ').indexOf('taken') > -1) seems = false
+        }
+      }
+      return seems
+
+    }
+
+    function dragDrop() {
+      console.log(self.draggedShip)
+      let shipNameWithLastId = self.draggedShip.lastChild.id
+      let shipClass = shipNameWithLastId.slice(0, -2)
+      //console.log('Barco: ' + shipClass)
+      let lastShipIndex = parseInt(shipNameWithLastId.substr(-1))
+      let shipLastId = lastShipIndex + parseInt(this.dataset.id)
+      const notAllowedHorizontal = [0,10,20,30,40,50,60,70,80,90,1,11,21,31,41,51,61,71,81,91,2,22,32,42,52,62,72,82,92,3,13,23,33,43,53,63,73,83,93]
+      const notAllowedVertical = [99,98,97,96,95,94,93,92,91,90,89,88,87,86,85,84,83,82,81,80,79,78,77,76,75,74,73,72,71,70,69,68,67,66,65,64,63,62,61,60]
+      
+      let newNotAllowedHorizontal = notAllowedHorizontal.splice(0, 10 * lastShipIndex)
+      let newNotAllowedVertical = notAllowedVertical.splice(0, 10 * lastShipIndex)
+
+      //console.log('Cojo ' + selectedShipNameWithIndex)
+
+      let selectedShipIndex = parseInt(self.selectedShipNameWithIndex.substr(-1))
+
+      // console.log('selected ship index: ' + selectedShipIndex)
+      // console.log('shiplastid: ' + shipLastId)
+      if (self.isHorizontal){
+        shipLastId = shipLastId - selectedShipIndex
+      }else{
+        shipLastId = shipLastId - (selectedShipIndex * self.width)
+      }
+      
+      // console.log('Acaba: ' + shipLastId)
+      // console.log('???: ' + this.dataset.id)
+
+      let empty = isEmpty(self.isHorizontal, self.draggedShipLength, selectedShipIndex, parseInt(this.dataset.id))
+
+      //console.log('Empty = ' + empty)
+
+      if (self.isHorizontal && !newNotAllowedHorizontal.includes(shipLastId) && empty) {
+        for (let i=0; i < self.draggedShipLength; i++) {
+          // // let directionClass
+          // // if (i === 0) directionClass = 'start'
+          // // if (i === draggedShipLength - 1) directionClass = 'end'
+          //Pintamos el barco en el tablero
+          self.userSquares[parseInt(this.dataset.id) - selectedShipIndex + i].classList.add('taken', shipClass)
+        }
+      //As long as the index of the ship you are dragging is not in the newNotAllowedVertical array! This means that sometimes if you drag the ship by its
+      //index-1 , index-2 and so on, the ship will rebound back to the displayGrid.
+      } else if (!self.isHorizontal && !newNotAllowedVertical.includes(shipLastId) && empty) {
+        for (let i=0; i < self.draggedShipLength; i++) {
+          // let directionClass
+          // if (i === 0) directionClass = 'start'
+          // if (i === draggedShipLength - 1) directionClass = 'end'
+          self.userSquares[parseInt(this.dataset.id) - selectedShipIndex + self.width*i].classList.add('taken', shipClass)
+        }
+      } else return
+      // console.log(userSquares)
+
+      self.displayGrid.removeChild(self.draggedShip) //Quitamos el barco de abajo
+      // if(!displayGrid.querySelector('.ship')) allShipsPlaced = true
+    }
+
+    function dragEnd() {
+      // console.log('dragend')
+    }
+
 
     //Para obtener los ids de los barcos que estamos cogiendo
     this.ships.forEach(ship => ship.addEventListener('mousedown', (e) => {
