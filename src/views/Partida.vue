@@ -38,7 +38,7 @@
 
                 <div class="grids-container ">
                   <div class="battleship-grid grid-user"></div>
-                  <div style=" background-image: url('@/assets/oceano.jpg'); " class="battleship-grid grid-computer"></div>
+                  <div class="battleship-grid grid-computer"></div>
                 </div>
 
                 <div class="container hidden-info">
@@ -98,9 +98,9 @@ import dropSfx from '../assets/drop.mp3'
 
 export default {
   setup() {
-    const [bomb] = useSound(bombSfx)
-    const [water] = useSound(waterSfx)
-    const [drop] = useSound(dropSfx)
+    const [bomb] = useSound(bombSfx, { volume: 0.5 })
+    const [water] = useSound(waterSfx, { volume: 0.7 })
+    const [drop] = useSound(dropSfx, { volume: 0.8 })
     return {
       bomb,
       water,
@@ -515,7 +515,7 @@ export default {
     display: flex; /* Esto sirve para que los cuadraditos estén juntos */
     flex-wrap: wrap;
     /* background-color: lightgreen; */
-    /* background-image: url('~@/assets/oceano.jpg'); */
+    background-image: url('~@/assets/oceano.jpg');
     margin: 20px;
   }
 
