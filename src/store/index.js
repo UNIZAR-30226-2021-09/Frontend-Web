@@ -9,7 +9,7 @@ export default new Vuex.Store({
   })],
   state: {
     host: 'https://proyecto-software-09.herokuapp.com',
-    // host: 'localhost:3000',
+    //host: 'localhost:3001',
     perfil:{
       nombreUsuario: '',
       email: '',
@@ -55,7 +55,7 @@ export default new Vuex.Store({
     configuracion:{
       idioma: 'Español',
       barcos: 'Azul',
-      tablero: 'Mar'
+      tablero: 'Océano'
     }
   },
   mutations: {

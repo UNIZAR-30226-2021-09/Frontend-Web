@@ -1,6 +1,8 @@
 <template>
+
+
+
     <div align="center" class="container mt-5" id="app">
-      
       <p></p>
 
       <div class="mt-5"> 
@@ -36,9 +38,34 @@
                   <div class="column"> <h3>Flota de {{adversario}}</h3> </div>
                 </div>
 
-                <div class="grids-container ">
-                  <div class="battleship-grid grid-user"></div>
-                  <div class="battleship-grid grid-computer"></div>
+                <!-- Fondo de oceano -->
+                <div v-if="configuracion.tablero === 'Océano' || configuracion.tablero === 'Ocean'" class="grids-container ">
+                  <div class="battleship-grid grid-user tablero-oceano"></div>
+                  <div class="battleship-grid grid-computer tablero-oceano"></div>
+                </div>
+
+                <!-- Fondo de cesped -->
+                <div v-if="configuracion.tablero === 'Césped' || configuracion.tablero === 'Grass'" class="grids-container ">
+                  <div class="battleship-grid grid-user tablero-cesped"></div>
+                  <div class="battleship-grid grid-computer tablero-cesped"></div>
+                </div>
+
+                <!-- Fondo de desierto -->
+                <div v-if="configuracion.tablero === 'Desierto' || configuracion.tablero === 'Desert'" class="grids-container ">
+                  <div class="battleship-grid grid-user tablero-desierto"></div>
+                  <div class="battleship-grid grid-computer tablero-desierto"></div>
+                </div>
+
+                <!-- Fondo de especio -->
+                <div v-if="configuracion.tablero === 'Espacio' || configuracion.tablero === 'Space'" class="grids-container ">
+                  <div class="battleship-grid grid-user tablero-espacio"></div>
+                  <div class="battleship-grid grid-computer tablero-espacio"></div>
+                </div>
+
+                <!-- Fondo de lava -->
+                <div v-if="configuracion.tablero === 'Lava'" class="grids-container ">
+                  <div class="battleship-grid grid-user tablero-lava"></div>
+                  <div class="battleship-grid grid-computer tablero-lava"></div>
                 </div>
 
                 <div class="container hidden-info">
@@ -63,17 +90,36 @@
                       Quitar mis barcos
                     </button>
                   </div>
-                  <h3 id="whose-go" class="info-text">Your Go</h3>
+                  <h3 id="whose-go" class="info-text mt-3">Your Go</h3>
                   <h3 id="info" class="info-text"></h3>
                 </div>
 
                 <div class="container">
-                  <div class="grid-display">
-                    <div id="destroyer" class="ship destroyer-container" draggable="true"><div  id="destroyer-0"></div><div id="destroyer-1"></div></div>
-                    <div id="submarine" class="ship submarine-container" draggable="true"><div id="submarine-0"></div><div id="submarine-1"></div><div id="submarine-2"></div></div>
-                    <div id="cruiser" class="ship cruiser-container" draggable="true"><div id="cruiser-0"></div><div id="cruiser-1"></div><div id="cruiser-2"></div></div>
-                    <div id="battleship" class="ship battleship-container" draggable="true"><div id="battleship-0"></div><div id="battleship-1"></div><div id="battleship-2"></div><div id="battleship-3"></div></div>
-                    <div id="carrier" class="ship carrier-container" draggable="true"><div id="carrier-0"></div><div id="carrier-1"></div><div id="carrier-2"></div><div id="carrier-3"></div><div id="carrier-4"></div></div>
+                  <!-- Pintamos los barcos azules -->
+                  <div v-if="configuracion.barcos === 'Azul' || configuracion.barcos === 'Blue' " class="grid-display">
+                    <div id="destroyer" class="ship destroyer-container barco-Azul" draggable="true"><div  id="destroyer-0"></div><div id="destroyer-1"></div></div>
+                    <div id="submarine" class="ship submarine-container barco-Azul" draggable="true"><div id="submarine-0"></div><div id="submarine-1"></div><div id="submarine-2"></div></div>
+                    <div id="cruiser" class="ship cruiser-container barco-Azul" draggable="true"><div id="cruiser-0"></div><div id="cruiser-1"></div><div id="cruiser-2"></div></div>
+                    <div id="battleship" class="ship battleship-container barco-Azul" draggable="true"><div id="battleship-0"></div><div id="battleship-1"></div><div id="battleship-2"></div><div id="battleship-3"></div></div>
+                    <div id="carrier" class="ship carrier-container barco-Azul" draggable="true"><div id="carrier-0"></div><div id="carrier-1"></div><div id="carrier-2"></div><div id="carrier-3"></div><div id="carrier-4"></div></div>
+                  </div>
+
+                  <!-- Pintamos los barcos rojos -->
+                  <div v-if="configuracion.barcos === 'Rojo' || configuracion.barcos === 'Red' " class="grid-display">
+                    <div id="destroyer" class="ship destroyer-container barco-Rojo" draggable="true"><div  id="destroyer-0"></div><div id="destroyer-1"></div></div>
+                    <div id="submarine" class="ship submarine-container barco-Rojo" draggable="true"><div id="submarine-0"></div><div id="submarine-1"></div><div id="submarine-2"></div></div>
+                    <div id="cruiser" class="ship cruiser-container barco-Rojo" draggable="true"><div id="cruiser-0"></div><div id="cruiser-1"></div><div id="cruiser-2"></div></div>
+                    <div id="battleship" class="ship battleship-container barco-Rojo" draggable="true"><div id="battleship-0"></div><div id="battleship-1"></div><div id="battleship-2"></div><div id="battleship-3"></div></div>
+                    <div id="carrier" class="ship carrier-container barco-Rojo" draggable="true"><div id="carrier-0"></div><div id="carrier-1"></div><div id="carrier-2"></div><div id="carrier-3"></div><div id="carrier-4"></div></div>
+                  </div>
+
+                  <!-- Pintamos los barcos verdes -->
+                  <div v-if="configuracion.barcos === 'Verde' || configuracion.barcos === 'Green' " class="grid-display">
+                    <div id="destroyer" class="ship destroyer-container barco-Verde" draggable="true"><div  id="destroyer-0"></div><div id="destroyer-1"></div></div>
+                    <div id="submarine" class="ship submarine-container barco-Verde" draggable="true"><div id="submarine-0"></div><div id="submarine-1"></div><div id="submarine-2"></div></div>
+                    <div id="cruiser" class="ship cruiser-container barco-Verde" draggable="true"><div id="cruiser-0"></div><div id="cruiser-1"></div><div id="cruiser-2"></div></div>
+                    <div id="battleship" class="ship battleship-container barco-Verde" draggable="true"><div id="battleship-0"></div><div id="battleship-1"></div><div id="battleship-2"></div><div id="battleship-3"></div></div>
+                    <div id="carrier" class="ship carrier-container barco-Verde" draggable="true"><div id="carrier-0"></div><div id="carrier-1"></div><div id="carrier-2"></div><div id="carrier-3"></div><div id="carrier-4"></div></div>
                   </div>
                 </div>
 
@@ -90,6 +136,7 @@
 #######################################SCRIPT#######################################
 <script>
 import ListaAmigos from '@/components/ListaAmigos.vue'
+import {mapState} from 'vuex';
 import useSound from 'vue-use-sound'
 import bombSfx from '../assets/bomb.mp3'
 import waterSfx from '../assets/water.mp3'
@@ -98,9 +145,9 @@ import dropSfx from '../assets/drop.mp3'
 
 export default {
   setup() {
-    const [bomb] = useSound(bombSfx, { volume: 0.5 })
-    const [water] = useSound(waterSfx, { volume: 0.7 })
-    const [drop] = useSound(dropSfx, { volume: 0.8 })
+    const [bomb] = useSound(bombSfx, { volume: 0.3 })
+    const [water] = useSound(waterSfx, { volume: 0.3 })
+    const [drop] = useSound(dropSfx, { volume: 0.3 })
     return {
       bomb,
       water,
@@ -109,6 +156,23 @@ export default {
   },
   name: 'Partida',
   computed:{
+    ...mapState(['configuracion','host']), 
+    color: function(){
+      if (this.configuracion.color === "Azul" || this.configuracion.color === "Blue"){
+        return "azul"
+      }
+      if (this.configuracion.color === "Rojo" || this.configuracion.color === "Red"){
+        return "rojo" //<- orangered ?
+      }
+      if (this.configuracion.color === "Verde" || this.configuracion.color === "Green"){
+        return "verde"
+      }
+      return "ERROR"
+
+    },
+    shipStyles: function(){
+      return "background-color: this.color"
+    },
     mensaje :function(){
       let retVal = 'Partida contra ' + this.adversario + ': ';
       if (this.colocarFlota){
@@ -203,6 +267,7 @@ export default {
     //Función para rotar los barcos
     rotate: function () {
       //console.log(this.draggedShip)
+      console.log(this.configuracion.barcos)
 
       this.destroyer.classList.toggle('destroyer-container-vertical')
       this.submarine.classList.toggle('submarine-container-vertical')
@@ -434,7 +499,9 @@ export default {
       // console.log('???: ' + this.dataset.id)
 
       let empty = isEmpty(self.isHorizontal, self.draggedShipLength, selectedShipIndex, parseInt(this.dataset.id))
-
+      let colorBarco = 'barco-' + self.configuracion.barcos
+      console.log('He dejado ' + shipClass)
+      console.log('Voy a pintar los barcos con la clase ' + colorBarco)
       //console.log('Empty = ' + empty)
 
       if (self.isHorizontal && !newNotAllowedHorizontal.includes(shipLastId) && empty) {
@@ -444,7 +511,7 @@ export default {
           // // if (i === 0) directionClass = 'start'
           // // if (i === draggedShipLength - 1) directionClass = 'end'
           //Pintamos el barco en el tablero
-          self.userSquares[parseInt(this.dataset.id) - selectedShipIndex + i].classList.add('taken', shipClass)
+          self.userSquares[parseInt(this.dataset.id) - selectedShipIndex + i].classList.add('taken', colorBarco)
         }
       //As long as the index of the ship you are dragging is not in the newNotAllowedVertical array! This means that sometimes if you drag the ship by its
       //index-1 , index-2 and so on, the ship will rebound back to the displayGrid.
@@ -454,7 +521,7 @@ export default {
           // let directionClass
           // if (i === 0) directionClass = 'start'
           // if (i === draggedShipLength - 1) directionClass = 'end'
-          self.userSquares[parseInt(this.dataset.id) - selectedShipIndex + self.width*i].classList.add('taken', shipClass)
+          self.userSquares[parseInt(this.dataset.id) - selectedShipIndex + self.width*i].classList.add('taken', colorBarco)
         }
       } else return
       // console.log(userSquares)
@@ -493,12 +560,44 @@ export default {
     display: flex
   }  
 
+  .barco-Azul{
+    background-color: aqua;
+  }
+
+  .barco-Verde{
+    background-color: lightgreen;
+  }
+
+  .barco-Rojo{
+    background-color: orangered;
+  }
+
+  .tablero-oceano{
+    background-image: url('~@/assets/oceano.jpg');
+  }
+
+  .tablero-cesped{
+    background-image: url('~@/assets/cesped.jpg');
+  }
+
+  .tablero-lava{
+    background-image: url('~@/assets/lava.jpg');
+  }
+
+  .tablero-espacio{
+    background-image: url('~@/assets/espacio.jpg');
+  }
+
+  .tablero-desierto{
+    background-image: url('~@/assets/desierto.jpg');
+  }
+
   .grid-user {
     width: 400px;
     height: 400px;
     display: flex; /* Esto sirve para que los cuadraditos estén juntos */
     flex-wrap: wrap;
-    background-color: lightblue;
+    /* background-color: lightblue; */
     margin: 20px;
   }
 
@@ -515,7 +614,7 @@ export default {
     display: flex; /* Esto sirve para que los cuadraditos estén juntos */
     flex-wrap: wrap;
     /* background-color: lightgreen; */
-    background-image: url('~@/assets/oceano.jpg');
+    /* background-image: url('~@/assets/oceano.jpg'); */
     margin: 20px;
   }
 
@@ -539,7 +638,7 @@ export default {
   .destroyer-container {
     width: 80px;
     height: 40px;
-    background-image: url('~@/assets/barco_2.png');
+    /* background-color: orange; */
     margin: 10px;
     display: flex;
   }
@@ -547,20 +646,20 @@ export default {
   .destroyer-container-vertical {
     width: 40px;
     height: 80px;
-    background-image: url('~@/assets/barco_2-vert.png');
+    /* background-color: orange; */
     margin: 10px;
     display: flex;
     flex-wrap: wrap;
   }
   
-  .destroyer {
-    background-image: url('~@/assets/barco_2.png');
-  }
+  /* .destroyer {
+    background-color: orange;
+  } */
 
   .submarine-container {
     width: 120px;
     height: 40px;
-    background-image: url('~@/assets/barco_3.jpg');
+    /* background-color: pink; */
     margin: 10px;
     display: flex;
   }
@@ -568,20 +667,20 @@ export default {
   .submarine-container-vertical {
     width: 40px;
     height: 120px;
-    background-image: url('~@/assets/barco_3-vert.jpg');
+    /* background-color: pink; */
     margin: 10px;
     display: flex;
     flex-wrap: wrap;
   }
 
-  .submarine{
-    background-image: url('~@/assets/barco_3.jpg');
-  }
+  /* .submarine{
+    background-color: pink;
+  } */
 
   .cruiser-container {
     width: 120px;
     height: 40px;
-    background-color: purple;
+    /* background-color: purple; */
     margin: 10px;
     display: flex;
   }
@@ -589,20 +688,20 @@ export default {
   .cruiser-container-vertical {
     width: 40px;
     height: 120px;
-    background-color: purple;
+    /* background-color: purple; */
     margin: 10px;
     display: flex;
     flex-wrap: wrap;
   }
 
-  .cruiser {
+  /* .cruiser {
     background-color: purple;
-  }
+  } */
 
   .battleship-container {
     width: 160px;
     height: 40px;
-    background-color: aqua;
+    /* background-color: aqua; */
     margin: 10px;
     display: flex;
   }
@@ -610,20 +709,20 @@ export default {
   .battleship-container-vertical {
     width: 40px;
     height: 160px;
-    background-color: aqua;
+    /* background-color: aqua; */
     margin: 10px;
     display: flex;
     flex-wrap: wrap;
   }
 
-  .battleship {
+  /* .battleship {
     background-color: aqua;
-  }
+  } */
 
   .carrier-container {
     width: 200px;
     height: 40px;
-    background-color: green;
+    /* background-color: green; */
     margin: 10px;
     display: flex;
   }
@@ -631,15 +730,15 @@ export default {
   .carrier-container-vertical {
     width: 40px;
     height: 200px;
-    background-color: green;
+    /* background-color: green; */
     margin: 10px;
     display: flex;
     flex-wrap: wrap;
   }
 
-  .carrier {
+  /* .carrier {
     background-color: green;
-  }
+  } */
 
   .ship div{
     width: 40px;
