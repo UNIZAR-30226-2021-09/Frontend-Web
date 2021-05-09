@@ -15,25 +15,63 @@
                     <div class="row g-3">
                       <div class="action col-sm-9">
                             
-                            <img  class="img-fluid rounded "  src="@/assets/torneo_cuadricula.png" alt="lava.jpg">
+                            <img  class="img-fluid rounded "  src="@/assets/fondo_cuadricula.png" alt="lava.jpg">
                       </div>
 
-                      <div class="container col-sm-3">
+                      <div class=" container col-sm-3 bg-white">
                           <br> <br>
-                          <h3> Amigos </h3>
-                          <div v-for="amigo in perfil.listaAmigos" v-bind:key="amigo" style="border-color: green">
-                              <div  class="container border border-primary" style="margin-top: 20px;" >
-                                
-                                <p style="margin: 5px;"> {{amigo}} </p>
+
+                          <h3> Participantes: </h3>
+                          <br>
+                          <div v-for="amigo in this.participantes" v-bind:key="amigo.puesto" style="border-color: green">
+                                <p v-if="seleccionado(amigo.nombre) == 1" style="background-color: #e0ecfc; margin: 5px;"> {{amigo.nombre}}</p>
+                                <p v-else-if="seleccionado(amigo.nombre) == 2" style="background-color: #d8ecd4; margin: 5px;">{{amigo.nombre}}</p>
+                                <p v-else-if="seleccionado(amigo.nombre) == 3" style="background-color: #fff4cc; margin: 5px;">{{amigo.nombre}}</p>
+                                <p v-else-if="seleccionado(amigo.nombre) == 4" style="background-color: #f8cccc; margin: 5px;">{{amigo.nombre}}</p>
+
+                          </div>
+
+                          <br>
+
+                          <h3> Amigos: </h3>
+                          <br>
+                          <div class="overflow-auto p-3 mb-3 mb-md-0 mr-md-3" style="max-width: 260px; max-height: 320px;">
+                              <div v-for="amigo in perfil.listaAmigos" v-bind:key="amigo" style="border-color: green">
+                                <div v-if="seleccionado(amigo) == 0">
+                                  <button class="container btn border border-3 mt-2" style="margin-top: 20px;" role="button" @click="anyadir(amigo)" type="button" >
+                                    <p style="margin: 5px;"> {{amigo}}</p>
+                                  </button>
+                                </div>
+
+                                <div v-else>
+                                  <button class="container btn border border-3 mt-2 bg-secondary" style="margin-top: 20px;" role="button" @click="anyadir(amigo)" type="button" disabled >
+                                    <p style="margin: 5px;"> {{amigo}}</p>
+                                  </button>
+                                </div>
                               </div>
                           </div>
+
+                          
                             
                       </div>
 
                       
                     </div>
 
-                    <button type="button" class="btn btn-outline-secondary">Crear Torneo</button>
+                    <button type="button" class="btn btn-outline-secondary" style="margin-right: 30px;" @click="reiniciar()">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                      </svg>
+                      Reiniciar
+                    </button>
+
+                    <button type="button" class="btn btn-outline-secondary" @click="crearTorneo()">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                      </svg>
+                      Crear Torneo
+                    </button>
               
                     <br> <br>
                 </div>
@@ -62,18 +100,54 @@ export default {
   data() {
         return{ 
           nombrePag: 'Torneo',
-          titulo: 'Log in',
-          nombre: ''
+          participantes: [ {puesto: 1, nombre: ''}, {puesto: 2, nombre: ''} , {puesto: 3, nombre: ''} , {puesto: 4, nombre: ''} ],
+          siguiente: 1
         }
   },
+  created: function(){
+        this.participantes[0].nombre = this.perfil.nombreUsuario;
+    },
   methods: {
-      enviarDatos: function(){
-    }
+      seleccionado: function(amigo){
+        
+          if(amigo == this.participantes[0].nombre){
+            return 1;
+          }
+          else if (amigo == this.participantes[1].nombre){
+            return 2;
+          }
+          else if (amigo == this.participantes[2].nombre){
+            return 3;
+          }
+          else if (amigo == this.participantes[3].nombre){
+            return 4;
+          }
+          return 0;
+      },
+      anyadir: function (amigo) {
+        
+        if(this.siguiente <= 3 && this.seleccionado(amigo) == 0){
+            this.participantes[this.siguiente].nombre = amigo;
+            this.siguiente = this.siguiente + 1;
+        }
+        
+      },
+      reiniciar: function (){
+          this.participantes[1].nombre = '';
+          this.participantes[2].nombre = '';
+          this.participantes[3].nombre = '';
+          this.siguiente = 1;
+      },
+      crearTorneo: function (){
+          console.log('Enviamos las cosas al backend');
+      }
 
   },
   computed: {
       ...mapState(['perfil']), //Para recoger los datos de la lista de amigos que están almacenados en el store
-  }
+
+  },
+
 }
 </script>
 
