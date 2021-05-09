@@ -1,32 +1,43 @@
 <template>
-    <div align="center" class="container mt-5" id="app">
+    <div  class="container mt-5" id="app">
       
       <p></p>
 
-      <div class="mt-5"> 
+      <div class="mt-5" > 
          <div class="row g-3">
-            <div class="col-sm-9">
+            <div class="container col-sm-9 " >
                 
-                <h2>{{nombrePag}}</h2>
-                
-                <div class=".container mt-5">
-                  <!-- Contenido de la pagina -->
+                <h2 class="mt-3">{{nombrePag}}</h2>
+                <br>
 
-                  <div class="input-group mb-3">
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">Separated link</a></li>
-                    </ul>
-                    <input type="text" class="form-control" aria-label="Text input with dropdown button">
-                  </div>
 
+                <div class="container border rounded border-5 bg-white " >
+                    <div class="row g-3">
+                      <div class="action col-sm-9">
+                            
+                            <img  class="img-fluid rounded "  src="@/assets/torneo_cuadricula.png" alt="lava.jpg">
+                      </div>
+
+                      <div class="container col-sm-3">
+                          <br> <br>
+                          <h3> Amigos </h3>
+                          <div v-for="amigo in perfil.listaAmigos" v-bind:key="amigo" style="border-color: green">
+                              <div  class="container border border-primary" style="margin-top: 20px;" >
+                                
+                                <p style="margin: 5px;"> {{amigo}} </p>
+                              </div>
+                          </div>
+                            
+                      </div>
+
+                      
+                    </div>
+
+                    <button type="button" class="btn btn-outline-secondary">Crear Torneo</button>
+              
+                    <br> <br>
                 </div>
-                
-                
+              
 
             </div>
 
@@ -41,6 +52,7 @@
 #######################################SCRIPT#######################################
 <script>
 import ListaAmigos from '@/components/ListaAmigos.vue'
+import {mapState} from 'vuex';
 
 export default {
   name: 'Modotorneo',
@@ -58,6 +70,19 @@ export default {
       enviarDatos: function(){
     }
 
+  },
+  computed: {
+      ...mapState(['perfil']), //Para recoger los datos de la lista de amigos que están almacenados en el store
   }
 }
 </script>
+
+
+<style>
+.action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+}
+</style>
