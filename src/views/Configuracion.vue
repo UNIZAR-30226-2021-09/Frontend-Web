@@ -82,41 +82,15 @@
 <script>
 import ListaAmigos from '@/components/ListaAmigos.vue'
 import {mapState, mapMutations} from 'vuex';
-import axios from 'axios'
 export default {
-  name: 'Perfil',
+  name: 'Configuracion',
   components: {
     ListaAmigos
   },
   data() {
         return{ 
             nombre: '',
-            email: '',
-            ganadas: 0,
-            perdidas: 0,
-            torneos: 0
         }
-  },
-  created: function(){
-          let dir = this.host + '/profile'  
-          let usuario = this.usuarioBuscado;
-          axios
-          .post(dir, {
-              nombreUsuario: usuario
-          })
-          .then(resp => {
-              
-              this.nombre = resp.data.nombreUsuario;
-              this.email = resp.data.email; //nos lo tienen que mandar
-              this.ganadas = resp.data.partidasGanadas;
-              this.perdidas = resp.data.partidasPerdidas;
-              this.torneos = resp.data.torneosGanados;
-            })
-
-          .catch(error => {
-            //Error al hacer login
-            console.log(error.response)
-            });
   },
   computed:{
     ...mapState(['configuracion','host']), //Para recoger los datos de la lista de amigos que están almacenados en el store

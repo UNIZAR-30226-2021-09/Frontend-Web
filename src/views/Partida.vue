@@ -501,7 +501,7 @@ export default {
       let empty = isEmpty(self.isHorizontal, self.draggedShipLength, selectedShipIndex, parseInt(this.dataset.id))
       let colorBarco = 'barco-' + self.configuracion.barcos
       console.log('He dejado ' + shipClass)
-      console.log('Voy a pintar los barcos con la clase ' + colorBarco)
+      //console.log('Voy a pintar los barcos con la clase ' + colorBarco)
       //console.log('Empty = ' + empty)
 
       if (self.isHorizontal && !newNotAllowedHorizontal.includes(shipLastId) && empty) {
@@ -561,15 +561,15 @@ export default {
   }  
 
   .barco-Azul{
-    background-color: aqua;
+    background-color: rgb(11, 148, 228);
   }
 
   .barco-Verde{
-    background-color: lightgreen;
+    background-color: rgb(75, 224, 75);
   }
 
   .barco-Rojo{
-    background-color: orangered;
+    background-color: rgb(207, 41, 41);
   }
 
   .tablero-oceano{

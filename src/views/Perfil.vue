@@ -33,8 +33,12 @@
                       <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
                     </svg>
                     <router-link to="clasificacion" class="btn btn-primary btn-sm mb-1" type="button" >Ver posicion en la clasificación</router-link></h5>
-                
+
+                <router-link to="tutorial" class="link-secondary" ><h5 class="mt-4">Volver a ver el tutorial</h5></router-link>
+
                 </div>
+
+                
 
                 <br> <br> <br>
 
