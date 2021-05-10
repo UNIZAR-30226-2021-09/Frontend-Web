@@ -34,13 +34,22 @@
                     </svg>
                     <router-link to="clasificacion" class="btn btn-primary btn-sm mb-1" type="button" >Ver posicion en la clasificación</router-link></h5>
 
-                <router-link to="tutorial" class="link-secondary" ><h5 class="mt-4">Volver a ver el tutorial</h5></router-link>
-
                 </div>
 
                 
 
-                <br> <br> <br>
+                
+                <br> 
+
+                <div v-if="usuarioBuscado == perfil.nombreUsuario" class="row" style="justify-content: center;">    
+                    
+                      <input type="email" class="form-control" style="width: 30%" id="inputEmail4" placeholder="name@example.com">
+
+                      <button type="button" style="width: 15%; margin-left: 20px" class="btn btn-primary" aria-expanded="false">Compartir perfil</button>
+                </div>
+
+                <br>
+                <br>
 
                 <p>
                   <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -86,8 +95,9 @@
                       </div>
                   </div>
                 </div>
-                
-              <button type="button" class="btn btn-primary mt-5">Compartir perfil</button>
+              
+                <br>
+                <router-link v-if="usuarioBuscado == perfil.nombreUsuario" to="tutorial" class="link-secondary" ><h5 class="mt-4">Volver a ver el tutorial</h5></router-link>
 
             </div>
 

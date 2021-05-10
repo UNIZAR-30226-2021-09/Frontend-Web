@@ -49,7 +49,7 @@
 
                               <br>
 
-                              <div v-if="partida.turno === perfil.nombreUsuario">
+                              <div v-if="partida.tuTurno">
                                 <li class="list-group-item list-group-item-success">
                                   Partida contra {{partida.contrincante}} 
                                   <router-link to="partida" class="btn btn-light btn-sm mb-1 mt-1" type="button" >Continuar la partida</router-link>
@@ -77,8 +77,7 @@
                           <div v-for="(partida) in partidasAmigos" v-bind:key="partida.id">
 
                               <br>
-
-                              <div v-if="partida.turno === perfil.nombreUsuario">
+                              <div v-if="partida.tuTurno">
                                 <li class="list-group-item list-group-item-success">
                                   Partida contra {{partida.contrincante}} 
                                   <router-link to="partida" class="btn btn-light btn-sm mb-1 mt-1" type="button" >Continuar la partida</router-link>
@@ -106,7 +105,7 @@
 
                               <br>
 
-                              <div v-if="partida.turno === perfil.nombreUsuario">
+                              <div v-if="partida.tuTurno">
                                 <li class="list-group-item list-group-item-success">
                                   Partida contra {{partida.contrincante}} 
                                   <router-link to="partida" class="btn btn-light btn-sm mb-1 mt-1" type="button" >Continuar la partida</router-link>
@@ -133,8 +132,7 @@
                           <div v-for="(partida) in partidasIA" v-bind:key="partida.id">
 
                               <br>
-
-                              <div v-if="partida.turno === perfil.nombreUsuario">
+                              <div v-if="partida.tuTurno">
                                 <li class="list-group-item list-group-item-success">
                                   Partida contra {{partida.contrincante}} 
                                   <router-link to="partida" class="btn btn-light btn-sm mb-1 mt-1" type="button" >Continuar la partida</router-link>
@@ -168,7 +166,7 @@
 #######################################SCRIPT#######################################
 <script>
 import ListaAmigos from '@/components/ListaAmigos.vue'
-import {mapState} from 'vuex';
+import {mapState,mapMutations} from 'vuex';
 import axios from 'axios'
 export default {
   name: 'PartidasEnCurso',
@@ -181,7 +179,9 @@ export default {
         }
   },
   methods: {
-
+      ...mapMutations([
+      'setPartidas'
+    ]),
   },
   created: function(){
           let dir = this.host + '/game/inProgress'  
@@ -191,14 +191,12 @@ export default {
               accessToken: this.perfil.token
           })
           .then(resp => {
-              //this.setPartidas(resp.data);
-              console.log(resp.data)
-              console.log(this.perfil.partidasEnCurso)
+              this.setPartidas(resp.data);
             })
 
           .catch(error => {
             //Error al hacer login
-            console.log(error.response)
+            console.log(error)
             });
   },
   computed: {
@@ -211,7 +209,7 @@ export default {
       },
       teTocaIA :function(){
 
-          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ia' && partida.turno == this.perfil.nombreUsuario).length;
+          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ia' && partida.tuTurno).length;
       }, 
       partidasIA: function(){
             return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ia');
@@ -223,7 +221,7 @@ export default {
           return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ciegas').length;
       },
       teTocaCiegas :function(){
-          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ciegas' && partida.turno == this.perfil.nombreUsuario).length;
+          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ciegas' && partida.tuTurno).length;
       },    
       partidasCiegas: function(){
             return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ciegas');
@@ -236,7 +234,7 @@ export default {
       },
       teTocaAmigos :function(){
 
-          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'amistoso' && partida.turno == this.perfil.nombreUsuario).length;
+          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'amistoso' && partida.tuTurno).length;
       },                  
       partidasAmigos: function(){
             return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'amistoso');
@@ -249,7 +247,7 @@ export default {
       },
       teTocaTorneo :function(){
 
-          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo' && partida.turno == this.perfil.nombreUsuario).length;
+          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo' && partida.tuTurno).length;
       },           
       partidasTorneo: function(){
           return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo');
