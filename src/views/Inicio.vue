@@ -98,7 +98,7 @@
                       </div>
                     </div>
                     <div class="carousel-item h-50">
-                      <router-link to="partida"><img src="@/assets/vs_IA.jpg" width="750" height="550" class="d-block" alt="@/assets/logo.png" ></router-link>
+                      <button @click="buscarPartidaIA"><img src="@/assets/vs_IA.jpg" width="750" height="550" class="d-block" alt="@/assets/logo.png" ></button>
                       <div class="carousel-caption d-none d-md-block bg-white rounded-pill">
                         <h4>
                           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-cpu" viewBox="0 0 16 16">
@@ -133,7 +133,8 @@
 #######################################SCRIPT#######################################
 <script>
 import ListaAmigos from '@/components/ListaAmigos.vue'
-import {mapState} from 'vuex'
+import {mapState,mapMutations} from 'vuex'
+import axios from 'axios'
 
 export default {
   name: 'Inicio',
@@ -152,13 +153,39 @@ export default {
         }
   },
   computed:{
-    ...mapState(['perfil'])
+    ...mapState(['perfil', 'host', 'partidaActual'])
   },
-  // methods: {
-  //     enviarDatos: function(){
-  //   }
+  methods: {
+      ...mapMutations(['setPartidaActual']),
+      buscarPartidaIA: function(){
+        const self = this;
+        let dir = this.host + '/game/ia'
+        axios
+        .post(dir, {
+            nombreUsuario: this.perfil.nombreUsuario,
+            accessToken: this.perfil.token
+        })
+        .then(resp => {
+          //Partida contra IA creada
+          //console.log(resp)
+          self.setPartidaActual(resp.data._id)
+          console.log('Vamos a la partida ' + this.partidaActual)
+          this.$router.push('/partida');
+          
+        })
+        .catch(error => {
+        //Error al enviar la petición
+        this.$toasted.show("Ha habido un error creando la partida contra la IA. Inténtalo de nuevo más tarde.", { 
+                    theme: "toasted-primary", 
+                    position: "bottom-left", 
+                    duration : 4000
+                  });
+        console.log(error)
+        });
+    
+    }
 
-  // },
+  },
   
   created: function() {
     // if (this.perfil.token != ''){
@@ -166,7 +193,7 @@ export default {
     // }else{
     //   this.$socket.emit("logMe", { nombreUsuario: "User4"});
     // }
-    console.log('b');
+    //console.log('b');
   }
 
 }

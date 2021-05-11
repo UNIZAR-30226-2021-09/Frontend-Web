@@ -56,7 +56,8 @@ export default new Vuex.Store({
       idioma: 'Español',
       barcos: 'Azul',
       tablero: 'Océano'
-    }
+    },
+    partidaActual: '' //aquí se guardará el id de la partida en la que se encuentra el usuario (para poder hacer las peticiones)
   },
   mutations: {
 
@@ -124,6 +125,9 @@ export default new Vuex.Store({
     },
     setIdioma(state, newIdioma){
       state.configuracion.idioma = newIdioma
+    },
+    setPartidaActual(state, newPartida){
+      state.partidaActual = newPartida
     },
     //______________________________GETTERS______________________________
     getToken(state){
