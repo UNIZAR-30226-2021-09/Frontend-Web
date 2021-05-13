@@ -40,8 +40,8 @@
 
                 <!-- Fondo de oceano -->
                 <div v-if="configuracion.tablero === 'Océano' || configuracion.tablero === 'Ocean'" class="grids-container ">
-                  <div class="battleship-grid grid-user tablero-oceano-mio"></div>
-                  <div class="battleship-grid grid-computer tablero-oceano-rival"></div>
+                  <div class="battleship-grid grid-user tablero-oceano"></div>
+                  <div class="battleship-grid grid-computer tablero-oceano"></div>
                 </div>
 
                 <!-- Fondo de cesped -->
@@ -572,12 +572,16 @@ export default {
     background-color: rgb(207, 41, 41);
   }
 
+  .tablero-oceano{
+    background-image: url('~@/assets/oceano.jpg');
+  }
+
   .tablero-oceano-mio{
-    background-image: url('~@/assets/mapaMio.png');
+    background-image: url('~@/assets/mapaMio.jpg');
   }
 
   .tablero-oceano-rival{
-    background-image: url('~@/assets/mapaRival.png');
+    background-image: url('~@/assets/mapaRival.jpg');
   }
 
   .tablero-cesped{
