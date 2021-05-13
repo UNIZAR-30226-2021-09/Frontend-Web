@@ -40,8 +40,8 @@
 
                 <!-- Fondo de oceano -->
                 <div v-if="configuracion.tablero === 'Océano' || configuracion.tablero === 'Ocean'" class="grids-container ">
-                  <div class="battleship-grid grid-user tablero-oceano"></div>
-                  <div class="battleship-grid grid-computer tablero-oceano"></div>
+                  <div class="battleship-grid grid-user tablero-oceano-mio"></div>
+                  <div class="battleship-grid grid-computer tablero-oceano-rival"></div>
                 </div>
 
                 <!-- Fondo de cesped -->
