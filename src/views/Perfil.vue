@@ -43,7 +43,7 @@
 
                 <div v-if="usuarioBuscado == perfil.nombreUsuario" class="row" style="justify-content: center;">    
                     
-                      <input type="email" class="form-control" style="width: 30%" id="inputEmail4" placeholder="name@example.com">
+                      <input type="email" class="form-control" style="width: 30%" id="inputEmail4" placeholder="name@example.com (correo destino)">
 
                       <button type="button" style="width: 15%; margin-left: 20px" class="btn btn-primary" aria-expanded="false">Compartir perfil</button>
                 </div>

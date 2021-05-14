@@ -125,7 +125,7 @@ export default {
             .then(resp => {
                 //Petición enviada correctamente
                 this.setPartidas(resp.data);
-                this.numTeToca = resp.data.filter(partida => partida.turno == this.perfil.nombreUsuario ).length;
+                this.numTeToca = resp.data.filter( partida => partida.tuTurno).length;
             })
             .catch(error => {
             //Error al enviar la petición

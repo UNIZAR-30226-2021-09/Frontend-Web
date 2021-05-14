@@ -49,10 +49,11 @@
 
                               <br>
 
-                              <div v-if="partida.tuTurno">
+                              <div v-if="partida.tuTurno || !barcos_colocados">
                                 <li class="list-group-item list-group-item-success">
                                   Partida contra {{partida.contrincante}} 
-                                  <router-link to="partida" class="btn btn-light btn-sm mb-1 mt-1" type="button" >Continuar la partida</router-link>
+                                  <router-link v-if="!barcos_colocados" to="partida" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" type="button">Colocar barcos</router-link>
+                                  <router-link v-else to="partida" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-info" type="button" >Continuar la partida</router-link>
                                 </li>
                               </div>
 
@@ -77,10 +78,11 @@
                           <div v-for="(partida) in partidasAmigos" v-bind:key="partida.id">
 
                               <br>
-                              <div v-if="partida.tuTurno">
+                              <div v-if="partida.tuTurno || !barcos_colocados">
                                 <li class="list-group-item list-group-item-success">
                                   Partida contra {{partida.contrincante}} 
-                                  <router-link to="partida" class="btn btn-light btn-sm mb-1 mt-1" type="button" >Continuar la partida</router-link>
+                                  <router-link v-if="!barcos_colocados" to="partida" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" type="button">Colocar barcos</router-link>
+                                  <router-link v-else to="partida" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-info" type="button" >Continuar la partida</router-link>
                                 </li>
                               </div>
 
@@ -105,10 +107,11 @@
 
                               <br>
 
-                              <div v-if="partida.tuTurno">
+                              <div v-if="partida.tuTurno || !barcos_colocados">
                                 <li class="list-group-item list-group-item-success">
                                   Partida contra {{partida.contrincante}} 
-                                  <router-link to="partida" class="btn btn-light btn-sm mb-1 mt-1" type="button" >Continuar la partida</router-link>
+                                  <router-link v-if="!barcos_colocados" to="partida" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" type="button">Colocar barcos</router-link>
+                                  <router-link v-else to="partida" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-info" type="button" >Continuar la partida</router-link>
                                 </li>
                               </div>
 
@@ -132,10 +135,11 @@
                           <div v-for="(partida) in partidasIA" v-bind:key="partida.id">
 
                               <br>
-                              <div v-if="partida.tuTurno">
+                              <div v-if="partida.tuTurno || !barcos_colocados">
                                 <li class="list-group-item list-group-item-success">
                                   Partida contra {{partida.contrincante}} 
-                                  <router-link to="partida" class="btn btn-light btn-sm mb-1 mt-1" type="button" >Continuar la partida</router-link>
+                                  <router-link v-if="!barcos_colocados" to="partida" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" type="button">Colocar barcos</router-link>
+                                  <router-link v-else to="partida" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-info" type="button" >Continuar la partida</router-link>
                                 </li>
                               </div>
 
@@ -176,6 +180,7 @@ export default {
   data() {
         return{ 
           nombrePag: 'Partidas en curso',
+          barcos_colocados: true, //mientras que no nos pasen el atributo usamos esto pa ver
         }
   },
   methods: {
