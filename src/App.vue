@@ -1,6 +1,6 @@
 <template >
-  <div class="bg-light">
-    <div id="app" class="container text-center">
+  <div>
+    <div id="app" class="container text-center bg-light" style="border-radius: 30px;">
       <!-- <div id="nav">
         <router-link to="/">Home</router-link> |
         <router-link to="/about">About</router-link>
