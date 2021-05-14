@@ -5,7 +5,7 @@
 
       <div class="mt-5 "> 
          <div class="row g-3">
-            <div class="container col-sm-8 border rounded border-primary bg-light" style="min-height:400px !important;">
+            <div class="container col-sm-8 border rounded border-primary bg-light" style="height:100%;">
                 
                 <h2 class="mt-3">{{nombrePag}}</h2>
                 <br><br><br><br><br><br><br>
@@ -14,10 +14,13 @@
                   <span class="visually-hidden">Loading...</span>
                 </div>
 
-                <div  class="container mt-5">
+                <div  class="container mt-5" >
                     <button type="button" class="btn btn-lg btn-primary" :disabled='disabledButton' @click="buscarPartidaCiegas" >Buscar contrincante</button>
                 </div>
-              
+                
+                <br>
+                <i >Si hay algun jugador esperando se os emparejara.</i>
+                <br> <br>
 
             </div>
 
