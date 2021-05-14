@@ -38,8 +38,8 @@
         </ul>
       </div>
     </nav> -->
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="border-radius: 30px;">
+    <br>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="border-radius: 20px; margin-left: 50px; margin-right: 50px;">
       <div class="container-fluid" style="margin-left: 30px; margin-right: 30px;">
         <a v-if="perfil.token === ''" class="navbar-brand" href="/">Batalla Naval</a>
         <a v-if="perfil.token != ''" class="navbar-brand" href="/inicio">Batalla Naval</a>
