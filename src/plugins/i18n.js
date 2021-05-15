@@ -58,7 +58,7 @@ const messages = {
       placeHolder:{
         nombre: 'User name',
         contrasenya: 'User password',
-        repcontrasenya: 'Repeat ser password',
+        repcontrasenya: 'Repeat user password',
         correo: 'User mail'
       },
       mensaje:{
