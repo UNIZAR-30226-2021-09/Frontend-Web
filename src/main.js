@@ -5,12 +5,16 @@ import store from './store';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import Toasted from 'vue-toasted';
- 
-Vue.use(Toasted)
 import SocketIO from "socket.io-client";
 import VueSocketIO from 'vue-socket.io';
+import { i18n } from '@/plugins/i18n'
+
 
 import {mapState, mapMutations} from 'vuex'
+
+
+Vue.use(Toasted)
+
 
 const options = { withCredentials: false };
 
@@ -22,8 +26,11 @@ Vue.use(new VueSocketIO({
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 
+
+
 new Vue({
   el: '#app',
+  i18n,
   router,
   store: store,
   components: { App },
@@ -108,6 +115,6 @@ new Vue({
     ...mapState(['perfil', 'host'])
   },
   methods:{
-    ...mapMutations(['setEntrantes','setAmigos', 'setSalientes'])
+    ...mapMutations(['setEntrantes','setAmigos', 'setSalientes']),
   }
 }).$mount('#app')

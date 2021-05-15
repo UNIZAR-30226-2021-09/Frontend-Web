@@ -49,46 +49,43 @@
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li v-if="perfil.token === ''" class="nav-item">
-              <a class="nav-link" href="/">Home</a>
+              <router-link to="/"  class="nav-link">{{ $t('boton.inicio') }}</router-link>
             </li>
             <li v-if="perfil.token === ''" class="nav-item">
-              <a class="nav-link" href="/login">Log-in</a>
+              <router-link to="Login"  class="nav-link">{{ $t('boton.iniciarSesion') }}</router-link>
             </li>
             <li v-if="perfil.token === ''" class="nav-item">
-              <a class="nav-link" href="/signin">Sign-in</a>
+              <router-link to="Signin"  class="nav-link">{{ $t('boton.registrarse') }}</router-link>
             </li>
             <li v-if="perfil.token != ''" class="nav-item">
-              <a class="nav-link" href="/inicio">Inicio</a>
+              <router-link to="Inicio"  class="nav-link">{{ $t('boton.inicio') }}</router-link>
             </li>
             <li v-if="perfil.token != ''" class="nav-item">
-              <a class="nav-link" href="/ciegas">Ciegas</a>
+              <router-link to="Partida"  class="nav-link">{{ $t('navbar.nuevaPartida') }}</router-link>
             </li>
             <li v-if="perfil.token != ''" class="nav-item">
-              <a class="nav-link" href="/perfil" @click="cambiarBuscado()">Perfil</a>
+              <router-link to="Ciegas"  class="nav-link">{{ $t('navbar.partidaCiegas') }}</router-link>
             </li>
             <li v-if="perfil.token != ''" class="nav-item">
-              <a class="nav-link" href="/agregarAmigo">Agregar</a>
+              <router-link to="Desafiar"  class="nav-link">{{ $t('navbar.desafiarAmigo') }}</router-link>
             </li>
             <li v-if="perfil.token != ''" class="nav-item">
-              <a class="nav-link" href="/desafiar">Desafiar</a>
+              <router-link to="Torneo"  class="nav-link">{{ $t('navbar.torneo') }}</router-link>
             </li>
             <li v-if="perfil.token != ''" class="nav-item">
-              <a class="nav-link" href="/partida">Partida</a>
+              <router-link to="partidasEnCurso"  class="nav-link">{{ $t('navbar.partidasEnCurso') }} <span style="background-color: coral;" class="badge">{{numTeToca}}</span></router-link>
             </li>
-            <li v-if="perfil.token != ''" class="nav-item">
-              <a class="nav-link" href="/clasificacion" @click="cambiarBuscado()">Clasificacion</a>
+
+            <li v-if="perfil.token != ''" class="nav-item" >
+              <a type="button" href="/perfil" class="nav-link button" @click="cambiarBuscado()">{{ $t('navbar.perfil') }}</a>
             </li>
-            <li v-if="perfil.token != ''" class="nav-item">
-              <a class="nav-link" href="/partidasEnCurso">Partidas en curso <span style="background-color: coral;" class="badge">{{numTeToca}}</span> </a>
-            </li>
-          
           <!-- <li class="nav-item">
             <a class="nav-link" href="/AmigoDesafiado" to="Inicio">inicio?</a>
           </li> -->
           
 
           </ul>
-          <button v-if="perfil.token != ''" class=" btn centered btn-danger d-flex" @click="cerrarSesion" type="submit">Cerrar sesión</button>
+          <button v-if="perfil.token != ''" class=" btn centered btn-danger d-flex" @click="cerrarSesion" type="submit">{{ $t('navbar.cerrarSesion') }}</button>
         </div>
       </div>
     </nav>
@@ -144,6 +141,7 @@ export default {
       cambiarBuscado: function(){
           //this.setUsuarioBuscado(this.perfil.nombreUsuario);
           this.setUsuarioBuscado(this.perfil.nombreUsuario);
+          console.log("aaaaaaaaaaaa");
       } 
     },
   computed: {

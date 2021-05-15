@@ -7,46 +7,60 @@
 
             <div class="input-group mb-3 mt-5">
                 <span class="input-group-text" id="basic-addon1">></span>
-                <input type="text" class="form-control" placeholder="Nombre de usuario" v-model="nombre" v-on:keyup.enter="registrarse">
+                <input type="text" class="form-control" v-bind:placeholder="$t('placeHolder.nombre')" v-model="nombre" v-on:keyup.enter="registrarse">
             </div>
 
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">@</span>
-                <input type="text" class="form-control" placeholder="Correo" v-model="correo" v-on:keyup.enter="registrarse">
+                <input type="text" class="form-control" v-bind:placeholder="$t('placeHolder.correo')" v-model="correo" v-on:keyup.enter="registrarse">
             </div>
 
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">#</span>
-                <input type="password" class="form-control" placeholder="Contraseña" v-model="contrasena" v-on:keyup.enter="registrarse" required>
+                <input type="password" class="form-control" v-bind:placeholder="$t('placeHolder.contrasenya')" v-model="contrasena" v-on:keyup.enter="registrarse" required>
             </div>
 
             <div class="input-group has-validation mb-3">
                 <span class="input-group-text" id="basic-addon1">#</span>
-                <input type="password" class="form-control" placeholder="Repetir Contraseña" v-model="rep_contrasena" v-on:keyup.enter="registrarse" required>
+                <input type="password" class="form-control" v-bind:placeholder="$t('placeHolder.repcontrasenya')" v-model="rep_contrasena" v-on:keyup.enter="registrarse" required>
                 
             </div>
 
             <div class="input-group mt-3 mb-3">
-                ¿Ya tienes una cuenta? <router-link class="mr-4" to="Login">¡Identifícate!</router-link>
+                {{ $t('mensaje.yaTienesCuenta') }} <router-link class="mr-4" to="Login"> {{ $t('mensaje.identificate') }}</router-link>
             </div>
 
-            <button class="btn btn-primary" @click="registrarse">Registrarse</button>
+            <button class="btn btn-primary" @click="registrarse"> {{ $t('boton.registrarse') }}</button>
 
             <!-- Enviando datos... -->
             <div v-if=enviando class="alert alert-warning" role="alert">
-                Enviando datos...
+                {{ $t('mensaje.enviando') }}
             </div>
 
             <!-- Mensaje de error -->
             <div class="mt-3">
-                <div v-if=error class="alert alert-danger" role="alert">
-                {{errorMSG}}
+                <div v-if=errorContrasenyas class="alert alert-danger" role="alert">
+                    {{ $t('mensaje.noCoincidenContrasenya') }} 
+                </div>
+
+                <div v-if=errorExisten class="alert alert-danger" role="alert">
+                    {{ $t('mensaje.errorExisten') }} 
                 </div>
             </div>
-
-            <p>{{respuesta}}</p>
             
         </div>
+
+        <br> <br>
+            <h5 style="display:inline" class=" btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ $t('boton.idioma') }} </h5>
+                  <ul class="dropdown-menu list-group-flush">
+
+                          <li class="list-group-item bg-secundary" bg>
+                              <a class="dropdown-item" @click="changeLanguage('es')" > Español</a>
+                              <a class="dropdown-item" @click="changeLanguage('en')"> Ingles</a>
+                          </li>
+                          
+                  </ul>
+                  <br>
     </div>
 </template>
 
@@ -55,6 +69,7 @@
 <script>
 import axios from 'axios'
 import {mapState,mapMutations} from 'vuex'
+import { i18n } from '@/plugins/i18n'
 
 export default {
   name: 'Signin',
@@ -68,10 +83,9 @@ export default {
             correo: '',
             contrasena: '',
             rep_contrasena: '',
-            respuesta: '',
             token: '',
-            error: false,
-            errorMSG: '',
+            errorContrasenyas: false,
+            errorExisten: false,
             enviando: false
         }
   },
@@ -85,8 +99,7 @@ export default {
     },
     registrarse: async function(){
         if (this.contrasena != this.rep_contrasena){
-            this.error = true;
-            this.errorMSG = "Las contraseñas no coinciden"
+            this.errorContrasenyas = true;
             
         }else{
             this.enviando = true
@@ -116,7 +129,7 @@ export default {
                 this.enviando = false
                 //Error al hacer signin
                 console.log(error)
-                this.error = true;
+                this.errorExisten = true;
                 this.errorMSG = "El usuario o el correo ya existen"
                 
                 });
@@ -131,7 +144,11 @@ export default {
     },
     ...mapMutations([
       'setToken','setNombreUsuario'
-    ])
+    ]),
+    changeLanguage(locale) {
+      i18n.locale = locale
+
+    }
 
   },
   computed:{

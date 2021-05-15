@@ -1,12 +1,12 @@
 <template>
     <div align="center" class="container mt-5" id="app">
-      <h1>{{titulo}}</h1>
+      <h1>{{ $t('boton.iniciarSesion') }}</h1>
       
       <p></p>
 
       <div class="input-group mb-3 mt-5">
         <span class="input-group-text" id="basic-addon1">></span>
-        <input type="text" class="form-control" placeholder="Nombre de usuario" v-model="nombre" v-on:keyup.enter="enviarDatos">
+        <input type="text" class="form-control" v-bind:placeholder="$t('placeHolder.nombre')" v-model="nombre" v-on:keyup.enter="enviarDatos">
       </div>
 
       <!-- <div class="input-group mb-3">
@@ -16,11 +16,11 @@
 
       <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">#</span>
-        <input type="password" class="form-control" placeholder="Contraseña" v-model="contrasena" v-on:keyup.enter="enviarDatos">
+        <input type="password" class="form-control" v-bind:placeholder="$t('placeHolder.contrasenya')" v-model="contrasena" v-on:keyup.enter="enviarDatos">
       </div>
       
       <div class="input-group mt-3 mb-3">
-        ¿No tienes cuenta? <router-link to="Signin">¡Regístrate!</router-link>
+        {{ $t('mensaje.noTienesCuenta') }} <router-link to="Signin">{{ $t('mensaje.registrate') }}</router-link>
       </div>
 
       <button class="btn btn-primary" @click="enviarDatos">Enviar</button>
@@ -28,21 +28,33 @@
       <!-- Mensaje de éxito -->
       <div class="mt-3">
         <div v-if=esEnviado role="alert" :class="['alert', 'alert-success']">
-          Enviado!
+          {{ $t('mensaje.enviado') }}
         </div>
       </div>
 
       <!-- Enviando datos... -->
       <div v-if=enviando class="alert alert-warning" role="alert">
-        Enviando datos...
+        {{ $t('mensaje.enviando') }}
       </div>
       
       <!-- Mensaje de correo erróneo -->
       <div class="mt-3">
         <div v-if=invalido class="alert alert-danger" role="alert">
-          El usuario y la contraseña no coinciden.
+          {{ $t('mensaje.noCoinciden') }}       
         </div>
       </div>
+
+      <br> <br>
+            <h5 style="display:inline" class=" btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ $t('boton.idioma') }} </h5>
+                  <ul class="dropdown-menu list-group-flush">
+
+                          <li class="list-group-item bg-secundary" bg>
+                              <a class="dropdown-item" @click="changeLanguage('es')" > Español</a>
+                              <a class="dropdown-item" @click="changeLanguage('en')"> Ingles</a>
+                          </li>
+                          
+                  </ul>
+                  <br>
 
     </div>
 </template>
@@ -51,6 +63,7 @@
 <script>
 import axios from 'axios'
 import {mapState,mapMutations} from 'vuex';
+import { i18n } from '@/plugins/i18n'
 
 export default {
   name: 'Login',
@@ -128,8 +141,12 @@ export default {
       this.nombre = ""
       this.contrasena = ""
 
-    }
+    },
 
+    changeLanguage(locale) {
+      i18n.locale = locale
+
+    }
   },
   computed:{
       ...mapState(['host','perfil']),

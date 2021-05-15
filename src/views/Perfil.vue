@@ -130,8 +130,9 @@ export default {
         }
   },
   created: function(){
-          let dir = this.host + '/profile'  
+          let dir = this.host + '/profile';
           let usuario = this.usuarioBuscado;
+   
           console.log('Buscado es ' + usuario);
           axios
           .post(dir, {
