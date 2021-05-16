@@ -10,7 +10,9 @@ const messages = {
         iniciarSesion: 'Iniciar sesion',
         registrarse:'Registrarse',
         inicio: 'Inicio',
-        idioma: 'Idioma'
+        idioma: 'Idioma',
+        aceptar: 'Aceptar',
+        rechazar: 'Rechazar'
       },
       navbar: {
           nuevaPartida: 'Nueva partida',
@@ -37,6 +39,15 @@ const messages = {
           noCoinciden: 'El usuario y la contraseña no coinciden.',
           noCoincidenContrasenya: 'Las contraseñas no coinciden',
           errorExisten: 'El nombre de usuario o el correo ya existen'
+      },
+      listaAmigos:{
+          peticionesRecibidas: 'Peticiones de amistad recibidas',
+          peticionesEnviadas:'Peticiones de amistad enviadas',
+          amigos: 'Amigos',
+          noRecibidas: 'No has recibido peticiones',
+          noEnviadas: 'No has enviado peticiones',
+          noAmigos: 'Aún no has añadido a ningún amigo',
+          miPerfil: 'Mi Perfil'
       }
     },
     en: {
@@ -44,7 +55,9 @@ const messages = {
         iniciarSesion: 'Login',
         registrarse: 'Sign up',
         inicio: 'Home',
-        idioma: 'Language'
+        idioma: 'Language',
+        aceptar: 'Acept',
+        rechazar: 'Reject'
       },
       navbar: {
         nuevaPartida: 'New game',
@@ -71,6 +84,15 @@ const messages = {
         noCoinciden: 'The username and password do not match.',
         noCoincidenContrasenya: 'Passwords do not match',
         errorExistem : 'Username or email already exists'
+      },
+      listaAmigos:{
+          peticionesRecibidas: 'Friend requests received',
+          peticionesEnviadas:'Friend requests sent',
+          amigos: 'Friends',
+          noRecibidas: 'You have not received requests',
+          noEnviadas: 'You have not sent requests',
+          noAmigos: 'You have not added any friends yet',
+          miPerfil: 'My Profile'
       }
     }
 }

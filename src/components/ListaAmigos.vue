@@ -9,7 +9,7 @@
         <!-- Nombre del usuario -->
         <h4 class="text-sm-left">{{perfil.nombreUsuario}} 
             <div class="btn-group">
-                <a class="btn btn-primary btn-sm mb-1" type="button" href="/perfil" @click="cambiarBuscado(perfil.nombreUsuario)">Mi Perfil</a>
+                <a class="btn btn-primary btn-sm mb-1" type="button" href="/perfil" @click="cambiarBuscado(perfil.nombreUsuario)">{{ $t('listaAmigos.miPerfil') }}</a>
                 <a class="btn btn-primary btn-sm mb-1" type="button" href="/perfil" @click="cambiarBuscado(perfil.nombreUsuario)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="currentColor" class="bi bi-share" viewBox="0 0 16 18">
                         <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
@@ -27,15 +27,15 @@
 
         <!-- Lista de peticiones recibidas -->
         <div class="mt-3">
-            <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Peticiones de amistad recibidas <span style="background-color: coral;" class="badge">{{numPeticionesRecibidas}}</span></h5>
+            <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ $t('listaAmigos.peticionesRecibidas') }} <span style="background-color: coral;" class="badge">{{numPeticionesRecibidas}}</span></h5>
             <ul class="dropdown-menu list-group-flush">
                     <li class="list-group-item bg-secundary" v-if="numPeticionesRecibidas==0" bg>
-                        <i>No hay peticiones</i>
+                        <i>{{ $t('listaAmigos.noRecibidas') }}</i>
                     </li>
                     <li class="list-group-item bg-secundary" v-else v-for="(jugador) in peticionesRecibidasF" v-bind:key="jugador" bg>
                         <a class="dropdown-item" > {{jugador }}
-                                <button  class="btn btn-outline-success btn-sm mb-1" type="button" @click='aceptarAmigo(jugador)'>Aceptar</button>
-                                <button  class="btn btn-outline-danger btn-sm mb-1" type="button" @click='rechazarAmigo(jugador)'>Rechazar</button>
+                                <button  class="btn btn-outline-success btn-sm mb-1" type="button" @click='aceptarAmigo(jugador)'>{{ $t('boton.aceptar') }}</button>
+                                <button  class="btn btn-outline-danger btn-sm mb-1" type="button" @click='rechazarAmigo(jugador)'>{{ $t('boton.rechazar') }}</button>
                             </a>
                     </li>
             </ul>
@@ -43,10 +43,10 @@
 
         <!-- Lista de peticiones enviadas -->
         <div class="mt-3">
-            <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Peticiones de amistad enviadas </h5>
+            <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ $t('listaAmigos.peticionesEnviadas') }} </h5>
             <ul class="dropdown-menu list-group-flush">
                     <li class="list-group-item bg-secundary" v-if="numPeticionesEnviadas==0" bg>
-                        <i>No hay peticiones</i>
+                        <i>{{ $t('listaAmigos.noEnviadas') }}</i>
                     </li>
                     <li class="list-group-item bg-secundary" v-else v-for="(jugador) in peticionesEnviadasF" v-bind:key="jugador" bg>
                         <a class="dropdown-item" > {{jugador}}</a>
@@ -58,7 +58,7 @@
 
         <!-- Lista de amigos -->
         <div>
-            <h5 style="display:inline">Amigos </h5>  
+            <h5 style="display:inline">{{ $t('listaAmigos.amigos') }} </h5>  
             <router-link to="agregarAmigo" class="btn btn-outline-success btn-sm mb-1" type="button">
                 <!-- Botón de añadir amigo -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
@@ -67,9 +67,9 @@
                 </svg>
             </router-link>
         </div>
-
-        <i v-if="numAmigos==0">Aún no has añadido a ningún amigo</i>
-
+        <br v-if="numAmigos==0">
+        <i v-if="numAmigos==0">{{ $t('listaAmigos.noAmigos') }}</i>
+        
         <!-- Lista de amigos conectados -->
         <ul>
             <div class="overflow-auto p-3 mb-3 mb-md-0 mr-md-3 bg-light" style="max-width: 260px; max-height: 420px;">

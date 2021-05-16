@@ -74,7 +74,7 @@
               <router-link to="Torneo"  class="nav-link">{{ $t('navbar.torneo') }}</router-link>
             </li>
             <li v-if="perfil.token != ''" class="nav-item">
-              <router-link to="partidasEnCurso"  class="nav-link">{{ $t('navbar.partidasEnCurso') }} <span style="background-color: coral;" class="badge">{{numTeToca}}</span></router-link>
+              <router-link to="partidasEnCurso"  class="nav-link">{{ $t('navbar.partidasEnCurso') }} <span style="background-color: coral;" class="badge">{{numNotiificaciones}}</span></router-link>
             </li>
 
             <li v-if="perfil.token != ''" class="nav-item" >
@@ -123,7 +123,6 @@ export default {
             .then(resp => {
                 //Petición enviada correctamente
                 this.setPartidas(resp.data);
-                this.numTeToca = resp.data.filter( partida => partida.tuTurno).length;
             })
             .catch(error => {
             //Error al enviar la petición
@@ -147,6 +146,11 @@ export default {
     },
   computed: {
     ...mapState(['perfil','usuarioBuscado','host']), //Para recoger los datos de la lista de amigos que están almacenados en el store
+
+    numNotiificaciones: function () {
+      // `this` points to the vm instance
+      return this.perfil.partidasEnCurso.filter( partida => partida.tuTurno).length;
+    }
   },
 }
 </script>
