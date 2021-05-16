@@ -46,6 +46,8 @@
 <script>
 import ListaAmigos from '@/components/ListaAmigos.vue'
 import {mapState, mapMutations} from 'vuex';
+import axios from 'axios'
+
 export default {
   name: 'Configuracion',
   components: {
@@ -54,25 +56,51 @@ export default {
   data() {
         return{ 
             nombre: '',
-            Resultado: 'VICTORIA',
-            Descripcion: 'Has ganado la partida contra ___!',
-            Puntos: 'Puntos ganados: +14',
-            Disparos: 51,
-            Destruidos: 5,
-            Acertados: 17
+            Resultado: '_____',
+            Descripcion: 'Has __ la partida contra ___!',
+            Puntos: 'Puntos __: +__',
+            Disparos: -1,
+            Destruidos: -1,
+            Acertados: -1
         }
   },
   created: function(){
-          //TODO: COGER TODA LA INFO DE LA PARTIDA Y CAMBIAR LAS VARIABLES PARA QUE LA MUESTREN
-          //Hay que recuperar:
-          //  -Si he ganado o he perdido
-          //  -Los puntos que me han dado/quitado
-          //  -Los disparos efectuados
-          //  -El número de barcos destruidos
-          //  -El número de disparos acertados
+    let dir = this.host + '/match/infoPartida'
+      axios
+      .post(dir, {
+        nombreUsuario: this.perfil.nombreUsuario,
+        accessToken: this.perfil.token,
+        gameid: this.partidaActual
+      })
+      .then(resp => {
+        //Petición enviada correctamente
+        console.log(resp)
+        
+        if (resp.data.infoPartida.ganador == true){ //He ganado
+          this.Resultado = 'VICTORIA'
+          this.Descripcion = ('Has ganado la partida contra ' + this.contrincanteActual + '!')
+          this.Puntos = ('Puntos ganados: ' + resp.data.infoPartida.puntos)
+        } else if (resp.data.infoPartida.ganador == false){ //He perdido
+          this.Resultado = 'DERROTA'
+          this.Descripcion = ('Has perdido la partida contra ' + this.contrincanteActual + '...')
+          this.Puntos = ('Puntos perdidos: ' + resp.data.infoPartida.puntos)
+        } else{
+          console.log('???')
+        }
+
+        this.Disparos = resp.data.infoPartida.disparosRealizados
+        this.Destruidos = resp.data.infoPartida.barcosDestruidos
+        this.Acertados = resp.data.infoPartida.disparosAcertados        
+      
+      })
+      .catch(error => {
+      //Error al enviar la petición
+        console.log('Error en post de incoming requests')
+        console.log(error)
+      });
   },
   computed:{
-    ...mapState(['configuracion','host']), //Para recoger los datos de la lista de amigos que están almacenados en el store
+    ...mapState(['configuracion','host','partidaActual','contrincanteActual','perfil']), //Para recoger los datos de la lista de amigos que están almacenados en el store
     Precision: function(){
       let porcentaje = (this.Acertados / this.Disparos) * 100;
       return porcentaje.toFixed(2);

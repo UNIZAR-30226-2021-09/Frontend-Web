@@ -141,6 +141,7 @@ import useSound from 'vue-use-sound'
 import bombSfx from '../assets/bomb.mp3'
 import waterSfx from '../assets/water.mp3'
 import dropSfx from '../assets/drop.mp3'
+import hitSfx from '../assets/hit.mp3'
 import axios from 'axios'
 
 
@@ -149,10 +150,12 @@ export default {
     const [bomb] = useSound(bombSfx, { volume: 0.3 })
     const [water] = useSound(waterSfx, { volume: 0.3 })
     const [drop] = useSound(dropSfx, { volume: 0.3 })
+    const [hit] = useSound(hitSfx, { volume: 0.3 })
     return {
       bomb,
       water,
-      drop
+      drop,
+      hit
     }
   },
   name: 'Partida',
@@ -317,18 +320,18 @@ export default {
 
     },
 
-    revealSquare: function (square) {
-       if(square.classList.contains('taken')){ //He clickado en una posición donde había un barco
-        this.bomb()
-        console.log('BOOM')
-        square.classList.add('boom') //Marcamos que he acertado
+    // revealSquare: function (square) {
+    //    if(square.classList.contains('taken')){ //He clickado en una posición donde había un barco
+    //     this.bomb()
+    //     console.log('BOOM')
+    //     square.classList.add('boom') //Marcamos que he acertado
 
-       }else{
-        this.water()
-        square.classList.add('miss')
-        console.log('miss~~')
-       }
-    },
+    //    }else{
+    //     this.water()
+    //     square.classList.add('miss')
+    //     console.log('miss~~')
+    //    }
+    // },
     //Lógica del juego
     playGame: function () {
 
@@ -391,7 +394,7 @@ export default {
         this.turnDisplay.innerHTML = 'Mi turno'
         let self = this; //Para usar este this dentro de la función de flecha! :D (https://forum.vuejs.org/t/is-not-a-function/12444)
         this.computerSquares.forEach(square => square.addEventListener('click', function(){
-          self.revealSquare(square)
+          self.disparo(square)
         }))
       }
       if (this.currentPlayer === 'computer'){
@@ -401,14 +404,76 @@ export default {
     
     //Extra functions
     disparo: function(square){
-      if(square.classList.contains('taken')){ //He clickado en una posición donde había un barco
-        console.log('BOOM')
-        square.classList.add('boom') //Marcamos que he acertado
+      console.log(square.dataset.id)
+      let fila = Math.floor(parseInt(square.dataset.id) / this.width)
+      let columna = Math.floor(parseInt(square.dataset.id) % this.width)
 
-      }else{
-        square.classList.add('miss')
-        console.log('miss~~')
-      }
+      //Enviar el disparo
+      let dir = this.host + '/match/movimiento'
+        axios
+        .post(dir, {
+          nombreUsuario: this.perfil.nombreUsuario,
+          accessToken: this.perfil.token,
+          gameid: this.partidaActual,
+          fila: fila,
+          columna: columna
+        })
+        .then(resp => {
+          //Petición enviada correctamente
+          console.log(resp)
+
+          //Si he fallado el disparo
+          if (resp.disparo === "fallo" && resp.fin == false){ 
+            this.water() //Hacemos el sonidito del agua
+            square.classList.add('miss') //Pintamos de agua
+          }
+          //Si he tocado un barco
+          if (resp.disparo === "tocado" && resp.fin == false){
+            this.hit() //Sonidito de la bomba
+            square.classList.add('boom') //Marcamos que he acertado
+          }
+          //Si he hundido un barco
+          if (resp.disparo === "hundido" && resp.fin == false){
+            this.bomb() //Sonidito de la bomba
+            square.classList.add('boom') //Marcamos que he acertado
+            let tipo = resp.barco.tipo
+            this.$toasted.show("¡¡Has destruido un " + tipo + "!!", { 
+              theme: "bubble", 
+              position: "bottom-left", 
+              duration : 4000
+            });
+          }
+          //Si he hundido el último barco y he ganado la partida
+          if (resp.disparo === "hundido" && resp.fin == true){
+            this.bomb() //Sonidito de la bomba
+            square.classList.add('boom') //Marcamos que he acertado
+            let tipo = resp.barco.tipo
+            this.$toasted.show("¡¡Has destruido un " + tipo + " y has ganado la partida!!", { 
+              theme: "bubble", 
+              position: "bottom-left", 
+              duration : 4000
+            });
+            this.$router.push('finPartida')
+          }
+        
+        })
+        .catch(error => {
+        //Error al enviar la petición
+          console.log('Error en post de incoming requests')
+          console.log(error)
+        });
+
+      // if(square.classList.contains('taken')){ //He clickado en una posición donde había un barco
+      //   this.bomb()
+      //   console.log('BOOM')
+      //   square.classList.add('boom') //Marcamos que he acertado
+
+      //  }else{
+      //   this.water()
+      //   square.classList.add('miss')
+      //   console.log('miss~~')
+      //  }
+      
     }
   },
   mounted() {
