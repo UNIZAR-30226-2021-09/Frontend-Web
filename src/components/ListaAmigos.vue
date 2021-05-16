@@ -34,8 +34,8 @@
                     </li>
                     <li class="list-group-item bg-secundary" v-else v-for="(jugador) in peticionesRecibidasF" v-bind:key="jugador" bg>
                         <a class="dropdown-item" > {{jugador }}
-                                <button  class="btn btn-outline-success btn-sm mb-1" type="button" @click='aceptarAmigo(jugador)'>{{ $t('boton.aceptar') }}</button>
-                                <button  class="btn btn-outline-danger btn-sm mb-1" type="button" @click='rechazarAmigo(jugador)'>{{ $t('boton.rechazar') }}</button>
+                                <button  class="btn btn-outline-success btn-sm mb-1" style="margin-left: 10px" type="button" @click='aceptarAmigo(jugador)'>{{ $t('boton.aceptar') }}</button>
+                                <button  class="btn btn-outline-danger btn-sm mb-1" style="margin-left: 5px" type="button" @click='rechazarAmigo(jugador)'>{{ $t('boton.rechazar') }}</button>
                             </a>
                     </li>
             </ul>
