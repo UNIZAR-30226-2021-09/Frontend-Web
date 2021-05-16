@@ -46,6 +46,8 @@
 <script>
 import ListaAmigos from '@/components/ListaAmigos.vue'
 import {mapState, mapMutations} from 'vuex';
+import axios from 'axios'
+
 export default {
   name: 'Configuracion',
   components: {
@@ -74,19 +76,21 @@ export default {
         //Petición enviada correctamente
         console.log(resp)
         
-        if (resp.infoPartida.ganador == true){ //He ganado
+        if (resp.data.infoPartida.ganador == true){ //He ganado
           this.Resultado = 'VICTORIA'
           this.Descripcion = ('Has ganado la partida contra ' + this.contrincanteActual + '!')
-          this.Puntos = 'Puntos ganados: ' + resp.infoPartida.Puntos
-        } else{ //He perdido
+          this.Puntos = ('Puntos ganados: ' + resp.data.infoPartida.puntos)
+        } else if (resp.data.infoPartida.ganador == false){ //He perdido
           this.Resultado = 'DERROTA'
           this.Descripcion = ('Has perdido la partida contra ' + this.contrincanteActual + '...')
-          this.Puntos = 'Puntos perdidos: ' + resp.infoPartida.Puntos
+          this.Puntos = ('Puntos perdidos: ' + resp.data.infoPartida.puntos)
+        } else{
+          console.log('???')
         }
 
-        this.Disparos = resp.infoPartida.disparosRealizados
-        this.Destruidos = resp.infoPartida.barcosDestruidos
-        this.Acertados = resp.infoPartida.disparosAcertados        
+        this.Disparos = resp.data.infoPartida.disparosRealizados
+        this.Destruidos = resp.data.infoPartida.barcosDestruidos
+        this.Acertados = resp.data.infoPartida.disparosAcertados        
       
       })
       .catch(error => {

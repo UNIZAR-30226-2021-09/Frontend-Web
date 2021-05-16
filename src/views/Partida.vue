@@ -463,16 +463,17 @@ export default {
           console.log(error)
         });
 
-      if(square.classList.contains('taken')){ //He clickado en una posición donde había un barco
-        this.bomb()
-        console.log('BOOM')
-        square.classList.add('boom') //Marcamos que he acertado
+      // if(square.classList.contains('taken')){ //He clickado en una posición donde había un barco
+      //   this.bomb()
+      //   console.log('BOOM')
+      //   square.classList.add('boom') //Marcamos que he acertado
 
-       }else{
-        this.water()
-        square.classList.add('miss')
-        console.log('miss~~')
-       }
+      //  }else{
+      //   this.water()
+      //   square.classList.add('miss')
+      //   console.log('miss~~')
+      //  }
+      
     }
   },
   mounted() {
