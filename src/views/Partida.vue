@@ -141,6 +141,7 @@ import useSound from 'vue-use-sound'
 import bombSfx from '../assets/bomb.mp3'
 import waterSfx from '../assets/water.mp3'
 import dropSfx from '../assets/drop.mp3'
+import axios from 'axios'
 
 
 export default {
@@ -156,7 +157,7 @@ export default {
   },
   name: 'Partida',
   computed:{
-    ...mapState(['configuracion','host','partidaActual','contrincanteActual']), 
+    ...mapState(['configuracion','host','partidaActual','contrincanteActual','perfil']), 
     color: function(){
       if (this.configuracion.color === "Azul" || this.configuracion.color === "Blue"){
         return "azul"
@@ -231,6 +232,16 @@ export default {
           draggedShip: [],
           draggedShipLength: '',
 
+          //Variables para almacenar la información de cómo se ponen los barcos para mandársela al backend
+          infoPortaAviones: {posicion:{fila:-1,columna:-1},direccion:"__"},
+          infoBuque: {posicion:{fila:-1,columna:-1},direccion:"__"},
+          infoSubmarino1: {posicion:{fila:-1,columna:-1},direccion:"__"},
+          infoSubmarino2: {posicion:{fila:-1,columna:-1},direccion:"__"},
+          infoCrucero: {posicion:{fila:-1,columna:-1},direccion:"__"},
+
+
+
+
         }
   },
   methods: {
@@ -267,7 +278,7 @@ export default {
     //Función para rotar los barcos
     rotate: function () {
       //console.log(this.draggedShip)
-      console.log(this.configuracion.barcos)
+      //console.log(this.configuracion.barcos)
 
       this.destroyer.classList.toggle('destroyer-container-vertical')
       this.submarine.classList.toggle('submarine-container-vertical')
@@ -320,6 +331,62 @@ export default {
     },
     //Lógica del juego
     playGame: function () {
+
+      //Enviar las posiciones definitivas de los barcos
+      let dir = this.host + '/match/colocarBarcos'
+        axios
+        .post(dir, {
+            nombreUsuario: this.perfil.nombreUsuario,
+            accessToken: this.perfil.token,
+            gameid: this.partidaActual,
+            portaaviones:{
+              posicion:{
+                fila: this.infoPortaAviones.posicion.fila,
+                columna: this.infoPortaAviones.posicion.columna
+              },
+              direccion: this.infoPortaAviones.direccion
+            },
+            buque:{
+              posicion:{
+                fila: this.infoBuque.posicion.fila,
+                columna: this.infoBuque.posicion.columna
+              },
+              direccion: this.infoBuque.direccion
+            },
+            submarino1:{
+              posicion:{
+                fila: this.infoSubmarino1.posicion.fila,
+                columna: this.infoSubmarino1.posicion.columna
+              },
+              direccion: this.infoSubmarino1.direccion
+            },
+            submarino2:{
+              posicion:{
+                fila: this.infoSubmarino2.posicion.fila,
+                columna: this.infoSubmarino2.posicion.columna
+              },
+              direccion: this.infoSubmarino2.direccion
+            },
+            crucero:{
+              posicion:{
+                fila: this.infoCrucero.posicion.fila,
+                columna: this.infoCrucero.posicion.columna
+              },
+              direccion: this.infoCrucero.direccion
+            }
+        })
+        .then(resp => {
+            //Petición enviada correctamente
+            console.log(resp)
+            
+            
+            })
+        .catch(error => {
+        //Error al enviar la petición
+          console.log('Error en post de incoming requests')
+          console.log(error)
+        });
+
       if (this.currentPlayer === 'user'){
         this.turnDisplay.innerHTML = 'Mi turno'
         let self = this; //Para usar este this dentro de la función de flecha! :D (https://forum.vuejs.org/t/is-not-a-function/12444)
@@ -472,6 +539,43 @@ export default {
 
     }
 
+    function guardarInfo(fila, columna, tipoBarco, self){
+      switch(tipoBarco){
+        case "destroyer":
+          self.infoCrucero.posicion.fila = fila
+          self.infoCrucero.posicion.columna = columna
+          if(self.isHorizontal) {self.infoCrucero.direccion = "horizontal"}
+          else{self.infoCrucero.direccion = "vertical"} 
+          break;
+        case "submarine":
+          self.infoSubmarino1.posicion.fila = fila
+          self.infoSubmarino1.posicion.columna = columna
+          if(self.isHorizontal) {self.infoSubmarino1.direccion = "horizontal"}
+          else{self.infoSubmarino1.direccion = "vertical"} 
+          break;
+        case "cruiser":
+          self.infoSubmarino2.posicion.fila = fila
+          self.infoSubmarino2.posicion.columna = columna
+          if(self.isHorizontal) {self.infoSubmarino2.direccion = "horizontal"}
+          else{self.infoSubmarino2.direccion = "vertical"} 
+          break;
+        case "carrier": //v
+          self.infoPortaAviones.posicion.fila = fila
+          self.infoPortaAviones.posicion.columna = columna
+          if(self.isHorizontal) {self.infoPortaAviones.direccion = "horizontal"}
+          else{self.infoPortaAviones.direccion = "vertical"} 
+          break;
+        case "battleship": //v
+          self.infoBuque.posicion.fila = fila
+          self.infoBuque.posicion.columna = columna
+          if(self.isHorizontal) {self.infoBuque.direccion = "horizontal"}
+          else{self.infoBuque.direccion = "vertical"} 
+          break;
+        default: console.log("queseso"); break;
+
+      }
+    }
+
     function dragDrop() {
       //console.log(self.draggedShip)
       let shipNameWithLastId = self.draggedShip.lastChild.id
@@ -508,6 +612,13 @@ export default {
 
       if (self.isHorizontal && !newNotAllowedHorizontal.includes(shipLastId) && empty) {
         self.drop()
+
+        //Guardamos la información
+        let fila = Math.floor((parseInt(this.dataset.id) - selectedShipIndex) / self.width)
+        let columna = Math.floor((parseInt(this.dataset.id) - selectedShipIndex) % self.width)
+        guardarInfo(fila, columna, shipClass, self)
+        
+
         for (let i=0; i < self.draggedShipLength; i++) {
           // // let directionClass
           // // if (i === 0) directionClass = 'start'
@@ -542,7 +653,7 @@ export default {
       this.selectedShipNameWithIndex = e.target.id
     }))
 
-    this.playGame() //############################################################################################################################################################
+    //this.playGame() //############################################################################################################################################################
 
   }
 
