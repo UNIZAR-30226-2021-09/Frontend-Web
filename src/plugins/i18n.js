@@ -38,7 +38,12 @@ const messages = {
           enviando: 'Enviando datos...',
           noCoinciden: 'El usuario y la contraseña no coinciden.',
           noCoincidenContrasenya: 'Las contraseñas no coinciden',
-          errorExisten: 'El nombre de usuario o el correo ya existen'
+          errorExisten: 'El nombre de usuario o el correo ya existen',
+          explicacionCiegas: 'Busca una nueva partida contra un usuario aleatorio. Una vez se cree la partida, se añadirá automáticamente a tu lista de partidas',
+          explicacionDesafiar: 'Selecciona un amigo de tu lista para jugar una partida contra él',
+          explicarTorneo: 'Crea un torneo con otros 3 amigos',
+          explicarPartidasCurso: 'Visualiza las partidas que tienes actualmente abiertas',
+          explicarPartidaIA: 'Juega una partida contra el ordenador. Estas partidas no modificarán tus puntos',
       },
       listaAmigos:{
           peticionesRecibidas: 'Peticiones de amistad recibidas',
@@ -64,7 +69,7 @@ const messages = {
         partidaCiegas: 'Blind game',
         desafiarAmigo: 'Challenge friend',
         torneo: 'Tournament',
-        partidasEnCurso: 'Games in progress',
+        partidasEnCurso: 'Game list',
         perfil: 'Profile',
         cerrarSesion: 'Log out'
       },
@@ -83,7 +88,13 @@ const messages = {
         enviando: 'Sending data...',
         noCoinciden: 'The username and password do not match.',
         noCoincidenContrasenya: 'Passwords do not match',
-        errorExistem : 'Username or email already exists'
+        errorExistem : 'Username or email already exists',
+        explicacionCiegas: 'Search for a new match against a random user. Once the game is created, it will be automatically added to your game list',
+        exlicarDesafiar: 'Select a friend from your list to play a game against him',
+        explicarTorneo: 'Create a tournament with 3 other friends',
+        explicarPartidasCurso: 'View the games that you currently have open',
+        explicarPartidaIA: 'Play a game against the computer. These games will not modify your points',
+
       },
       listaAmigos:{
           peticionesRecibidas: 'Friend requests received',
