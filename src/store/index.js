@@ -57,7 +57,8 @@ export default new Vuex.Store({
       barcos: 'Azul',
       tablero: 'Océano'
     },
-    partidaActual: '' //aquí se guardará el id de la partida en la que se encuentra el usuario (para poder hacer las peticiones)
+    partidaActual: '', //aquí se guardará el id de la partida en la que se encuentra el usuario (para poder hacer las peticiones)
+    contrincanteActual: '', //aquí se guardará el nombre del contrincante de la partida en la que se encuentra el usuario
   },
   mutations: {
 
@@ -128,6 +129,9 @@ export default new Vuex.Store({
     },
     setPartidaActual(state, newPartida){
       state.partidaActual = newPartida
+    },
+    setContrincanteActual(state, newContrincante){
+      state.contrincanteActual = newContrincante
     },
     //______________________________GETTERS______________________________
     getToken(state){

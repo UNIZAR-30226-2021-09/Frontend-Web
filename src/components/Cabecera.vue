@@ -142,7 +142,7 @@ export default {
       cambiarBuscado: function(){
           //this.setUsuarioBuscado(this.perfil.nombreUsuario);
           this.setUsuarioBuscado(this.perfil.nombreUsuario);
-          console.log("aaaaaaaaaaaa");
+          //console.log("aaaaaaaaaaaa");
       } 
     },
   computed: {

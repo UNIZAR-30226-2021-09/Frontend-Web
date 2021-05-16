@@ -52,8 +52,8 @@
                               <div v-if="partida.tuTurno || !barcos_colocados">
                                 <li class="list-group-item list-group-item-success">
                                   Partida contra {{partida.contrincante}} 
-                                  <router-link v-if="!barcos_colocados" to="partida" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" type="button">Colocar barcos</router-link>
-                                  <router-link v-else to="partida" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-info" type="button" >Continuar la partida</router-link>
+                                  <button v-if="!barcos_colocados" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >Colocar barcos</button>
+                                  <button v-else style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-info" @click="irAPartida(partida)" type="button" >Continuar la partida</button>
                                 </li>
                               </div>
 
@@ -81,9 +81,8 @@
                               <div v-if="partida.tuTurno || !barcos_colocados">
                                 <li class="list-group-item list-group-item-success">
                                   Partida contra {{partida.contrincante}} 
-                                  <router-link v-if="!barcos_colocados" to="partida" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" type="button">Colocar barcos</router-link>
-                                  <router-link v-else to="partida" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-info" type="button" >Continuar la partida</router-link>
-                                </li>
+                                  <button v-if="!barcos_colocados" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >Colocar barcos</button>
+                                  <button v-else style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-info" @click="irAPartida(partida)" type="button" >Continuar la partida</button></li>
                               </div>
 
                               <div v-else>
@@ -110,9 +109,8 @@
                               <div v-if="partida.tuTurno || !barcos_colocados">
                                 <li class="list-group-item list-group-item-success">
                                   Partida contra {{partida.contrincante}} 
-                                  <router-link v-if="!barcos_colocados" to="partida" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" type="button">Colocar barcos</router-link>
-                                  <router-link v-else to="partida" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-info" type="button" >Continuar la partida</router-link>
-                                </li>
+                                  <button v-if="!barcos_colocados" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >Colocar barcos</button>
+                                  <button v-else style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-info" @click="irAPartida(partida)" type="button" >Continuar la partida</button></li>
                               </div>
 
                               <div v-else>
@@ -138,9 +136,8 @@
                               <div v-if="partida.tuTurno || !barcos_colocados">
                                 <li class="list-group-item list-group-item-success">
                                   Partida contra {{partida.contrincante}} 
-                                  <router-link v-if="!barcos_colocados" to="partida" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" type="button">Colocar barcos</router-link>
-                                  <router-link v-else to="partida" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-info" type="button" >Continuar la partida</router-link>
-                                </li>
+                                  <button v-if="!barcos_colocados" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >Colocar barcos</button>
+                                  <button v-else style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-info" @click="irAPartida(partida)" type="button" >Continuar la partida</button></li>
                               </div>
 
                               <div v-else>
@@ -185,8 +182,16 @@ export default {
   },
   methods: {
       ...mapMutations([
-      'setPartidas'
+      'setPartidas', 'setPartidaActual', 'setContrincanteActual'
     ]),
+    irAPartida: function(partida){
+      //console.log('Voy a ir a la partida ' + partida.id)
+      console.log(partida)
+      this.setPartidaActual(partida.id)
+      this.setContrincanteActual(partida.contrincante)
+      this.$router.push('partida')
+
+    }
   },
   created: function(){
           let dir = this.host + '/game/inProgress'  

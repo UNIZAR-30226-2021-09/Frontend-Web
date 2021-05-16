@@ -156,7 +156,7 @@ export default {
   },
   name: 'Partida',
   computed:{
-    ...mapState(['configuracion','host']), 
+    ...mapState(['configuracion','host','partidaActual','contrincanteActual']), 
     color: function(){
       if (this.configuracion.color === "Azul" || this.configuracion.color === "Blue"){
         return "azul"
@@ -332,8 +332,6 @@ export default {
       }
     },
     
-
-
     //Extra functions
     disparo: function(square){
       if(square.classList.contains('taken')){ //He clickado en una posición donde había un barco
@@ -347,6 +345,10 @@ export default {
     }
   },
   mounted() {
+    console.log('Entrando en la partida con id ' + this.partidaActual)
+    console.log('Jugando contra ' + this.contrincanteActual)
+    this.adversario = this.contrincanteActual
+
     this.userGrid = document.querySelector('.grid-user')
     this.computerGrid = document.querySelector('.grid-computer')
     this.gridIdentifier = this.userGrid.attributes.item(0).name
