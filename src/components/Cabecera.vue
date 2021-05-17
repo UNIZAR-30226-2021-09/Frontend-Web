@@ -99,7 +99,6 @@
 <script>
 //import ListaAmigos from '@/components/ListaAmigos.vue'
 import {mapState,mapMutations} from 'vuex';
-import axios from 'axios'
 export default {
   name: 'Cabecera',
   components: {
@@ -113,21 +112,6 @@ export default {
   },
   created: function(){
 
-      //cada 5 segundos se ejecutara esto para actualizar las partidas en curso y el numero de notificacion de la cabecera
-            let dir = this.host + '/game/inProgress'
-            axios
-            .post(dir, {
-                nombreUsuario: this.perfil.nombreUsuario,
-                accessToken: this.perfil.token
-            })
-            .then(resp => {
-                //Petición enviada correctamente
-                this.setPartidas(resp.data);
-            })
-            .catch(error => {
-            //Error al enviar la petición
-              console.log(error.response)
-            });
   },
   methods: {
       ...mapMutations([
@@ -149,7 +133,9 @@ export default {
 
     numNotiificaciones: function () {
       // `this` points to the vm instance
-      return this.perfil.partidasEnCurso.filter( partida => partida.tuTurno).length;
+      if(this.perfil != undefined)
+          return this.perfil.partidasEnCurso.filter( partida => partida.tuTurno).length;
+      return 0;
     }
   },
 }
