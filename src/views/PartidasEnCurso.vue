@@ -182,13 +182,14 @@ export default {
   },
   methods: {
       ...mapMutations([
-      'setPartidas', 'setPartidaActual', 'setContrincanteActual'
+      'setPartidas', 'setPartidaActual', 'setContrincanteActual', 'setTurnoActual'
     ]),
     irAPartida: function(partida){
       //console.log('Voy a ir a la partida ' + partida.id)
       console.log(partida)
       this.setPartidaActual(partida.id)
       this.setContrincanteActual(partida.contrincante)
+      this.setTurnoActual(partida.tuTurno)
       this.$router.push('partida')
 
     }

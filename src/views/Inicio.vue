@@ -156,7 +156,7 @@ export default {
     ...mapState(['perfil', 'host', 'partidaActual'])
   },
   methods: {
-      ...mapMutations(['setPartidaActual', 'setContrincanteActual']),
+      ...mapMutations(['setPartidaActual', 'setContrincanteActual', 'setTurnoActual']),
       buscarPartidaIA: function(){
         let dir = this.host + '/game/ia'
         axios
@@ -169,6 +169,7 @@ export default {
           console.log(resp)
           this.setPartidaActual(resp.data._id)
           this.setContrincanteActual(resp.data.participante2)
+          this.setTurnoActual("ColocandoBarcos")
           console.log('Vamos a la partida ' + this.partidaActual)
           this.$router.push('/partida');
           

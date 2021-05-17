@@ -137,7 +137,7 @@
 #######################################SCRIPT#######################################
 <script>
 import ListaAmigos from '@/components/ListaAmigos.vue'
-import {mapState} from 'vuex';
+import {mapState,mapMutations} from 'vuex';
 import useSound from 'vue-use-sound'
 import bombSfx from '../assets/bomb.mp3'
 import waterSfx from '../assets/water.mp3'
@@ -161,7 +161,7 @@ export default {
   },
   name: 'Partida',
   computed:{
-    ...mapState(['configuracion','host','partidaActual','contrincanteActual','perfil']), 
+    ...mapState(['configuracion','host','partidaActual','contrincanteActual','turnoActual','perfil']), 
     color: function(){
       if (this.configuracion.color === "Azul" || this.configuracion.color === "Blue"){
         return "azul"
@@ -192,7 +192,7 @@ export default {
       return retVal;
     },
     ponerBarcos: function(){
-      return this.currentPlayer === "barcos";
+      return this.turnoActual === "ColocandoBarcos";
     }
   },
   components: {
@@ -230,7 +230,6 @@ export default {
           userSquares: [],
           computerSquares: [],
           isHorizontal: true,
-          currentPlayer: 'barcos',
 
           width: 10,
 
@@ -246,12 +245,12 @@ export default {
           infoSubmarino2: {posicion:{fila:-1,columna:-1},direccion:"__"},
           infoCrucero: {posicion:{fila:-1,columna:-1},direccion:"__"},
 
-
-
-
         }
   },
   methods: {
+    ...mapMutations([
+      'setTurnoActual'
+    ]),
     //Game logic
     //Create Board
     createBoard: function (grid, squares, id) {
@@ -385,7 +384,8 @@ export default {
         .then(resp => {
             //Petición enviada correctamente
             console.log(resp)
-            
+            //Si los barcos están ok, cambio el estado
+            this.setTurnoActual('ColocandoBarcosRival')
             
             })
         .catch(error => {
@@ -393,19 +393,22 @@ export default {
           console.log('Error en post de incoming requests')
           console.log(error)
         });
-      console.log("current player es " + this.currentPlayer)
-      if (this.currentPlayer === 'user'){
+      console.log("current player es " + this.turnoActual)
+      if (this.turnoActual === 'TuTurno'){
         this.turnDisplay = 'Mi turno'
         let self = this; //Para usar este this dentro de la función de flecha! :D (https://forum.vuejs.org/t/is-not-a-function/12444)
         this.computerSquares.forEach(square => square.addEventListener('click', function(){
           self.disparo(square)
         }))
       }
-      if (this.currentPlayer === 'computer'){
+      if (this.turnoActual === 'TurnoRival'){
         this.turnDisplay = 'Turno del rival'
       }
-      if (this.currentPlayer === 'barcos'){
+      if (this.turnoActual === 'ColocandoBarcos'){
         this.turnDisplay = 'Coloca tus barcos'
+      }
+      if (this.turnoActual === 'ColocandoBarcosRival'){
+        this.turnDisplay = 'Rival colocando sus barcos'
       }
 
 
@@ -725,18 +728,22 @@ export default {
       this.selectedShipNameWithIndex = e.target.id
     }))
 
-    if (this.currentPlayer === 'user'){
+    console.log("current player es " + this.turnoActual)
+    if (this.turnoActual === 'TuTurno'){
       this.turnDisplay = 'Mi turno'
       let self = this; //Para usar este this dentro de la función de flecha! :D (https://forum.vuejs.org/t/is-not-a-function/12444)
       this.computerSquares.forEach(square => square.addEventListener('click', function(){
         self.disparo(square)
       }))
     }
-    if (this.currentPlayer === 'computer'){
+    if (this.turnoActual === 'TurnoRival'){
       this.turnDisplay = 'Turno del rival'
     }
-    if (this.currentPlayer === 'barcos'){
+    if (this.turnoActual === 'ColocandoBarcos'){
       this.turnDisplay = 'Coloca tus barcos'
+    }
+    if (this.turnoActual === 'ColocandoBarcosRival'){
+      this.turnDisplay = 'Rival colocando sus barcos'
     }
     
 

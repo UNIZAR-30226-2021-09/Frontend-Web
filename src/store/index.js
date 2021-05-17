@@ -62,6 +62,7 @@ export default new Vuex.Store({
     },
     partidaActual: '', //aquí se guardará el id de la partida en la que se encuentra el usuario (para poder hacer las peticiones)
     contrincanteActual: '', //aquí se guardará el nombre del contrincante de la partida en la que se encuentra el usuario
+    turnoActual: '',
   },
   mutations: {
 
@@ -138,6 +139,9 @@ export default new Vuex.Store({
     },
     setContrincanteActual(state, newContrincante){
       state.contrincanteActual = newContrincante
+    },
+    setTurnoActual(state, newTurno){
+      state.turnoActual = newTurno
     },
     //______________________________GETTERS______________________________
     getToken(state){

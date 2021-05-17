@@ -151,7 +151,7 @@ export default {
   },
   methods:{
     ...mapMutations([
-      'anyadirAmigo','setUsuarioBuscado','setEntrantes','setSalientes','setAmigos','setDesafios','setPartidaActual', 'setContrincanteActual'
+      'anyadirAmigo','setUsuarioBuscado','setEntrantes','setSalientes','setAmigos','setDesafios','setPartidaActual', 'setContrincanteActual', 'setTurnoActual'
     ]),
     recuperarNombre: function(){
         
@@ -233,6 +233,7 @@ export default {
             console.log(resp.data._id)
             console.log(jugador.id)
             this.setContrincanteActual(jugador.contrincante)
+            this.setTurnoActual('ColocandoBarcos')
             this.perfil.desafiosRecibidos.splice(index, 1);
             this.$router.push('partida')
 
