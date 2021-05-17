@@ -65,6 +65,7 @@ const messages = {
       listaAmigos:{
           peticionesRecibidas: 'Peticiones de amistad recibidas',
           peticionesEnviadas:'Peticiones de amistad enviadas',
+          desafiosRecibidos: 'Desafíos amistosos recibidos',
           amigos: 'Amigos',
           noRecibidas: 'No has recibido peticiones',
           noEnviadas: 'No has enviado peticiones',
@@ -154,6 +155,7 @@ const messages = {
       listaAmigos:{
           peticionesRecibidas: 'Friend requests received',
           peticionesEnviadas:'Friend requests sent',
+          desafiosRecibidos: 'Incoming friend challenges',
           amigos: 'Friends',
           noRecibidas: 'You have not received requests',
           noEnviadas: 'You have not sent requests',

@@ -37,6 +37,9 @@ export default new Vuex.Store({
         // {nombre: 'algo123'},
         // {nombre: 'easyGame'}
       ],
+      desafiosRecibidos: [
+
+      ],
       partidasEnCurso: [
          //{contrincante: 'fulanito', tipo: 'amistoso', id: '1', turno: 'adrian'},
          //{contrincante: 'fulanito', tipo: 'amistoso', id: '2',  turno: 'fulanito'},
@@ -95,6 +98,9 @@ export default new Vuex.Store({
     setSalientes(state, newEnviadas){
       // console.log("Actualizando salientes: " + newSalientes)
       state.perfil.peticionesEnviadas = newEnviadas
+    },
+    setDesafios(state, newDesafios){
+      state.perfil.desafiosRecibidos = newDesafios
     },
     setToken(state, newToken){
       // console.log("Actualizando token: " + newToken)

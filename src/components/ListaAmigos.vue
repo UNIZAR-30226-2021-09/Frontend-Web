@@ -54,6 +54,22 @@
             </ul>
         </div>
 
+        <!-- Lista de partidas amistosasa recibidas -->
+        <div class="mt-3">
+            <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ $t('listaAmigos.desafiosRecibidos') }} <span style="background-color: coral;" class="badge">{{numDesafiosRecibidos}}</span></h5>
+            <ul class="dropdown-menu list-group-flush">
+                    <li class="list-group-item bg-secundary" v-if="numDesafiosRecibidos==0" bg>
+                        <i>{{ $t('listaAmigos.noRecibidas') }}</i>
+                    </li>
+                    <li class="list-group-item bg-secundary" v-else v-for="(jugador,index) in desafiosRecibidosF" v-bind:key="jugador.id" bg>
+                        <a class="dropdown-item" > {{jugador.contrincante}}
+                                <button  class="btn btn-outline-success btn-sm mb-1" style="margin-left: 10px" type="button" @click='aceptarDesafio(jugador,index)'>{{ $t('boton.aceptar') }}</button>
+                                <button  class="btn btn-outline-danger btn-sm mb-1" style="margin-left: 5px" type="button" @click='rechazarDesafio(jugador,index)'>{{ $t('boton.rechazar') }}</button>
+                            </a>
+                    </li>
+            </ul>
+        </div>
+
         <br>
 
         <!-- Lista de amigos -->
@@ -107,6 +123,9 @@ export default {
       numPeticionesEnviadas(){
         return this.perfil.peticionesEnviadas.length
       },
+      numDesafiosRecibidos(){
+          return this.perfil.desafiosRecibidos.length
+      },
       numAmigos(){
         return this.perfil.listaAmigos.length
       },
@@ -120,7 +139,10 @@ export default {
       },
       peticionesEnviadasF(){
             return this.perfil.peticionesEnviadas;
-      }
+      },
+      desafiosRecibidosF(){
+            return this.perfil.desafiosRecibidos;
+      },
       
   },
   data() {
@@ -129,7 +151,7 @@ export default {
   },
   methods:{
     ...mapMutations([
-      'anyadirAmigo','setUsuarioBuscado','setEntrantes','setSalientes','setAmigos'
+      'anyadirAmigo','setUsuarioBuscado','setEntrantes','setSalientes','setAmigos','setDesafios','setPartidaActual', 'setContrincanteActual'
     ]),
     recuperarNombre: function(){
         
@@ -196,9 +218,53 @@ export default {
         console.log(error.response.request.response)
         });
     },
+    aceptarDesafio: function(jugador, index){
+        let dir = this.host + '/game/accept'
+        axios
+        .post(dir, {
+            nombreUsuario: this.perfil.nombreUsuario,
+            gameid: jugador.id,
+            accessToken: this.perfil.token
+        })
+        .then(resp => {
+            //Petición enviada correctamente
+            console.log(resp)
+            this.setPartidaActual(resp.data._id)
+            console.log(resp.data._id)
+            console.log(jugador.id)
+            this.setContrincanteActual(jugador.contrincante)
+            this.perfil.desafiosRecibidos.splice(index, 1);
+            this.$router.push('partida')
+
+            })
+        .catch(error => {
+        //Error al enviar la petición
+            console.log('Error en post de aceptar desafio')
+            console.log(error)
+        });
+    },
+    rechazarDesafio: function(jugador, index){
+        let dir = this.host + '/game/dismiss'
+        axios
+        .post(dir, {
+            nombreUsuario: this.perfil.nombreUsuario,
+            gameid: jugador.id,
+            accessToken: this.perfil.token
+        })
+        .then(() => {
+            //Petición enviada correctamente
+            console.log('Partida rechazada')
+            this.perfil.desafiosRecibidos.splice(index, 1);
+            })
+        .catch(error => {
+        //Error al enviar la petición
+            console.log('Error en post de rechazar desafio')
+            console.log(error)
+        });
+    },
     cambiarBuscado: function(nom){
           //this.setUsuarioBuscado(this.perfil.nombreUsuario);
-          console.log('aaaaaaa');
+          //console.log('aaaaaaa');
           this.setUsuarioBuscado(nom);
       } 
         //Implementar las otras funciones de capturar la lista de amigos, el nombre del usuario
@@ -252,6 +318,24 @@ export default {
     .then(resp => {
     //Petición enviada correctamente
     this.setAmigos(resp.data)
+    })
+    .catch(error => {
+    //Error al enviar la petición
+    console.log(error)
+    });
+
+    //Actualizamos la lista de desafios entrantes
+    dir = this.host + '/game/incomingRequests'
+    axios
+    .post(dir, {
+        nombreUsuario: this.perfil.nombreUsuario,
+        accessToken: this.perfil.token
+    })
+    .then(resp => {
+    //Petición enviada correctamente
+    console.log('Peticiones de deasfios entrantes:')
+    console.log(resp)
+    this.setDesafios(resp.data)
     })
     .catch(error => {
     //Error al enviar la petición

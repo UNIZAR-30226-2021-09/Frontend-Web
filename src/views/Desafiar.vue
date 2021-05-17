@@ -82,7 +82,7 @@ export default {
       this.errorPeti = false
 
       //Desafiar a un amigo a un desafío amistoso
-      let dir = this.host + '/game/newGame'
+      let dir = this.host + '/game/friend'
       axios
       .post(dir, {
           nombreUsuario: this.perfil.nombreUsuario,
