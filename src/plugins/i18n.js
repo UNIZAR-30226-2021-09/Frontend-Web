@@ -59,7 +59,7 @@ const messages = {
           seleccionaAmigo: 'Selecciona un amigo al que desafiar',
           vasInvitar: 'Vas a invitar a ',
           hasDesafiado1: 'Has desafiado a  ',
-          hasDesafiado2: '. Se ha añadido la partida a tu lista de partidas en curso.',
+          hasDesafiado2: '. Se añadirá la partida a la lista de partidas en curso cuando se acepte.',
           participantes: 'Participantes'
       },
       listaAmigos:{
@@ -147,7 +147,7 @@ const messages = {
         seleccionaAmigo: 'Select a friend to challenge',
         vasInvitar: 'You are going to invite ',
         hasDesafiado1: 'You have challenged ',
-        hasDesafiado2: '. The game has been added to your current games list.',
+        hasDesafiado2: '. The game will be added to your current games list when the opponent accepts it.',
         participantes: 'Participants',
         
 
