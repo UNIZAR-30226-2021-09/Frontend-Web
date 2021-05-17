@@ -25,7 +25,7 @@ const messages = {
         volverTutorial: 'Volver a ver el tutorial'
       },
       navbar: {
-          nuevaPartida: 'Nueva partida',
+          nuevaPartida: 'Partida contra la IA',
           partidaCiegas: 'Partida a ciegas',
           desafiarAmigo: 'Desafiar amigo',
           torneo: 'Torneo',
@@ -50,7 +50,7 @@ const messages = {
           noCoincidenContrasenya: 'Las contraseñas no coinciden',
           errorExisten: 'El nombre de usuario o el correo ya existen',
           explicacionCiegas: 'Busca una nueva partida contra un usuario aleatorio. Una vez se cree la partida, se añadirá automáticamente a tu lista de partidas',
-          explicacionDesafiar: 'Selecciona un amigo de tu lista para jugar una partida contra él',
+          exlicarDesafiar: 'Selecciona un amigo de tu lista para jugar una partida contra él',
           explicarTorneo: 'Crea un torneo con otros 3 amigos',
           explicarPartidasCurso: 'Visualiza las partidas que tienes actualmente abiertas',
           explicarPartidaIA: 'Juega una partida contra el ordenador. Estas partidas no modificarán tus puntos',
@@ -113,7 +113,7 @@ const messages = {
         volverTutorial: 'Watch the tutorial again'
       },
       navbar: {
-        nuevaPartida: 'New game',
+        nuevaPartida: 'Game against AI',
         partidaCiegas: 'Blind game',
         desafiarAmigo: 'Challenge friend',
         torneo: 'Tournament',

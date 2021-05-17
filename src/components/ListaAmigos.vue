@@ -333,8 +333,8 @@ export default {
     })
     .then(resp => {
     //Petición enviada correctamente
-    console.log('Peticiones de deasfios entrantes:')
-    console.log(resp)
+    //console.log('Peticiones de deasfios entrantes:')
+    //console.log(resp)
     this.setDesafios(resp.data)
     })
     .catch(error => {
