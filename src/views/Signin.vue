@@ -2,7 +2,7 @@
     <div align="center">
 
         <div class="container mt-5" id="sign_in">
-            <h1>{{titulo}}</h1>
+            <h1>{{ $t('boton.registrarse') }}</h1>
             <p></p>
 
             <div class="input-group mb-3 mt-5">
@@ -78,7 +78,7 @@ export default {
   },
   data() {
         return{ 
-            titulo: 'Sign in',
+            titulo: 'Sign up',
             nombre: '',
             correo: '',
             contrasena: '',

@@ -47,7 +47,7 @@
                     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5"></button>
                   </div>
                   <div class="carousel-inner h-50">
-                    <div class="carousel-item h-50">
+                    <div class="carousel-item active" data-bs-interval="4000">
                       <button @click="buscarPartidaIA"><img src="@/assets/vs_IA.jpg" width="750" height="550" class="d-block" alt="@/assets/logo.png" ></button>
                       <div class="carousel-caption d-none d-md-block bg-white rounded-pill">
                         <h4>
@@ -59,7 +59,7 @@
                         <p>{{ $t('mensaje.explicarPartidaIA') }}</p>
                       </div>
                     </div>
-                    <div class="carousel-item active" data-bs-interval="4000">
+                    <div class="carousel-item" data-bs-interval="4000">
                       <router-link to="ciegas"><img src="@/assets/vs_ciegas.jpg" width="750" height="550" class="d-block" alt="@/assets/logo.png"></router-link>
 
                       <div class="carousel-caption d-none d-md-block bg-white rounded-pill">
@@ -96,7 +96,7 @@
                         <p>{{ $t('mensaje.explicarTorneo') }}</p>
                       </div>
                     </div>
-                    <div class="carousel-item" data-bs-interval="4000">
+                    <div class="carousel-item h-50" >
                       <router-link to="partidasEnCurso"><img src="@/assets/logo.png" width="750" height="550" class="d-block" alt="@/assets/logo.png" ></router-link>
                       <div class="carousel-caption d-none d-md-block bg-white rounded-pill">
                         <h4>
