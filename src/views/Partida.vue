@@ -68,7 +68,9 @@
                   <div class="battleship-grid grid-computer tablero-lava"></div>
                 </div>
 
-                <div class="container hidden-info">
+                <h3 class="info-text mt-1" >{{turnDisplay}}</h3>
+
+                <div class="container hidden-info mt-3" v-if="ponerBarcos">
                   <div class="setup-buttons btn-group" id="setup-buttons">
                     <button id="start" @click="playGame" class="btn btn-outline-primary">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
@@ -90,11 +92,10 @@
                       Quitar mis barcos
                     </button>
                   </div>
-                  <h3 id="whose-go" class="info-text mt-3">Your Go</h3>
-                  <h3 id="info" class="info-text"></h3>
+                  
                 </div>
 
-                <div class="container">
+                <div class="container" v-if="ponerBarcos">
                   <!-- Pintamos los barcos azules -->
                   <div v-if="configuracion.barcos === 'Azul' || configuracion.barcos === 'Blue' " class="grid-display">
                     <div id="destroyer" class="ship destroyer-container barco-Azul" draggable="true"><div  id="destroyer-0"></div><div id="destroyer-1"></div></div>
@@ -189,6 +190,9 @@ export default {
         }
       }
       return retVal;
+    },
+    ponerBarcos: function(){
+      return this.currentPlayer === "barcos";
     }
   },
   components: {
@@ -226,7 +230,7 @@ export default {
           userSquares: [],
           computerSquares: [],
           isHorizontal: true,
-          currentPlayer: 'user',
+          currentPlayer: 'barcos',
 
           width: 10,
 
@@ -389,17 +393,22 @@ export default {
           console.log('Error en post de incoming requests')
           console.log(error)
         });
-
+      console.log("current player es " + this.currentPlayer)
       if (this.currentPlayer === 'user'){
-        this.turnDisplay.innerHTML = 'Mi turno'
+        this.turnDisplay = 'Mi turno'
         let self = this; //Para usar este this dentro de la función de flecha! :D (https://forum.vuejs.org/t/is-not-a-function/12444)
         this.computerSquares.forEach(square => square.addEventListener('click', function(){
           self.disparo(square)
         }))
       }
       if (this.currentPlayer === 'computer'){
-        this.turnDisplay.innerHTML = 'Turno del rival'
+        this.turnDisplay = 'Turno del rival'
       }
+      if (this.currentPlayer === 'barcos'){
+        this.turnDisplay = 'Coloca tus barcos'
+      }
+
+
     },
     
     //Extra functions
@@ -496,8 +505,6 @@ export default {
     this.cruiser = document.querySelector('.cruiser-container')
     this.battleship = document.querySelector('.battleship-container')
     this.carrier = document.querySelector('.carrier-container')
-    
-    this.turnDisplay = document.querySelector('#whose-go')
 
     //Nos guardamos los barcos por si hay que volverlos a poner en el grid inferior
     this.destroyer_saved = document.querySelector('#destroyer')
@@ -717,6 +724,21 @@ export default {
     this.ships.forEach(ship => ship.addEventListener('mousedown', (e) => {
       this.selectedShipNameWithIndex = e.target.id
     }))
+
+    if (this.currentPlayer === 'user'){
+      this.turnDisplay = 'Mi turno'
+      let self = this; //Para usar este this dentro de la función de flecha! :D (https://forum.vuejs.org/t/is-not-a-function/12444)
+      this.computerSquares.forEach(square => square.addEventListener('click', function(){
+        self.disparo(square)
+      }))
+    }
+    if (this.currentPlayer === 'computer'){
+      this.turnDisplay = 'Turno del rival'
+    }
+    if (this.currentPlayer === 'barcos'){
+      this.turnDisplay = 'Coloca tus barcos'
+    }
+    
 
     //this.playGame() //############################################################################################################################################################
 
