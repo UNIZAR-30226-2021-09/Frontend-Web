@@ -8,18 +8,18 @@
             <div class="col-sm-9 ">
 
            <!-- Contenido de la pantalla -->
-                <h1>Perfil: {{nombre}}</h1>
+                <h1>{{ $t('navbar.perfil') }}: {{nombre}}</h1>
                 
                 <div class="text-start">
 
                   <h5 class="mt-4">
-                    Nombre: {{nombre}} </h5>
+                    {{ $t('placeHolder.nombre') }}: {{nombre}} </h5>
 
                   <h5 class="mt-4">
                     Email: {{email}} </h5>
 
                   <h5 class="mt-4">
-                    Partidas jugadas: {{ganadas + perdidas}}
+                    {{ $t('perfil.ganadas') }}: {{ganadas + perdidas}}
                     <p  class="fw-lighter" style="margin-top: 10px; margin-left: 100px;">Ganadas: {{ganadas}}</p>
                     <p  class="fw-lighter" style="margin-top: 10px; margin-left: 100px;">Perdidas: {{perdidas}}</p>
                     <p  class="fw-lighter" style="margin-top: 10px; margin-left: 100px;">Torneos ganados: {{torneos}}</p>

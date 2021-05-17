@@ -7,7 +7,7 @@
          <div class="row g-3">
             <div class="container col-sm-9 " >
                 
-                <h2 class="mt-3">{{nombrePag}}</h2>
+                <h2 class="mt-3">{{ $t('navbar.torneo') }}</h2>
                 <br>
 
 
@@ -21,7 +21,7 @@
                       <div class=" container col-sm-3 bg-white">
                           <br> <br>
 
-                          <h3> Participantes: </h3>
+                          <h3> {{ $t('mensaje.participantes') }}: </h3>
                           <br>
                           <div v-for="amigo in this.participantes" v-bind:key="amigo.puesto" style="border-color: green">
                                 <p v-if="seleccionado(amigo.nombre) == 1" style="background-color: #e0ecfc; margin: 5px;"> {{amigo.nombre}}</p>
@@ -33,7 +33,7 @@
 
                           <br>
 
-                          <h3> Amigos: </h3>
+                          <h3> {{ $t('listaAmigos.amigos') }}: </h3>
                           <br>
                           <div class="overflow-auto p-3 mb-3 mb-md-0 mr-md-3" style="max-width: 260px; max-height: 320px;">
                               <div v-for="amigo in perfil.listaAmigos" v-bind:key="amigo" style="border-color: green">
@@ -63,14 +63,14 @@
                         <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
                         <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
                       </svg>
-                      Reiniciar
+                      {{ $t('boton.reiniciar') }}
                     </button>
 
                     <button type="button" class="btn btn-outline-secondary" @click="crearTorneo()">
                       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
                         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                       </svg>
-                      Crear Torneo
+                      {{ $t('boton.crearTorneo') }}
                     </button>
               
                     <br> <br>

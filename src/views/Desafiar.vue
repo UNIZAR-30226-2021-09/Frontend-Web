@@ -7,11 +7,11 @@
          <div class="row g-3">
             <div class="col-sm-9">
                 
-              <h2>{{nombrePag}}</h2>
+              <h2>{{ $t('navbar.desafiarAmigo') }}</h2>
 
               <p></p>
 
-              <h4 class="mt-4">Invita a un jugador...</h4>
+              <h4 class="mt-4">{{ $t('mensaje.invitaJugador') }}</h4>
 
               <p></p>
 
@@ -29,14 +29,14 @@
               </div>
               
 
-              <p></p>
+              <br>
 
-              <button id="btnSend" to="amigoDesafiado" class="btn btn-success disabled" @click="desafiarAmigo" type="button" >Enviar invitación</button>
+              <button id="btnSend" to="amigoDesafiado" class="btn btn-success disabled" @click="desafiarAmigo" type="button" >{{ $t('boton.enviarInvitacion') }}</button>
 
               <!-- Mensaje de error -->
               <div class="mt-3">
                 <div v-if=errorPeti class="alert alert-danger" role="alert">
-                  Ha ocurrido un error, vuélvelo a intentar más tarde.
+                  {{ $t('mensaje.errorDesafiar') }}
                 </div>
               </div>
 
@@ -53,6 +53,7 @@
 import ListaAmigos from '@/components/ListaAmigos.vue'
 import {mapState, mapMutations} from 'vuex';
 import axios from 'axios'
+import { i18n } from '../plugins/i18n' 
 
 export default {
   name: 'Desafiar',
@@ -62,7 +63,7 @@ export default {
   data() {
         return{ 
           nombrePag: 'Desafiar a un amigo',
-          msg: 'Selecciona un amigo al que desafiar',
+          msg: '',
           errorPeti: false
         }
   },
@@ -73,7 +74,7 @@ export default {
     ]),
     modificarDesafiado: function(amigo){
       this.setDesafiado(amigo);
-      this.msg =  'Vas a invitar a ' + amigo;
+      this.msg =  i18n.t('mensaje.vasInvitar') + amigo;
       var element = document.getElementById("btnSend");
       element.classList.remove("disabled");
     },
@@ -96,12 +97,12 @@ export default {
           console.log("Éxito en la petición ")
           console.log(resp)
         }
-        this.$toasted.show("Has desafiado a " + resp.data.participante2 + ". Se ha añadido la partida a tu lista de partidas en curso.", { 
+        this.$toasted.show(i18n.t('mensaje.hasDesafiado1') + resp.data.participante2 + i18n.t('mensaje.hasDesafiado2'), { 
                     theme: "toasted-primary", 
                     position: "bottom-left", 
                     duration : 4000
                   });
-        this.msg =  'Selecciona a un amigo al que desafiar ';
+        this.msg =  i18n.t('mensaje.seleccionaAmigo');
         var element = document.getElementById("btnSend");
         element.classList.add("disabled");
         
@@ -118,8 +119,9 @@ export default {
     // }
   },
   created: function() {
+    this.msg = i18n.t('mensaje.seleccionaAmigo');
     if(this.perfil.listaAmigos.length == 0){
-      this.msg = 'Necesitas añadir a amigos antes de invitarlos :('
+      this.msg = i18n.t('listaAmigos.noAmigos');
     }
     
   }

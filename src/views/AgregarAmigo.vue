@@ -9,7 +9,7 @@
 
            <!-- Contenido de la pantalla -->
 
-                <h2>{{titulo}}</h2>
+                <h2>{{ $t('navbar.desafiarAmigo') }}</h2>
                 
                 <div class="input-group mb-3 mt-5">
                   <span class="input-group-text" id="basic-addon1">></span>

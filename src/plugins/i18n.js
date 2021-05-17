@@ -12,7 +12,17 @@ const messages = {
         inicio: 'Inicio',
         idioma: 'Idioma',
         aceptar: 'Aceptar',
-        rechazar: 'Rechazar'
+        rechazar: 'Rechazar',
+        buscarContrincante: 'Buscar contrincante',
+        enviarInvitacion: 'Enviar invitacion',
+        reiniciar: 'Reiniciar',
+        crearTorneo: 'Crear torneo',
+        colocarBarcos: 'Colocar barcos',
+        continuarPartida: 'Continuar partida',
+        verClasificacion: 'Ver posicion en la clasificacion',
+        compartirPerfil: 'Compartir perfil',
+        historialPartidas: 'Historial de partidas',
+        volverTutorial: 'Volver a ver el tutorial'
       },
       navbar: {
           nuevaPartida: 'Nueva partida',
@@ -44,6 +54,13 @@ const messages = {
           explicarTorneo: 'Crea un torneo con otros 3 amigos',
           explicarPartidasCurso: 'Visualiza las partidas que tienes actualmente abiertas',
           explicarPartidaIA: 'Juega una partida contra el ordenador. Estas partidas no modificarán tus puntos',
+          invitaJugador: 'Invita a un jugador...',
+          errorDesafiar: 'Ha ocurrido un error, vuélvelo a intentar más tarde.',
+          seleccionaAmigo: 'Selecciona un amigo al que desafiar',
+          vasInvitar: 'Vas a invitar a ',
+          hasDesafiado1: 'Has desafiado a  ',
+          hasDesafiado2: '. Se ha añadido la partida a tu lista de partidas en curso.',
+          participantes: 'Participantes'
       },
       listaAmigos:{
           peticionesRecibidas: 'Peticiones de amistad recibidas',
@@ -53,6 +70,26 @@ const messages = {
           noEnviadas: 'No has enviado peticiones',
           noAmigos: 'Aún no has añadido a ningún amigo',
           miPerfil: 'Mi Perfil'
+      },
+      partidasCurso:{
+          ciegas: 'Partidas a ciegas',
+          noCiegas: 'Actualmente no tienes partidas a ciegas en curso.',
+          amigos: 'Partidas vs amigos',
+          noAmigos: 'Actualmente no tienes partidas contra amigos en curso.',
+          torneos: 'Partidas de torneos',
+          noTorneos: 'Actualmente no tienes partidas de torneos en curso.',
+          IA: 'Partidas vs IA',
+          noIA: 'Actualmente no tienes partidas contra la IA en curso.',
+          partidaContra1: 'Partida contra ',
+          partidaContra2: ', esperando a movimiento del contrincante',
+      },
+      perfil:{
+        partidasJugadas: 'Partidas jugadas',
+        ganadas: 'Ganadas',
+        perdidas: 'Perdidas',
+        torneos: 'Torneos ganados',
+        proporcion: 'Proporcion de victorias: ',
+        noExisten: 'No existen datos para calcular',
       }
     },
     en: {
@@ -62,7 +99,17 @@ const messages = {
         inicio: 'Home',
         idioma: 'Language',
         aceptar: 'Acept',
-        rechazar: 'Reject'
+        rechazar: 'Reject',
+        buscarContrincante: 'Search for opponent',
+        enviarInvitacion: 'Send invitation',
+        reiniciar: 'Restart',
+        crearTorneo: 'Create tournament',
+        colocarBarcos: 'Place ships',
+        continuarPartida: 'Continue game',
+        verClasificacion: 'See position in the ranking',
+        compartirPerfil: 'Share profile',
+        historialPartidas: 'Game history',
+        volverTutorial: 'Watch the tutorial again'
       },
       navbar: {
         nuevaPartida: 'New game',
@@ -94,6 +141,14 @@ const messages = {
         explicarTorneo: 'Create a tournament with 3 other friends',
         explicarPartidasCurso: 'View the games that you currently have open',
         explicarPartidaIA: 'Play a game against the computer. These games will not modify your points',
+        invitaJugador: 'Invite a player ...',
+        errorDesafiar: 'An error has occurred, please try again later.',
+        seleccionaAmigo: 'Select a friend to challenge',
+        vasInvitar: 'You are going to invite ',
+        hasDesafiado1: 'You have challenged ',
+        hasDesafiado2: '. The game has been added to your current games list.',
+        participantes: 'Participants',
+        
 
       },
       listaAmigos:{
@@ -104,7 +159,27 @@ const messages = {
           noEnviadas: 'You have not sent requests',
           noAmigos: 'You have not added any friends yet',
           miPerfil: 'My Profile'
-      }
+      },
+      partidasCurso:{
+        ciegas: 'Blind games',
+        noCiegas: 'You have no blind games in progress.',
+        amigos: 'Games vs friends',
+        noAmigos: 'You have no games vs friends in progress.',
+        torneos: 'Games of tournaments',
+        noTorneos: 'You have no tournaments in progress.',
+        IA: 'Games vs IA',
+        noIA: 'You have no games vs IA in progress.',
+        partidaContra1: 'Game against ',
+        partidaContra2: ', waiting for the opponent\'s move',
+    },
+    perfil:{
+      partidasJugadas: 'Games played',
+      ganadas: 'Games won',
+      perdidas: 'Games lost',
+      torneos: 'Tournaments won',
+      proporcion: 'Win ratio: ',
+      noExisten: 'There are no data to calculate',
+    }
     }
 }
 

@@ -7,7 +7,7 @@
          <div class="row g-3">
             <div class="col-sm-9">
                 
-                <h2>{{nombrePag}}</h2>
+                <h2>{{ $t('navbar.desafiarAmigo') }}</h2>
                 
                 <h4 class="mt-5">
                     {{perfil.nombreUsuario}}: Listo
