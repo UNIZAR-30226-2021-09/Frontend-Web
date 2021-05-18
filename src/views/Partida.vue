@@ -245,6 +245,7 @@ export default {
           infoSubmarino2: {posicion:{fila:-1,columna:-1},direccion:"__"},
           infoCrucero: {posicion:{fila:-1,columna:-1},direccion:"__"},
 
+          barcosHundidos: 0,
         }
   },
   methods: {
@@ -386,11 +387,12 @@ export default {
             console.log(resp)
             //Si los barcos están ok, cambio el estado
             this.setTurnoActual('ColocandoBarcosRival')
+            this.turnDisplay = 'Rival colocando sus barcos'
             
             })
         .catch(error => {
         //Error al enviar la petición
-          console.log('Error en post de incoming requests')
+          console.log('Error en post de colocar barcos')
           console.log(error)
         });
       console.log("current player es " + this.turnoActual)
@@ -471,7 +473,7 @@ export default {
         })
         .catch(error => {
         //Error al enviar la petición
-          console.log('Error en post de incoming requests')
+          console.log('Error en post de enviar movimiento')
           console.log(error)
         });
 
@@ -563,7 +565,6 @@ export default {
   
     this.createBoard(this.userGrid, this.userSquares, this.gridIdentifier)
     this.createDebugBoard(this.computerGrid, this.computerSquares, this.compGridIdentifier)
-
 
     //A cada barco le asignamos la función dragStart si ocurre el evento de drag
     this.ships.forEach(ship => ship.addEventListener('dragstart', dragStart))
@@ -736,6 +737,91 @@ export default {
         self.disparo(square)
       }))
     }
+    if (this.turnoActual != 'ColocandoBarcos'){ //Si ya he colocado los barcos, hay que recuperar el estado de los tableros
+      let self = this;
+      let dir = this.host + '/match/cogerTablero'
+      axios
+      .post(dir, {
+        nombreUsuario: this.perfil.nombreUsuario,
+        accessToken: this.perfil.token,
+        gameid: this.partidaActual
+      })
+      .then(resp => {
+        //Petición enviada correctamente
+        //console.log(resp)
+
+        //Recupero los disparos a mis barcos
+        const tuTablero = resp.data.tuTablero
+        // tuTablero[1] = {
+        //   "casilla": {
+        //         "fila": 0,
+        //         "columna": 1,
+        //         "estado": "fallo"
+        //     },
+        //     "_id": "60a0dcdc2a63a30b7416ff3c"
+        // }
+        // tuTablero[0] = {
+        //   "casilla": {
+        //         "fila": 2,
+        //         "columna": 6,
+        //         "estado": "acierto"
+        //     },
+        //     "_id": "60a0dcdc2a63a30b7416ff3c"
+        // }
+        tuTablero.forEach(info => //Este es un for each que itera en cada uno de los barcos
+          {
+            let coord = info.casilla //Cada una de las coordenadas de cada disparo
+            if (info.casilla.estado === 'acierto') {self.userSquares[parseInt((coord.fila * self.width) + coord.columna)].classList.add('boom')}
+            else if (info.casilla.estado === 'fallo') {self.userSquares[parseInt((coord.fila * self.width) + coord.columna)].classList.add('miss')}
+            else {console.log("???")}
+          }
+        )
+
+        //Recupero las posiciones de mis barcos
+        const tusBarcos = resp.data.tusBarcos
+        let colorBarco = 'barco-' + self.configuracion.barcos
+        tusBarcos.forEach(barco => //Este es un for each que itera en cada uno de los barcos
+         barco.coordenadas.forEach(coord => //Cada una de las coordenadas de cada cuadradito de un barco
+          {
+            if(! self.userSquares[parseInt((coord.fila * self.width) + coord.columna)].classList.contains('boom') &&
+               ! self.userSquares[parseInt((coord.fila * self.width) + coord.columna)].classList.contains('miss')){ //se pinta el barco si no hay disparo
+              self.userSquares[parseInt((coord.fila * self.width) + coord.columna)].classList.add('taken', colorBarco)
+            }
+          }
+         )
+        )
+
+        //Recupero los disparos que le he hecho al rival
+        const disparos = resp.data.disparos
+        disparos.forEach(info => //Este es un for each que itera en cada uno de los barcos
+          {
+            let coord = info.casilla //Cada una de las coordenadas de cada disparo
+            if (info.casilla.estado === 'acierto') {self.computerSquares[parseInt((coord.fila * self.width) + coord.columna)].classList.add('boom')}
+            else if (info.casilla.estado === 'fallo') {self.computerSquares[parseInt((coord.fila * self.width) + coord.columna)].classList.add('miss')}
+            else {console.log("???")}
+          }
+        )
+
+        //Recupero el número de barcos hundidos
+        const barcosHundidosRival = resp.data.barcosHundidosRival
+
+
+        //console.log(tuTablero)
+        //console.log(tusBarcos)
+        //console.log(disparos)
+        console.log(barcosHundidosRival)
+
+        
+
+      })
+      .catch(error => {
+      //Error al enviar la petición
+        console.log('Error en post de coger tablero')
+        console.log(error)
+      });
+    }
+
+
     if (this.turnoActual === 'TurnoRival'){
       this.turnDisplay = 'Turno del rival'
     }
