@@ -146,13 +146,14 @@ export default {
       'setToken','setNombreUsuario'
     ]),
     changeLanguage(locale) {
+      this.configuracion.idioma = locale;
       i18n.locale = locale
 
     }
 
   },
   computed:{
-      ...mapState(['host'])
+      ...mapState(['host','configuracion'])
   }
 }
 </script>

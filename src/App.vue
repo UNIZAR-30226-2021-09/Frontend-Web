@@ -30,6 +30,7 @@ export default {
     Infobar,
     Cabecera
   },
+
 }
 
 

@@ -81,7 +81,6 @@
 
             <ListaAmigos/>
         </div>
-    
       </div>
 
     </div>

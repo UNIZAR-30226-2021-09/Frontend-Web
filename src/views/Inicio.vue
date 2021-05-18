@@ -135,6 +135,8 @@
 import ListaAmigos from '@/components/ListaAmigos.vue'
 import {mapState,mapMutations} from 'vuex'
 import axios from 'axios'
+import { i18n } from '@/plugins/i18n'
+
 
 export default {
   name: 'Inicio',
@@ -153,7 +155,7 @@ export default {
         }
   },
   computed:{
-    ...mapState(['perfil', 'host', 'partidaActual'])
+    ...mapState(['perfil', 'host', 'partidaActual','configuracion'])
   },
   methods: {
       ...mapMutations(['setPartidaActual', 'setContrincanteActual', 'setTurnoActual']),
@@ -195,6 +197,7 @@ export default {
     //   this.$socket.emit("logMe", { nombreUsuario: "User4"});
     // }
     //console.log('b');
+    i18n.locale = this.configuracion.idioma;
   }
 
 }

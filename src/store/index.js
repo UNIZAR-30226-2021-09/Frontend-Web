@@ -56,7 +56,7 @@ export default new Vuex.Store({
     amigoDesafiado: '',
     usuarioBuscado: '',
     configuracion:{
-      idioma: 'Español',
+      idioma: 'en',
       barcos: 'Azul',
       tablero: 'Océano'
     },
@@ -80,6 +80,9 @@ export default new Vuex.Store({
       state.perfil.token = ''
     },
     //______________________________SETTERS______________________________
+    setPerfilUndefined(state){
+      state.perfil = undefined
+    },
     setNombreUsuario(state, newNombreUsuario){
       // console.log("Actualizando nombre de usuario: " + newNombreUsuario)
       state.perfil.nombreUsuario = newNombreUsuario

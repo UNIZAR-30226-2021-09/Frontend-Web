@@ -144,12 +144,13 @@ export default {
     },
 
     changeLanguage(locale) {
+      this.configuracion.idioma = locale;
       i18n.locale = locale
 
     }
   },
   computed:{
-      ...mapState(['host','perfil']),
+      ...mapState(['host','perfil','configuracion']),
   }
 }
 </script>

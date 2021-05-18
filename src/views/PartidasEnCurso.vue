@@ -195,6 +195,7 @@ export default {
     }
   },
   created: function(){
+          
           let dir = this.host + '/game/inProgress'  
           axios
           .post(dir, {
@@ -215,12 +216,17 @@ export default {
 
 
       numPartidasIA :function(){
-
-          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ia').length;
+          if(this.perfil.partidasEnCurso.mensaje != "Token no proveído."){
+          
+            return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ia').length;
+          }
+          return 0;
       },
       teTocaIA :function(){
-
-          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ia' && partida.tuTurno).length;
+          if(this.perfil.partidasEnCurso.mensaje != "Token no proveído."){
+            return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ia' && partida.tuTurno).length;
+          }
+          return 0;
       }, 
       partidasIA: function(){
             return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ia');
@@ -228,11 +234,16 @@ export default {
 
 
       numPartidasCiegas :function(){
-
-          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ciegas').length;
+          if(this.perfil.partidasEnCurso.mensaje != "Token no proveído."){
+            return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ciegas').length;
+          }
+          return 0;
       },
       teTocaCiegas :function(){
-          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ciegas' && partida.tuTurno).length;
+          if(this.perfil.partidasEnCurso.mensaje != "Token no proveído."){
+            return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ciegas' && partida.tuTurno).length;
+          }
+          return 0; 
       },    
       partidasCiegas: function(){
             return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ciegas');
@@ -240,12 +251,17 @@ export default {
       
 
       numPartidasAmigos :function(){
-
-          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'amistoso').length;
+          if(this.perfil.partidasEnCurso.mensaje != "Token no proveído."){
+            return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'amistoso').length;
+          }
+          return 0;
+          
       },
       teTocaAmigos :function(){
-
-          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'amistoso' && partida.tuTurno).length;
+          if(this.perfil.partidasEnCurso.mensaje != "Token no proveído."){
+              return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'amistoso' && partida.tuTurno).length;
+          }
+          return 0;
       },                  
       partidasAmigos: function(){
             return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'amistoso');
@@ -253,12 +269,17 @@ export default {
 
 
       numPartidasTorneo :function(){
-
-          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo').length;
+          if(this.perfil.partidasEnCurso.mensaje != "Token no proveído."){
+            return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo').length;
+          }
+          return 0;
       },
       teTocaTorneo :function(){
+          if(this.perfil.partidasEnCurso.mensaje != "Token no proveído."){
+              return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo' && partida.tuTurno).length;
 
-          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo' && partida.tuTurno).length;
+          }
+          return 0;
       },           
       partidasTorneo: function(){
           return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo');

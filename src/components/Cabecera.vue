@@ -74,7 +74,7 @@
               <router-link to="Torneo"  class="nav-link">{{ $t('navbar.torneo') }}</router-link>
             </li>
             <li v-if="perfil.token != ''" class="nav-item">
-              <router-link to="partidasEnCurso"  class="nav-link">{{ $t('navbar.partidasEnCurso') }} <span style="background-color: coral;" class="badge">{{numNotiificaciones}}</span></router-link>
+              <router-link to="partidasEnCurso"  class="nav-link">{{ $t('navbar.partidasEnCurso') }}<span style="background-color: coral;" class="badge">{{numNotificaciones}}</span></router-link>
             </li>
 
             <li v-if="perfil.token != ''" class="nav-item" >
@@ -99,6 +99,7 @@
 <script>
 //import ListaAmigos from '@/components/ListaAmigos.vue'
 import {mapState,mapMutations} from 'vuex';
+import axios from 'axios'
 export default {
   name: 'Cabecera',
   components: {
@@ -115,9 +116,10 @@ export default {
   },
   methods: {
       ...mapMutations([
-      'setUsuarioBuscado','resetToken','setPartidas']),
+      'setUsuarioBuscado','resetToken','setPartidas','imprimePerfil','setPerfilUndefined']),
 
       cerrarSesion: function(){
+        this.setPartidas([]);
         this.resetToken()
         this.$router.push('/');
       },
@@ -131,12 +133,35 @@ export default {
   computed: {
     ...mapState(['perfil','usuarioBuscado','host']), //Para recoger los datos de la lista de amigos que están almacenados en el store
 
-    numNotiificaciones: function () {
+    numNotificaciones: function () {
       // `this` points to the vm instance
-      if(this.perfil != undefined)
+      if(this.perfil.partidasEnCurso.mensaje != "Token no proveído."){
+          console.log(this.perfil.partidasEnCurso.mensaje);
           return this.perfil.partidasEnCurso.filter( partida => partida.tuTurno).length;
+      }
       return 0;
     }
+  },
+  mounted(){
+
+          let dir = this.host + '/game/inProgress'  
+                console.log(this.perfil);
+                if (this.perfil != undefined ){
+
+                    axios
+                    .post(dir, {
+                        nombreUsuario: this.perfil.nombreUsuario,
+                        accessToken: this.perfil.token
+                    })
+                    .then(resp => {
+                        this.setPartidas(resp.data);
+                      })
+
+                    .catch(error => {
+                      //Error al hacer login
+                      console.log(error)
+                      });
+                }
   },
 }
 </script>
