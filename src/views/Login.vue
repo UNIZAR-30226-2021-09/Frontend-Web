@@ -23,7 +23,7 @@
         {{ $t('mensaje.noTienesCuenta') }} <router-link to="Signin">{{ $t('mensaje.registrate') }}</router-link>
       </div>
 
-      <button class="btn btn-primary" @click="enviarDatos">Enviar</button>
+      <button class="btn btn-primary" @click="enviarDatos">{{ $t('boton.enviar') }}</button>
 
       <!-- Mensaje de éxito -->
       <div class="mt-3">

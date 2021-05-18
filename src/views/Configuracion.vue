@@ -8,17 +8,17 @@
             <div class="col-sm-9 ">
 
            <!-- Contenido de la pantalla -->
-              <h1>Configuración</h1>
+              <h1>{{ $t('configuracion.configuracion') }}</h1>
 
               <div class="row g-3">
                 <div class="col-sm-5">
                   <div class="text-start">
 
-                    <h3 class="mt-5">Color de los barcos</h3>
+                    <h3 class="mt-5">{{ $t('configuracion.colorBarcos') }}</h3>
 
-                    <h3 class="mt-5">Color del tablero</h3>
+                    <h3 class="mt-5">{{ $t('configuracion.colorTablero') }}</h3>
 
-                    <h3 class="mt-5">Idioma de la web</h3>
+                    <h3 class="mt-5">{{ $t('configuracion.IdiomaWeb') }}</h3>
 
                   </div>
                 </div>
@@ -31,9 +31,9 @@
                       {{configuracion.barcos}}
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <li><p class="dropdown-item" @click="setColor('Azul')" >Azul</p></li>
-                      <li><p class="dropdown-item" @click="setColor('Rojo')" >Rojo</p></li>
-                      <li><p class="dropdown-item" @click="setColor('Verde')" >Verde</p></li>
+                      <li><p class="dropdown-item" @click="setColor('Azul')" >{{ $t('configuracion.azul') }}</p></li>
+                      <li><p class="dropdown-item" @click="setColor('Rojo')" >{{ $t('configuracion.rojo') }}</p></li>
+                      <li><p class="dropdown-item" @click="setColor('Verde')" >{{ $t('configuracion.verde') }}</p></li>
                     </ul>
                   </div>
 
@@ -42,12 +42,13 @@
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                       {{configuracion.tablero}}
                     </button>
+
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <li><p class="dropdown-item" @click="setTablero('Océano')" >Océano</p></li>
-                      <li><p class="dropdown-item" @click="setTablero('Desierto')" >Desierto</p></li>
-                      <li><p class="dropdown-item" @click="setTablero('Césped')" >Césped</p></li>
-                      <li><p class="dropdown-item" @click="setTablero('Espacio')" >Espacio</p></li>
-                      <li><p class="dropdown-item" @click="setTablero('Lava')" >Lava</p></li>
+                      <li><p class="dropdown-item" @click="setTablero('Océano')" >{{ $t('configuracion.oceano') }}</p></li>
+                      <li><p class="dropdown-item" @click="setTablero('Desierto')" >{{ $t('configuracion.desierto') }}</p></li>
+                      <li><p class="dropdown-item" @click="setTablero('Césped')" >{{ $t('configuracion.cesped') }}</p></li>
+                      <li><p class="dropdown-item" @click="setTablero('Espacio')" >{{ $t('configuracion.espacio') }}</p></li>
+                      <li><p class="dropdown-item" @click="setTablero('Lava')" >{{ $t('configuracion.lava') }}</p></li>
                     </ul>
                   </div>
                   
@@ -57,8 +58,8 @@
                       {{configuracion.idioma}}
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <li><p class="dropdown-item" @click="setIdioma('Español')" >Español</p></li>
-                      <li><p class="dropdown-item" @click="setIdioma('Inglés')" >Inglés</p></li>
+                      <li><p class="dropdown-item" @click="setIdioma('es')" >Español</p></li>
+                      <li><p class="dropdown-item" @click="setIdioma('en')" >Inglés</p></li>
                     </ul>
                   </div>
 
@@ -82,6 +83,8 @@
 <script>
 import ListaAmigos from '@/components/ListaAmigos.vue'
 import {mapState, mapMutations} from 'vuex';
+import { i18n } from '@/plugins/i18n'
+
 export default {
   name: 'Configuracion',
   components: {
@@ -98,6 +101,10 @@ export default {
   methods: {
     ...mapMutations([
       'setColor','setTablero','setIdioma']),
+    setIdioma: function(locale){
+          this.configuracion.idioma = locale;
+      i18n.locale = locale
+    }
   }
 }
 </script>

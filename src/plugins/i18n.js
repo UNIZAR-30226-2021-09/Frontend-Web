@@ -9,6 +9,7 @@ const messages = {
       boton: {
         iniciarSesion: 'Iniciar sesion',
         registrarse:'Registrarse',
+        enviar: 'Enviar',
         inicio: 'Inicio',
         idioma: 'Idioma',
         aceptar: 'Aceptar',
@@ -22,7 +23,8 @@ const messages = {
         verClasificacion: 'Ver posicion en la clasificacion',
         compartirPerfil: 'Compartir perfil',
         historialPartidas: 'Historial de partidas',
-        volverTutorial: 'Volver a ver el tutorial'
+        volverTutorial: 'Volver a ver el tutorial',
+        verPartida: 'Ver partida'
       },
       navbar: {
           nuevaPartida: 'Partida contra la IA',
@@ -31,7 +33,8 @@ const messages = {
           torneo: 'Torneo',
           partidasEnCurso: 'Partidas en curso',
           perfil: 'Perfil',
-          cerrarSesion: 'Cerrar sesión'
+          cerrarSesion: 'Cerrar sesión',
+          agregarAmigo: 'Agregar amigo'
       },
       placeHolder:{
           nombre: 'Nombre de usuario',
@@ -91,12 +94,27 @@ const messages = {
         torneos: 'Torneos ganados',
         proporcion: 'Proporcion de victorias: ',
         noExisten: 'No existen datos para calcular',
+      },
+      configuracion:{
+        configuracion: 'Configuracion',
+        colorBarcos: 'Color de los barcos',
+        azul: 'Azul',
+        rojo: 'Rojo',
+        verde: 'Verde',
+        colorTablero: 'Color del tablero',
+        oceano: 'Oceano',
+        desierto: 'Desierto',
+        cesped: 'Cesped',
+        espacio: 'Espacio',
+        lava: 'Lava',
+        IdiomaWeb: 'Idioma',
       }
     },
     en: {
       boton: {
         iniciarSesion: 'Login',
         registrarse: 'Sign up',
+        enviar: 'Send',
         inicio: 'Home',
         idioma: 'Language',
         aceptar: 'Acept',
@@ -110,7 +128,8 @@ const messages = {
         verClasificacion: 'See position in the ranking',
         compartirPerfil: 'Share profile',
         historialPartidas: 'Game history',
-        volverTutorial: 'Watch the tutorial again'
+        volverTutorial: 'Watch the tutorial again',
+        verPartida: 'See game'
       },
       navbar: {
         nuevaPartida: 'Game against AI',
@@ -119,7 +138,8 @@ const messages = {
         torneo: 'Tournament',
         partidasEnCurso: 'Game list',
         perfil: 'Profile',
-        cerrarSesion: 'Log out'
+        cerrarSesion: 'Log out',
+        agregarAmigo: 'Add friend'
       },
       placeHolder:{
         nombre: 'User name',
@@ -181,6 +201,20 @@ const messages = {
       torneos: 'Tournaments won',
       proporcion: 'Win ratio: ',
       noExisten: 'There are no data to calculate',
+    },
+    configuracion:{
+      configuracion: 'Configuration',
+      colorBarcos: 'Color of the ships',
+      azul: 'Blue',
+      rojo: 'Red',
+      verde: 'Green',
+      colorTablero: 'Board color',
+      oceano: 'ocean',
+      desierto: 'desert',
+      cesped: 'grass',
+      espacio: 'space',
+      lava: 'wash',
+      IdiomaWeb: 'Lenguage',
     }
     }
 }

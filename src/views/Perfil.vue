@@ -19,12 +19,12 @@
                     Email: {{email}} </h5>
 
                   <h5 class="mt-4">
-                    {{ $t('perfil.ganadas') }}: {{ganadas + perdidas}}
-                    <p  class="fw-lighter" style="margin-top: 10px; margin-left: 100px;">Ganadas: {{ganadas}}</p>
-                    <p  class="fw-lighter" style="margin-top: 10px; margin-left: 100px;">Perdidas: {{perdidas}}</p>
-                    <p  class="fw-lighter" style="margin-top: 10px; margin-left: 100px;">Torneos ganados: {{torneos}}</p>
-                    <p  class="fw-lighter" v-if="ganadas+perdidas == 0" style="margin-top: 10px; margin-left: 100px;">Proporcion de victorias: No existen datos para calcular</p>
-                    <p  class="fw-lighter" v-else style="margin-top: 10px; margin-left: 100px;">Proporcion de victorias: {{ganadas / perdidas}}</p>
+                    {{ $t('perfil.partidasJugadas') }}: {{ganadas + perdidas}}
+                    <p  class="fw-lighter" style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.ganadas') }}: {{ganadas}}</p>
+                    <p  class="fw-lighter" style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.perdidas') }}: {{perdidas}}</p>
+                    <p  class="fw-lighter" style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.torneos') }}: {{torneos}}</p>
+                    <p  class="fw-lighter" v-if="ganadas+perdidas == 0" style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.partidasJugadas') }}: {{ $t('perfil.noExisten') }}</p>
+                    <p  class="fw-lighter" v-else style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.partidasJugadas') }}: {{ganadas / perdidas}}</p>
                   </h5>
 
                   <h5 class="mt-4">
@@ -32,7 +32,7 @@
                       <path d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z"/>
                       <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
                     </svg>
-                    <router-link to="clasificacion" class="btn btn-primary btn-sm mb-1" type="button" >Ver posicion en la clasificación</router-link></h5>
+                    <router-link to="clasificacion" class="btn btn-primary btn-sm mb-1" type="button" >{{ $t('boton.verClasificacion') }}</router-link></h5>
 
                 </div>
 
@@ -43,9 +43,9 @@
 
                 <div v-if="usuarioBuscado == perfil.nombreUsuario" class="row" style="justify-content: center;">    
                     
-                      <input type="email" class="form-control" style="width: 30%" id="inputEmail4" placeholder="name@example.com (correo destino)">
+                      <input type="email" class="form-control" style="width: 30%" id="inputEmail4" placeholder="name@example.com">
 
-                      <button type="button" style="width: 15%; margin-left: 20px" class="btn btn-primary" aria-expanded="false">Compartir perfil</button>
+                      <button type="button" style="width: 15%; margin-left: 20px" class="btn btn-primary" aria-expanded="false">{{ $t('boton.compartirPerfil') }}</button>
                 </div>
 
                 <br>
@@ -53,7 +53,7 @@
 
                 <p>
                   <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                    Historial de partidas
+                    {{ $t('boton.historialPartidas') }}
                   </a>
                   
                 </p>
@@ -66,18 +66,18 @@
                         <!-- Si una partida ha sido victoria, se muestra en verde  -->
                         <div v-if="partida.resultado === 'Victoria'">
                           <li class="list-group-item list-group-item-success">
-                            Partida contra {{partida.contrincante}} 
+                            {{ $t('partidasCurso.partidaContra1') }} {{partida.contrincante}} 
                             ({{partida.resultado}})
-                            <router-link to="perfil" class="btn btn-light btn-sm mb-1 mt-1" type="button" >Ver partida</router-link>
+                            <router-link to="perfil" class="btn btn-light btn-sm mb-1 mt-1" type="button" >{{ $t('boton.verPartida') }}</router-link>
                           </li>
                         </div>
                         
                         <!-- Si una partida ha sido derrota, se muestra en rojo -->
                         <div v-if="partida.resultado === 'Derrota'">
                           <li class="list-group-item list-group-item-danger">
-                            Partida contra {{partida.contrincante}} 
+                            {{ $t('partidasCurso.partidaContra1') }} {{partida.contrincante}} 
                             ({{partida.resultado}})
-                            <router-link to="perfil" class="btn btn-light btn-sm mb-1" type="button" >Ver partida</router-link>
+                            <router-link to="perfil" class="btn btn-light btn-sm mb-1" type="button" >{{ $t('boton.verPartida') }}</router-link>
                           </li>
                         </div>
 
@@ -85,9 +85,9 @@
                         <div v-if="partida.resultado != 'Derrota' && partida.resultado != 'Victoria' ">
                           <li class="list-group-item list-group-item-warning">
                             Error?
-                            Partida contra {{partida.contrincante}} 
+                            {{ $t('partidasCurso.partidaContra1') }} {{partida.contrincante}} 
                             ({{partida.resultado}})
-                            <router-link to="perfil" class="btn btn-light btn-sm mb-1" type="button" >Ver partida</router-link>
+                            <router-link to="perfil" class="btn btn-light btn-sm mb-1" type="button" > {{ $t('boton.verPartida') }}</router-link>
                           </li>
                         </div>
                         
@@ -97,7 +97,7 @@
                 </div>
               
                 <br>
-                <router-link v-if="perfil.nombreUsuario == usuarioBuscado" to="tutorial" class="link-secondary" ><h5 class="mt-4">Volver a ver el tutorial</h5></router-link>
+                <router-link v-if="perfil.nombreUsuario == usuarioBuscado" :to="{ path: '/Tutorial'}"  class="link-secondary" ><h5 class="mt-4">{{ $t('boton.volverTutorial') }}</h5></router-link>
 
             </div>
 
