@@ -78,7 +78,7 @@
             </li>
 
             <li v-if="perfil.token != ''" class="nav-item" >
-              <router-link :to="{ name: 'Perfil', params: {usuario: perfil.nombreUsuario} }"  class="nav-link">{{ $t('navbar.perfil') }}</router-link>
+              <router-link :to="{ name: 'Perfil', params: {usuario: perfil.nombreUsuario} }"  class="nav-link" >{{ $t('navbar.perfil') }}  </router-link>
             </li>
           <!-- <li class="nav-item">
             <a class="nav-link" href="/AmigoDesafiado" to="Inicio">inicio?</a>

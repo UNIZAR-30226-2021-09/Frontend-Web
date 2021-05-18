@@ -136,12 +136,10 @@ export default {
           i18n.locale = this.configuracion.idioma;
 
           let dir = this.host + '/profile';
-          let usuario = this.$route.params.usuario;
-   
-          console.log('Buscado es ' + usuario);
+
           axios
           .post(dir, {
-              nombreUsuario: usuario
+              nombreUsuario: this.usuario
           })
           .then(resp => {
               
@@ -156,9 +154,13 @@ export default {
             //Error al hacer login
             console.log(error.response)
             });
+                
   },
   computed:{
       ...mapState(['perfil','host','usuarioBuscado','configuracion']), //Para recoger los datos de la lista de amigos que están almacenados en el store
+      usuario: function(){
+        return this.$route.params.usuario;
+      }
   },
   methods: {
         recargar: function(){
@@ -166,7 +168,40 @@ export default {
         this.resetToken()
         this.$router.push('/');
       },
-  }
+  },
+  mounted(){
+          console.log("Pues aqui estamos: ");
+          console.log(this.usuario);
+  },
+  updated(){
+          console.log("NUEVA CARGA");
+  },
+   watch: {
+    // whenever question changes, this function will run
+    usuario: function () {
+      console.log(this.usuario)
+
+      let dir = this.host + '/profile';
+
+      axios
+      .post(dir, {
+          nombreUsuario: this.usuario
+      })
+      .then(resp => {
+          
+          this.nombre = resp.data.nombreUsuario;
+          this.email = resp.data.email; //nos lo tienen que mandar
+          this.ganadas = resp.data.partidasGanadas;
+          this.perdidas = resp.data.partidasPerdidas;
+          this.torneos = resp.data.torneosGanados;
+        })
+
+      .catch(error => {
+        //Error al hacer login
+        console.log(error.response)
+        });
+    }
+  },
 }
 </script>
 
