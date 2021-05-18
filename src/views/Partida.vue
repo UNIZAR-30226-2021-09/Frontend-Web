@@ -759,7 +759,7 @@ export default {
       })
       .then(resp => {
         //Petición enviada correctamente
-        //console.log(resp)
+        console.log(resp)
 
         //Recupero los disparos a mis barcos
         const tuTablero = resp.data.tuTablero
@@ -814,13 +814,8 @@ export default {
         )
 
         //Recupero el número de barcos hundidos
-        const barcosHundidosRival = resp.data.barcosHundidosRival
-
-
-        //console.log(tuTablero)
-        //console.log(tusBarcos)
-        //console.log(disparos)
-        console.log(barcosHundidosRival)
+        // const barcosHundidosRival = resp.data.barcosHundidosRival
+        // console.log(barcosHundidosRival)
 
         
 
