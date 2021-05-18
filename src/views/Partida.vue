@@ -393,6 +393,12 @@ export default {
         .catch(error => {
         //Error al enviar la petición
           console.log('Error en post de colocar barcos')
+          this.restartGrid()
+          this.$toasted.show("Error", { 
+            theme: "toasted-primary", 
+            position: "bottom-left", 
+            duration : 10000
+          });
           console.log(error)
         });
       console.log("current player es " + this.turnoActual)
@@ -475,6 +481,11 @@ export default {
         //Error al enviar la petición
           console.log('Error en post de enviar movimiento')
           console.log(error)
+          this.$toasted.show("Error", { 
+            theme: "toasted-primary", 
+            position: "bottom-left", 
+            duration : 10000
+          });
         });
 
       // if(square.classList.contains('taken')){ //He clickado en una posición donde había un barco

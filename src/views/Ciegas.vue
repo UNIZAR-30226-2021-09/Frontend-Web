@@ -91,6 +91,11 @@ export default {
           .catch(error => {
           //Error al enviar la petición
           console.log(error.response.request.response)
+          this.$toasted.show("Error", { 
+            theme: "toasted-primary", 
+            position: "bottom-left", 
+            duration : 10000
+          });
           });
     }
 

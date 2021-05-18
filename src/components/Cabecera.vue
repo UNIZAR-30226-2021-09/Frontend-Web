@@ -155,6 +155,11 @@ export default {
                     .catch(error => {
                       //Error al hacer login
                       console.log(error)
+                      this.$toasted.show("Error", { 
+                        theme: "toasted-primary", 
+                        position: "bottom-left", 
+                        duration : 10000
+                      });
                       });
                 }
   },

@@ -112,6 +112,11 @@ export default {
       //Error al enviar la petición
         console.log(error)
         this.errorPeti = true
+        this.$toasted.show("Error", { 
+            theme: "toasted-primary", 
+            position: "bottom-left", 
+            duration : 10000
+          });
       });
     }
     // prueba: function(){

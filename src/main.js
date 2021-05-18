@@ -90,6 +90,11 @@ new Vue({
       .catch(error => {
       //Error al enviar la petición
       console.log(error.response.request.response)
+      this.$toasted.show("Error", { 
+        theme: "toasted-primary", 
+        position: "bottom-left", 
+        duration : 10000
+      });
       })
 
       //Actualizo la lista de salientes
@@ -106,6 +111,11 @@ new Vue({
       .catch(error => {
       //Error al enviar la petición
       console.log(error.response.request.response)
+      this.$toasted.show("Error", { 
+        theme: "toasted-primary", 
+        position: "bottom-left", 
+        duration : 10000
+      });
       })
 
       }

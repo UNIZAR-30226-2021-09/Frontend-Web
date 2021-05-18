@@ -109,6 +109,7 @@ export default {
         this.esEnviado = false
         this.datosInvalidos = true
         console.log(error.response.request.response)
+        
       });
 
       this.nombre = ""
