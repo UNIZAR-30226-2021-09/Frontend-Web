@@ -97,7 +97,7 @@
                 </div>
               
                 <br>
-                <router-link v-if="usuarioBuscado == perfil.nombreUsuario" to="tutorial" class="link-secondary" ><h5 class="mt-4">Volver a ver el tutorial</h5></router-link>
+                <router-link v-if="perfil.nombreUsuario == usuarioBuscado" to="tutorial" class="link-secondary" ><h5 class="mt-4">Volver a ver el tutorial</h5></router-link>
 
             </div>
 
@@ -136,7 +136,7 @@ export default {
           i18n.locale = this.configuracion.idioma;
 
           let dir = this.host + '/profile';
-          let usuario = this.usuarioBuscado;
+          let usuario = this.$route.params.usuario;
    
           console.log('Buscado es ' + usuario);
           axios
@@ -161,7 +161,11 @@ export default {
       ...mapState(['perfil','host','usuarioBuscado','configuracion']), //Para recoger los datos de la lista de amigos que están almacenados en el store
   },
   methods: {
-
+        recargar: function(){
+        this.setPartidas([]);
+        this.resetToken()
+        this.$router.push('/');
+      },
   }
 }
 </script>

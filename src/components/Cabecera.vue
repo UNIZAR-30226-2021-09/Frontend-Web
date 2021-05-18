@@ -59,26 +59,26 @@
               <router-link to="Signin"  class="nav-link">{{ $t('boton.registrarse') }}</router-link>
             </li>
             <li v-if="perfil.token != ''" class="nav-item">
-              <router-link to="Inicio"  class="nav-link">{{ $t('boton.inicio') }}</router-link>
+              <router-link :to="{ path: '/Inicio'}"   class="nav-link">{{ $t('boton.inicio') }}</router-link>
             </li>
             <li v-if="perfil.token != ''" class="nav-item">
-              <router-link to="Partida"  class="nav-link">{{ $t('navbar.nuevaPartida') }}</router-link>
+              <router-link :to="{ path: '/Partida'}"   class="nav-link">{{ $t('navbar.nuevaPartida') }}</router-link>
             </li>
             <li v-if="perfil.token != ''" class="nav-item">
-              <router-link to="Ciegas"  class="nav-link">{{ $t('navbar.partidaCiegas') }}</router-link>
+              <router-link :to="{ path: '/Ciegas'}" class="nav-link">{{ $t('navbar.partidaCiegas') }}</router-link>
             </li>
             <li v-if="perfil.token != ''" class="nav-item">
-              <router-link to="Desafiar"  class="nav-link">{{ $t('navbar.desafiarAmigo') }}</router-link>
+              <router-link :to="{ path: '/Desafiar'}" class="nav-link">{{ $t('navbar.desafiarAmigo') }}</router-link>
             </li>
             <li v-if="perfil.token != ''" class="nav-item">
-              <router-link to="Torneo"  class="nav-link">{{ $t('navbar.torneo') }}</router-link>
+              <router-link :to="{ path: '/Torneo'}"  class="nav-link">{{ $t('navbar.torneo') }}</router-link>
             </li>
             <li v-if="perfil.token != ''" class="nav-item">
-              <router-link to="partidasEnCurso"  class="nav-link">{{ $t('navbar.partidasEnCurso') }}<span style="background-color: coral;" class="badge">{{numNotificaciones}}</span></router-link>
+              <router-link :to="{ path: '/partidasEnCurso'}" class="nav-link">{{ $t('navbar.partidasEnCurso') }}<span style="background-color: coral;" class="badge">{{numNotificaciones}}</span></router-link>
             </li>
 
             <li v-if="perfil.token != ''" class="nav-item" >
-              <a type="button" href="/perfil" class="nav-link button" @click="cambiarBuscado()">{{ $t('navbar.perfil') }}</a>
+              <router-link :to="{ name: 'Perfil', params: {usuario: perfil.nombreUsuario} }"  class="nav-link">{{ $t('navbar.perfil') }}</router-link>
             </li>
           <!-- <li class="nav-item">
             <a class="nav-link" href="/AmigoDesafiado" to="Inicio">inicio?</a>
@@ -124,11 +124,6 @@ export default {
         this.$router.push('/');
       },
 
-      cambiarBuscado: function(){
-          //this.setUsuarioBuscado(this.perfil.nombreUsuario);
-          this.setUsuarioBuscado(this.perfil.nombreUsuario);
-          //console.log("aaaaaaaaaaaa");
-      } 
     },
   computed: {
     ...mapState(['perfil','usuarioBuscado','host']), //Para recoger los datos de la lista de amigos que están almacenados en el store

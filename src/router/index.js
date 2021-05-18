@@ -55,7 +55,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "agregarAmigo" */ '../views/AgregarAmigo.vue')
   },
   {
-    path: '/perfil',
+    path: '/perfil/:usuario',
     name: 'Perfil',
     component: () => import(/* webpackChunkName: "perfil" */ '../views/Perfil.vue')
   },
