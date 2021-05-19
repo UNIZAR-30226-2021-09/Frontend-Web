@@ -49,11 +49,11 @@
 
                               <br>
 
-                              <div v-if="partida.tuTurno || !barcos_colocados">
+                              <div v-if="partida.tuTurno == 'TuTurno' || partida.tuTurno == 'ColocandoBarcos'">
                                 <li class="list-group-item list-group-item-success">
                                   {{ $t('partidasCurso.partidaContra1') }}{{partida.contrincante}} 
-                                  <button v-if="!barcos_colocados" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.colocarBarcos') }}</button>
-                                  <button v-else style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-info" @click="irAPartida(partida)" type="button" >{{ $t('boton.continuarPartida') }}</button>
+                                  <button  :disabled="partida.tuTurno == 'TuTurno'" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.colocarBarcos') }}</button>
+                                  <button style="margin-left: 10px;" :disabled="partida.tuTurno == 'ColocandoBarcos'" class="btn btn-light btn-sm mb-1 mt-1 bg-info" @click="irAPartida(partida)" type="button" >{{ $t('boton.continuarPartida') }}</button>
                                 </li>
                               </div>
 
@@ -78,11 +78,12 @@
                           <div v-for="(partida) in partidasAmigos" v-bind:key="partida.id">
 
                               <br>
-                              <div v-if="partida.tuTurno || !barcos_colocados">
+                              <div v-if="partida.tuTurno == 'TuTurno' || partida.tuTurno == 'ColocandoBarcos'">
                                 <li class="list-group-item list-group-item-success">
                                   {{ $t('partidasCurso.partidaContra1') }}{{partida.contrincante}} 
-                                  <button v-if="!barcos_colocados" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.colocarBarcos') }}</button>
-                                  <button v-else style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-info" @click="irAPartida(partida)" type="button" >{{ $t('boton.continuarPartida') }}</button></li>
+                                  <button  :disabled="partida.tuTurno == 'TuTurno'" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.colocarBarcos') }}</button>
+                                  <button style="margin-left: 10px;" :disabled="partida.tuTurno == 'ColocandoBarcos'" class="btn btn-light btn-sm mb-1 mt-1 bg-info" @click="irAPartida(partida)" type="button" >{{ $t('boton.continuarPartida') }}</button>
+                                </li>
                               </div>
 
                               <div v-else>
@@ -106,11 +107,12 @@
 
                               <br>
 
-                              <div v-if="partida.tuTurno || !barcos_colocados">
+                              <div v-if="partida.tuTurno == 'TuTurno' || partida.tuTurno == 'ColocandoBarcos'">
                                 <li class="list-group-item list-group-item-success">
                                   {{ $t('partidasCurso.partidaContra1') }}{{partida.contrincante}} 
-                                  <button v-if="!barcos_colocados" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.colocarBarcos') }}</button>
-                                  <button v-else style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-info" @click="irAPartida(partida)" type="button" >{{ $t('boton.continuarPartida') }}</button></li>
+                                  <button  :disabled="partida.tuTurno == 'TuTurno'" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.colocarBarcos') }}</button>
+                                  <button style="margin-left: 10px;" :disabled="partida.tuTurno == 'ColocandoBarcos'" class="btn btn-light btn-sm mb-1 mt-1 bg-info" @click="irAPartida(partida)" type="button" >{{ $t('boton.continuarPartida') }}</button>
+                                </li>
                               </div>
 
                               <div v-else>
@@ -133,11 +135,12 @@
                           <div v-for="(partida) in partidasIA" v-bind:key="partida.id">
 
                               <br>
-                              <div v-if="partida.tuTurno || !barcos_colocados">
+                              <div v-if="partida.tuTurno == 'TuTurno' || partida.tuTurno == 'ColocandoBarcos'">
                                 <li class="list-group-item list-group-item-success">
                                   {{ $t('partidasCurso.partidaContra1') }}{{partida.contrincante}} 
-                                  <button v-if="!barcos_colocados" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.colocarBarcos') }}</button>
-                                  <button v-else style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-info" @click="irAPartida(partida)" type="button" >{{ $t('boton.continuarPartida') }}</button></li>
+                                  <button  :disabled="partida.tuTurno == 'TuTurno'" style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.colocarBarcos') }}</button>
+                                  <button style="margin-left: 10px;" :disabled="partida.tuTurno == 'ColocandoBarcos'" class="btn btn-light btn-sm mb-1 mt-1 bg-info" @click="irAPartida(partida)" type="button" >{{ $t('boton.continuarPartida') }}</button>
+                                </li>
                               </div>
 
                               <div v-else>
@@ -177,7 +180,6 @@ export default {
   data() {
         return{ 
           nombrePag: 'Partidas en curso',
-          barcos_colocados: true, //mientras que no nos pasen el atributo usamos esto pa ver
         }
   },
   methods: {
@@ -203,6 +205,7 @@ export default {
               accessToken: this.perfil.token
           })
           .then(resp => {
+              console.log(resp.data)
               this.setPartidas(resp.data);
             })
 
@@ -224,7 +227,7 @@ export default {
       },
       teTocaIA :function(){
           if(this.perfil.partidasEnCurso.mensaje != "Token no proveído."){
-            return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ia' && partida.tuTurno).length;
+            return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ia' && (partida.tuTurno == 'TuTurno' || partida.tuTurno == 'ColocandoBarcos')).length;
           }
           return 0;
       }, 
@@ -241,7 +244,7 @@ export default {
       },
       teTocaCiegas :function(){
           if(this.perfil.partidasEnCurso.mensaje != "Token no proveído."){
-            return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ciegas' && partida.tuTurno).length;
+            return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'ciegas' && (partida.tuTurno == 'TuTurno' || partida.tuTurno == 'ColocandoBarcos')).length;
           }
           return 0; 
       },    
@@ -259,7 +262,7 @@ export default {
       },
       teTocaAmigos :function(){
           if(this.perfil.partidasEnCurso.mensaje != "Token no proveído."){
-              return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'amistoso' && partida.tuTurno).length;
+              return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'amistoso' && (partida.tuTurno == 'TuTurno' || partida.tuTurno == 'ColocandoBarcos')).length;
           }
           return 0;
       },                  
@@ -276,7 +279,7 @@ export default {
       },
       teTocaTorneo :function(){
           if(this.perfil.partidasEnCurso.mensaje != "Token no proveído."){
-              return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo' && partida.tuTurno).length;
+              return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo' && (partida.tuTurno == 'TuTurno' || partida.tuTurno == 'ColocandoBarcos')).length;
 
           }
           return 0;
