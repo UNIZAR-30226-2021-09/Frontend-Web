@@ -90,6 +90,7 @@
 <script>
 import ListaAmigos from '@/components/ListaAmigos.vue'
 import {mapState} from 'vuex';
+import axios from 'axios'
 
 export default {
   name: 'Modotorneo',
@@ -139,11 +140,31 @@ export default {
       },
       crearTorneo: function (){
           console.log('Enviamos las cosas al backend');
+          console.log(this.perfil.token);
+
+          let dir = this.host + '/game/torneo';
+
+          axios
+          .post(dir, {
+              nombreUsuario: this.usuario,
+              participante2: this.participantes[1].nombre,
+              participante3: this.participantes[2].nombre,
+              participante4: this.participantes[3].nombre,
+              accessToken: this.perfil.token
+          })
+          .then(resp => {
+                console.log(resp)
+            })
+
+          .catch(error => {
+            //Error al hacer login
+            console.log(error.response)
+            });
       }
 
   },
   computed: {
-      ...mapState(['perfil']), //Para recoger los datos de la lista de amigos que están almacenados en el store
+      ...mapState(['perfil','host']), //Para recoger los datos de la lista de amigos que están almacenados en el store
 
   },
 
