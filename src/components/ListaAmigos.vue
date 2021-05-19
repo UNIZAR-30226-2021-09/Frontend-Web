@@ -4,7 +4,7 @@
 
 <template>
     
-    <div class="col-sm-3">
+    <div v-if="perfil.token != ''" class="col-sm-3">
         
         <!-- Nombre del usuario -->
         <h4 class="text-sm-left">{{perfil.nombreUsuario}} 

@@ -15,7 +15,7 @@
                   <h5 class="mt-4">
                     {{ $t('placeHolder.nombre') }}: {{nombre}} </h5>
 
-                  <h5 class="mt-4">
+                  <h5 v-if="perfil.token != ''" class="mt-4">
                     Email: {{email}} </h5>
 
                   <h5 class="mt-4">
@@ -25,9 +25,10 @@
                     <p  class="fw-lighter" style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.torneos') }}: {{torneos}}</p>
                     <p  class="fw-lighter" v-if="ganadas+perdidas == 0" style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.partidasJugadas') }}: {{ $t('perfil.noExisten') }}</p>
                     <p  class="fw-lighter" v-else style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.partidasJugadas') }}: {{ganadas / perdidas}}</p>
+                    <p  class="fw-lighter" style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.puntos') }}: {{puntos}}</p>
                   </h5>
 
-                  <h5 class="mt-4">
+                  <h5 v-if="perfil.token != ''" class="mt-4">
                     <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-award-fill" viewBox="0 0 16 16">
                       <path d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z"/>
                       <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
@@ -41,7 +42,7 @@
                 
                 <br> 
 
-                <div v-if="usuarioBuscado == perfil.nombreUsuario" class="row" style="justify-content: center;">    
+                <div v-if="nombre == perfil.nombreUsuario && perfil.token != ''" class="row" style="justify-content: center;">    
                     
                       <input type="email" class="form-control" style="width: 30%" id="inputEmail4" placeholder="name@example.com">
 
@@ -97,7 +98,7 @@
                 </div>
               
                 <br>
-                <router-link v-if="perfil.nombreUsuario == usuarioBuscado" :to="{ path: '/Tutorial'}"  class="link-secondary" ><h5 class="mt-4">{{ $t('boton.volverTutorial') }}</h5></router-link>
+                <router-link v-if="perfil.nombreUsuario == nombre && perfil.token != ''" :to="{ path: '/Tutorial'}"  class="link-secondary" ><h5 class="mt-4">{{ $t('boton.volverTutorial') }}</h5></router-link>
 
             </div>
 
@@ -128,11 +129,14 @@ export default {
             email: '',
             ganadas: 0,
             perdidas: 0,
-            torneos: 0
+            torneos: 0,
+            puntos: 0,
         }
   },
   created: function(){
 
+          console.log('El token es:');
+          console.log(this.perfil.token);
           i18n.locale = this.configuracion.idioma;
 
           let dir = this.host + '/profile';
@@ -148,6 +152,7 @@ export default {
               this.ganadas = resp.data.partidasGanadas;
               this.perdidas = resp.data.partidasPerdidas;
               this.torneos = resp.data.torneosGanados;
+              this.puntos = resp.data.puntos;
             })
 
           .catch(error => {

@@ -94,6 +94,7 @@ const messages = {
         torneos: 'Torneos ganados',
         proporcion: 'Proporcion de victorias: ',
         noExisten: 'No existen datos para calcular',
+        puntos: 'Puntos de clasificacion'
       },
       configuracion:{
         configuracion: 'Configuracion',
@@ -201,6 +202,7 @@ const messages = {
       torneos: 'Tournaments won',
       proporcion: 'Win ratio: ',
       noExisten: 'There are no data to calculate',
+      puntos: 'Clasification points'
     },
     configuracion:{
       configuracion: 'Configuration',
