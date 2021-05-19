@@ -146,7 +146,7 @@ export default {
 
           axios
           .post(dir, {
-              nombreUsuario: this.usuario,
+              nombreUsuario: this.perfil.nombreUsuario,
               participante2: this.participantes[1].nombre,
               participante3: this.participantes[2].nombre,
               participante4: this.participantes[3].nombre,
