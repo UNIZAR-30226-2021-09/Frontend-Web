@@ -21,7 +21,7 @@ const messages = {
         colocarBarcos: 'Colocar barcos',
         continuarPartida: 'Continuar partida',
         verClasificacion: 'Ver posicion en la clasificacion',
-        compartirPerfil: 'Compartir perfil',
+        compartirPerfil: 'Copiar enlace para compartir perfil',
         historialPartidas: 'Historial de partidas',
         volverTutorial: 'Volver a ver el tutorial',
         verPartida: 'Ver partida'
@@ -127,7 +127,7 @@ const messages = {
         colocarBarcos: 'Place ships',
         continuarPartida: 'Continue game',
         verClasificacion: 'See position in the ranking',
-        compartirPerfil: 'Share profile',
+        compartirPerfil: 'Copy link to share profile',
         historialPartidas: 'Game history',
         volverTutorial: 'Watch the tutorial again',
         verPartida: 'See game'

@@ -8,13 +8,13 @@ import Toasted from 'vue-toasted';
 import SocketIO from "socket.io-client";
 import VueSocketIO from 'vue-socket.io';
 import { i18n } from '@/plugins/i18n'
-
+import VueClipboard from 'vue-clipboard2';
 
 import {mapState, mapMutations} from 'vuex'
 
 
 Vue.use(Toasted)
-
+Vue.use(VueClipboard);
 
 const options = { withCredentials: false };
 
