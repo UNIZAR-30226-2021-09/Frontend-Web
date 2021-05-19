@@ -68,7 +68,7 @@
                   <div class="battleship-grid grid-computer tablero-lava"></div>
                 </div>
 
-                <h3 class="info-text mt-1" >{{turnDisplay}}</h3>
+                <!-- <h3 class="info-text mt-1" >{{turnDisplay}}</h3> -->
 
                 <div class="container hidden-info mt-3" v-if="ponerBarcos">
                   <div class="setup-buttons btn-group" id="setup-buttons">
@@ -194,7 +194,7 @@ export default {
       if (this.turnoActual === 'ColocandoBarcos'){
         retVal = 'Coloca tus barcos'
       }
-      if (this.turnoActual === 'ColocandoBarcosRival'){
+      if (this.turnoActual === 'ColocarBarcosRival'){
         retVal = 'Rival colocando sus barcos'
       }
 
@@ -413,12 +413,20 @@ export default {
         //Error al enviar la petición
           console.log('Error en post de colocar barcos')
           this.restartGrid()
-          this.$toasted.show("Error", { 
-            theme: "toasted-primary", 
-            position: "bottom-left", 
-            duration : 10000
-          });
-          console.log(error)
+          if(error.response.data == 'Barcos mal colocados, no cumlen alguna restricción'){ //error de restricciones
+            this.$toasted.show("Barcos mal colocados. Tienes que colocar todos los barcos separados entre sí", { 
+              theme: "toasted-primary", 
+              position: "bottom-left", 
+              duration : 10000
+            });
+          }else{ //error desconocido
+            this.$toasted.show("Error", { 
+              theme: "toasted-primary", 
+              position: "bottom-left", 
+              duration : 10000
+            });
+          }
+          
         });
       console.log("current player es " + this.turnoActual)
       if (this.turnoActual === 'TuTurno'){
