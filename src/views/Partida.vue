@@ -30,7 +30,7 @@
                 <p></p>
                 <br>
 
-                <h2>{{mensaje}}</h2>
+                <h2>Partida contra {{adversario}} - {{mensaje}}</h2>
 
 
                 <div class="row">
@@ -179,16 +179,34 @@ export default {
       return "background-color: this.color"
     },
     mensaje :function(){
-      let retVal = 'Partida contra ' + this.adversario + ': ';
-      if (this.colocarFlota){
-        retVal += 'Coloca tus barcos';
-      }else{ //La flota ya está colocada
-        if (this.miTurno){
-          retVal += 'Tu turno';
-        }else{
-          retVal += 'Turno de ' + this.adversario;
-        }
+      // let retVal = 'Partida contra ' + this.adversario + ' - ';
+      let retVal = ''
+      if (this.turnoActual === 'TuTurno'){
+        retVal = 'Mi turno'
+        let self = this; //Para usar este this dentro de la función de flecha! :D (https://forum.vuejs.org/t/is-not-a-function/12444)
+        this.computerSquares.forEach(square => square.addEventListener('click', function(){
+          self.disparo(square)
+        }))
       }
+      if (this.turnoActual === 'TurnoRival'){
+        retVal = 'Turno del rival'
+      }
+      if (this.turnoActual === 'ColocandoBarcos'){
+        retVal = 'Coloca tus barcos'
+      }
+      if (this.turnoActual === 'ColocandoBarcosRival'){
+        retVal = 'Rival colocando sus barcos'
+      }
+
+      // if (this.colocarFlota){
+      //   retVal += 'Coloca tus barcos';
+      // }else{ //La flota ya está colocada
+      //   if (this.miTurno){
+      //     retVal += 'Tu turno';
+      //   }else{
+      //     retVal += 'Turno de ' + this.adversario;
+      //   }
+      // }
       return retVal;
     },
     ponerBarcos: function(){
@@ -202,8 +220,8 @@ export default {
         return{ 
           titulo: 'Partida contra _____',
           adversario: '_____',
-          miTurno: true,
-          colocarFlota: true,
+          // miTurno: true,
+          // colocarFlota: true,
 
           //Variables de la lógica del juego
           userGrid: '',
@@ -384,10 +402,11 @@ export default {
         })
         .then(resp => {
             //Petición enviada correctamente
+            console.log('Respuesta a colocación de barcos:')
             console.log(resp)
             //Si los barcos están ok, cambio el estado
-            this.setTurnoActual('ColocandoBarcosRival')
-            this.turnDisplay = 'Rival colocando sus barcos'
+            this.setTurnoActual(resp.data.turno)
+            // this.turnDisplay = 'Rival colocando sus barcos'
             
             })
         .catch(error => {
@@ -443,20 +462,20 @@ export default {
           console.log(resp)
 
           //Si he fallado el disparo
-          if (resp.disparo === "fallo" && resp.fin == false){ 
+          if (resp.data.disparo === "fallo" && resp.data.fin == false){ 
             this.water() //Hacemos el sonidito del agua
             square.classList.add('miss') //Pintamos de agua
           }
           //Si he tocado un barco
-          if (resp.disparo === "tocado" && resp.fin == false){
+          if (resp.data.disparo === "tocado" && resp.data.fin == false){
             this.hit() //Sonidito de la bomba
             square.classList.add('boom') //Marcamos que he acertado
           }
           //Si he hundido un barco
-          if (resp.disparo === "hundido" && resp.fin == false){
+          if (resp.data.disparo === "hundido" && resp.data.fin == false){
             this.bomb() //Sonidito de la bomba
             square.classList.add('boom') //Marcamos que he acertado
-            let tipo = resp.barco.tipo
+            let tipo = resp.data.barco.tipo
             this.$toasted.show("¡¡Has destruido un " + tipo + "!!", { 
               theme: "bubble", 
               position: "bottom-left", 
@@ -464,10 +483,10 @@ export default {
             });
           }
           //Si he hundido el último barco y he ganado la partida
-          if (resp.disparo === "hundido" && resp.fin == true){
+          if (resp.data.disparo === "hundido" && resp.data.fin == true){
             this.bomb() //Sonidito de la bomba
             square.classList.add('boom') //Marcamos que he acertado
-            let tipo = resp.barco.tipo
+            let tipo = resp.data.barco.tipo
             this.$toasted.show("¡¡Has destruido un " + tipo + " y has ganado la partida!!", { 
               theme: "bubble", 
               position: "bottom-left", 
