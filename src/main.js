@@ -48,7 +48,7 @@ new Vue({
       console.log('El token es: ' + this.perfil.token)
       console.log('El nombre de usuario es ' + this.perfil.nombreUsuario)
       this.$socket.emit("logMe", { nombreUsuario: this.perfil.nombreUsuario});
-      //TODO: Hay que hacer emit de getIntoAllGames
+      this.$socket.emit("getIntoAllGames", { nombreUsuario: this.perfil.nombreUsuario});
     }
   } ,
   sockets:{

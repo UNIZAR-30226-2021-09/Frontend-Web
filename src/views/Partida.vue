@@ -183,10 +183,10 @@ export default {
       let retVal = ''
       if (this.turnoActual === 'TuTurno'){
         retVal = 'Mi turno'
-        // let self = this; //Para usar este this dentro de la función de flecha! :D (https://forum.vuejs.org/t/is-not-a-function/12444)
-        // this.computerSquares.forEach(square => square.addEventListener('click', function(){
-        //   self.disparo(square)
-        // }))
+        let self = this; //Para usar este this dentro de la función de flecha! :D (https://forum.vuejs.org/t/is-not-a-function/12444)
+        this.computerSquares.forEach(square => square.addEventListener('click', function(){
+          if (!this.attached) {self.disparo(square); this.attached = true;}
+        }))
       }
       if (this.turnoActual === 'TurnoRival'){
         retVal = 'Turno del rival'
@@ -264,6 +264,8 @@ export default {
           infoCrucero: {posicion:{fila:-1,columna:-1},direccion:"__"},
 
           barcosHundidos: 0,
+
+          attached: false,
         }
   },
   sockets:{
@@ -864,7 +866,7 @@ export default {
       this.turnDisplay = 'Mi turno'
       let self = this; //Para usar este this dentro de la función de flecha! :D (https://forum.vuejs.org/t/is-not-a-function/12444)
       this.computerSquares.forEach(square => square.addEventListener('click', function(){
-        self.disparo(square)
+         if (!this.attached) {self.disparo(square); this.attached = true;}
       }))
     }
     if (this.turnoActual != 'ColocandoBarcos'){ //Si ya he colocado los barcos, hay que recuperar el estado de los tableros

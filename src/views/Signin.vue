@@ -122,6 +122,7 @@ export default {
                 
                 //const tok = this.$store.getters.getToken  //!!!Conseguir el token introducido 
                 this.$socket.emit("logMe", { nombreUsuario: nombreRecibido});
+                console.log(this.perfil.nombreUsuario)
                 this.$socket.emit("getIntoAllGames", { nombreUsuario: this.perfil.nombreUsuario});
                 //console.log(tok)
                 this.$router.push('Inicio'); //Vamos al inicio con el usuario identificado
@@ -154,7 +155,7 @@ export default {
 
   },
   computed:{
-      ...mapState(['host','configuracion'])
+      ...mapState(['host','configuracion','perfil'])
   }
 }
 </script>

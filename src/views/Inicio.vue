@@ -197,8 +197,8 @@ export default {
     //   this.$socket.emit("logMe", { nombreUsuario: "User4"});
     // }
     //console.log('b');
-    console.log("weweewweweew");
-    console.log(this.$route.params.usuario);
+    //console.log("weweewweweew");
+    //console.log(this.$route.params.usuario);
     i18n.locale = this.configuracion.idioma;
   }
 
