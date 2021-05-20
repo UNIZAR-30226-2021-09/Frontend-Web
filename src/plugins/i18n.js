@@ -34,7 +34,8 @@ const messages = {
           partidasEnCurso: 'Partidas en curso',
           perfil: 'Perfil',
           cerrarSesion: 'Cerrar sesión',
-          agregarAmigo: 'Agregar amigo'
+          agregarAmigo: 'Agregar amigo',
+          clasificacion: 'Clasificacion'
       },
       placeHolder:{
           nombre: 'Nombre de usuario',
@@ -89,7 +90,6 @@ const messages = {
       },
       perfil:{
         partidasJugadas: 'Partidas jugadas',
-        copy: 'Enlace copiado al portapapeles',
         ganadas: 'Ganadas',
         perdidas: 'Perdidas',
         torneos: 'Torneos ganados',
@@ -141,7 +141,8 @@ const messages = {
         partidasEnCurso: 'Game list',
         perfil: 'Profile',
         cerrarSesion: 'Log out',
-        agregarAmigo: 'Add friend'
+        agregarAmigo: 'Add friend',
+        clasificacion: 'Clasification'
       },
       placeHolder:{
         nombre: 'User name',
@@ -198,7 +199,6 @@ const messages = {
     },
     perfil:{
       partidasJugadas: 'Games played',
-      copy: 'Link copied to clipboard',
       ganadas: 'Games won',
       perdidas: 'Games lost',
       torneos: 'Tournaments won',
@@ -218,13 +218,13 @@ const messages = {
       cesped: 'grass',
       espacio: 'space',
       lava: 'wash',
-      IdiomaWeb: 'Language',
+      IdiomaWeb: 'Lenguage',
     }
     }
 }
 
 export const i18n = new VueI18n({
-    locale: window.navigator.language.split('-')[0],
+    locale: 'es',
     fallbackLocale: 'en',
     messages
   })

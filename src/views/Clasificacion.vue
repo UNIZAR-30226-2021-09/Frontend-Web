@@ -1,14 +1,13 @@
 
 <template>
     <div align="center" class="container mt-5" id="app">
-      
       <p></p>
 
       <div class="mt-5"> 
          <div class="row g-3">
             <div class="col-sm-9">
                 
-                <h2>{{nombrePag}}: {{usuarioBuscado}} </h2>
+                <h2>{{ $t('navbar.clasificacion') }}: {{me.nombreUsuario}} </h2>
                   <div class="mt-4">
                     <table>
                         <thead>
@@ -21,7 +20,7 @@
                         <tbody>
                           <tr v-for="(entry,index) in this.clasificacion" v-bind:key="entry.nombreUsuario" >
 
-                            <td v-if="entry.nombreUsuario == usuarioBuscado" class="d-flex justify-content-center bg-info">{{index + 1}}</td>
+                            <td v-if="entry.nombreUsuario == me.nombreUsuario" class="d-flex justify-content-center bg-info">{{index + 1}}</td>
                             <td v-else class="d-flex justify-content-center">{{index + 1}}</td>
 
                             <td v-for="key in columnasRespuesta" v-bind:key="key">
@@ -87,6 +86,7 @@
 import {mapState,mapMutations} from 'vuex';
 import ListaAmigos from '@/components/ListaAmigos.vue'
 import axios from 'axios'
+import { i18n } from '@/plugins/i18n'
 
 export default {
   name: 'Clasificacion',
@@ -104,6 +104,7 @@ export default {
         }
   },
   created: function(){
+          i18n.locale = this.configuracion.idioma;
           let dir = this.host + '/user/ranking'
           axios
           .post(dir, {
@@ -121,9 +122,7 @@ export default {
             });
 
           dir = this.host + '/profile'
-          console.log('aaa');
-          let usuario = this.usuarioBuscado;
-          console.log('Buscado es ' + usuario);
+          let usuario = this.$route.params.usuario;
           axios
           .post(dir, {
               nombreUsuario: usuario
@@ -150,7 +149,7 @@ export default {
 
   },
   computed:{
-      ...mapState(['clasificacion', 'perfil','host','usuarioBuscado']), //Para recoger los datos de la lista de amigos que están almacenados en el store
+      ...mapState(['clasificacion', 'perfil','host','configuracion']), //Para recoger los datos de la lista de amigos que están almacenados en el store
   },
 }
 
