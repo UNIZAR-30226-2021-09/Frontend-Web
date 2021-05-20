@@ -95,7 +95,8 @@ const messages = {
         torneos: 'Torneos ganados',
         proporcion: 'Proporcion de victorias: ',
         noExisten: 'No existen datos para calcular',
-        puntos: 'Puntos de clasificacion'
+        puntos: 'Puntos de clasificacion',
+        copy: 'Enlace copiado al portapapeles',
       },
       configuracion:{
         configuracion: 'Configuracion',
@@ -204,7 +205,8 @@ const messages = {
       torneos: 'Tournaments won',
       proporcion: 'Win ratio: ',
       noExisten: 'There are no data to calculate',
-      puntos: 'Clasification points'
+      puntos: 'Clasification points',
+      copy: 'Link copied to clipboard',
     },
     configuracion:{
       configuracion: 'Configuration',
@@ -218,7 +220,7 @@ const messages = {
       cesped: 'grass',
       espacio: 'space',
       lava: 'wash',
-      IdiomaWeb: 'Lenguage',
+      IdiomaWeb: 'Language',
     }
     }
 }
