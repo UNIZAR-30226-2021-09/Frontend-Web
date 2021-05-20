@@ -39,14 +39,19 @@
 <script>
 import ListaAmigos from '@/components/ListaAmigos.vue'
 import {mapState,mapMutations} from 'vuex';
+import { i18n } from '../plugins/i18n' 
 
 export default {
   name: 'AmigoDesafiado',
   components: {
     ListaAmigos
   },
+  created: function() {
+    i18n.locale = this.configuracion.idioma;  
+
+  },
   computed:{
-    ...mapState(['perfil', 'amigoDesafiado'])
+    ...mapState(['perfil', 'amigoDesafiado','configuracion'])
   },
   data() {
         return{ 
@@ -64,11 +69,6 @@ export default {
       element.classList.remove("disabled");
     }
   },
-  created: function() {
-    console.log(this.amigoDesafiado)
-
-    
-
-  }
+  
 }
 </script>

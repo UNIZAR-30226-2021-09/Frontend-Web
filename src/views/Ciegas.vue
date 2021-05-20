@@ -36,6 +36,7 @@
 import ListaAmigos from '@/components/ListaAmigos.vue'
 import {mapState} from 'vuex';
 import axios from 'axios'
+import { i18n } from '../plugins/i18n' 
 
 export default {
   name: 'Ciegas',
@@ -53,6 +54,9 @@ export default {
           correoInvalido: false,
           disabledButton: false
         }
+  },
+  created: function() {
+    i18n.locale = this.configuracion.idioma;
   },
   methods: {
       buscarPartidaCiegas: function(){
@@ -101,7 +105,7 @@ export default {
 
   },
   computed: {
-      ...mapState(['perfil','host']), //Para recoger los datos de la lista de amigos que están almacenados en el store
+      ...mapState(['perfil','host','configuracion']), //Para recoger los datos de la lista de amigos que están almacenados en el store
   }
     
     

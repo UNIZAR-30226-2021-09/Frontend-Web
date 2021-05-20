@@ -67,7 +67,7 @@ export default {
           errorPeti: false
         }
   },
-  computed: mapState(['perfil', 'amigoDesafiado','host']),
+  computed: mapState(['perfil', 'amigoDesafiado','host','configuracion']),
   methods: {
     ...mapMutations([
       'setDesafiado'
@@ -125,6 +125,7 @@ export default {
     // }
   },
   created: function() {
+    i18n.locale = this.configuracion.idioma;
     this.msg = i18n.t('mensaje.seleccionaAmigo');
     if(this.perfil.listaAmigos.length == 0){
       this.msg = i18n.t('listaAmigos.noAmigos');

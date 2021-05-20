@@ -144,7 +144,7 @@ import waterSfx from '../assets/water.mp3'
 import dropSfx from '../assets/drop.mp3'
 import hitSfx from '../assets/hit.mp3'
 import axios from 'axios'
-
+import { i18n } from '../plugins/i18n' 
 
 export default {
   setup() {
@@ -160,6 +160,10 @@ export default {
     }
   },
   name: 'Partida',
+  created: function() {
+    i18n.locale = this.configuracion.idioma;  
+
+  },
   computed:{
     ...mapState(['configuracion','host','partidaActual','contrincanteActual','turnoActual','perfil']), 
     color: function(){

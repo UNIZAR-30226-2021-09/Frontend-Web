@@ -36,12 +36,17 @@
 <script>
 // @ is an alias to /src
 //import Cabecera from '@/components/Cabecera.vue'
+import {mapState} from 'vuex';
 import { i18n } from '@/plugins/i18n'
 
 export default {
   name: 'Home',
   components: {
     //Cabecera
+  },
+  created: function() {
+    i18n.locale = this.configuracion.idioma;  
+
   },
   data() {
         return{ 
@@ -58,7 +63,10 @@ export default {
       i18n.locale = locale
 
     }
-  }
+  },
+  computed:{
+    ...mapState(['configuracion'])
+  },
 
 }
 

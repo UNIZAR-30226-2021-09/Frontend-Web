@@ -53,11 +53,13 @@
 import axios from 'axios'
 import ListaAmigos from '@/components/ListaAmigos.vue'
 import {mapState,mapMutations} from 'vuex';
+import { i18n } from '../plugins/i18n' 
+
 //import axios from 'axios'
 export default {
   name: 'AgregarAmigo',
   computed:{
-      ...mapState(['perfil','host']) //Para recoger los datos de la lista de amigos que están almacenados en el store
+      ...mapState(['perfil','host','configuracion']) //Para recoger los datos de la lista de amigos que están almacenados en el store
   },
   components: {
     ListaAmigos
@@ -76,6 +78,9 @@ export default {
   //       console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)')
   //   }
   // },
+  created: function(){
+    i18n.locale = this.configuracion.idioma;
+  },
   methods: {
     ...mapMutations([
       'getToken','setSalientes'

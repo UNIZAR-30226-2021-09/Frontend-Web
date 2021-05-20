@@ -28,8 +28,11 @@
                   <!-- Color de los barcos -->
                   <div class="dropdown mt-5"> 
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                      {{configuracion.barcos}}
+                      <span v-if="configuracion.barcos == 'Azul'">{{ $t('configuracion.azul') }}</span>
+                      <span v-if="configuracion.barcos == 'Rojo'">{{ $t('configuracion.rojo') }}</span>
+                      <span v-if="configuracion.barcos == 'Verde'">{{ $t('configuracion.verde') }}</span>
                     </button>
+
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                       <li><p class="dropdown-item" @click="setColor('Azul')" >{{ $t('configuracion.azul') }}</p></li>
                       <li><p class="dropdown-item" @click="setColor('Rojo')" >{{ $t('configuracion.rojo') }}</p></li>
@@ -40,7 +43,11 @@
                   <!-- Color del tablero -->
                   <div class="dropdown mt-5"> 
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                      {{configuracion.tablero}}
+                      <span v-if="configuracion.tablero == 'Océano'">{{ $t('configuracion.oceano') }}</span>
+                      <span v-if="configuracion.tablero == 'Desierto'">{{ $t('configuracion.desierto') }}</span>
+                      <span v-if="configuracion.tablero == 'Césped'">{{ $t('configuracion.cesped') }}</span>
+                      <span v-if="configuracion.tablero == 'Espacio'">{{ $t('configuracion.espacio') }}</span>
+                      <span v-if="configuracion.tablero == 'Lava'">{{ $t('configuracion.lava') }}</span>
                     </button>
 
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -105,6 +112,10 @@ export default {
           this.configuracion.idioma = locale;
       i18n.locale = locale
     }
+  },
+  created: function() {
+    i18n.locale = this.configuracion.idioma;  
+
   }
 }
 </script>

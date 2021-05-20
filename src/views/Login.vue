@@ -80,6 +80,10 @@ export default {
           enviando: false
         }
   },
+  created: function() {
+    i18n.locale = this.configuracion.idioma;  
+
+  },
   methods: {
     ...mapMutations(['setNombreUsuario','setEmail','setAmigos','setEntrantes','setSalientes','setToken','setHistorial','setPartidas','imprimePerfil','setUsuarioBuscado']),
     

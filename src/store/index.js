@@ -56,7 +56,7 @@ export default new Vuex.Store({
     amigoDesafiado: '',
     usuarioBuscado: '',
     configuracion:{
-      idioma: 'en',
+      idioma: 'es',
       barcos: 'Azul',
       tablero: 'Océano'
     },

@@ -176,6 +176,8 @@
 import ListaAmigos from '@/components/ListaAmigos.vue'
 import {mapState,mapMutations} from 'vuex';
 import axios from 'axios'
+import { i18n } from '../plugins/i18n' 
+
 export default {
   name: 'PartidasEnCurso',
   components: {
@@ -188,7 +190,7 @@ export default {
   },
   methods: {
       ...mapMutations([
-      'setPartidas', 'setPartidaActual', 'setContrincanteActual', 'setTurnoActual'
+      'setPartidas', 'setPartidaActual', 'setContrincanteActual', 'setTurnoActual','configuracion'
     ]),
     irAPartida: function(partida){
       //console.log('Voy a ir a la partida ' + partida.id)
@@ -201,7 +203,7 @@ export default {
     }
   },
   created: function(){
-          
+          i18n.locale = this.configuracion.idioma;
           let dir = this.host + '/game/inProgress'  
           axios
           .post(dir, {

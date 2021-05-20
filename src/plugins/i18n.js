@@ -216,11 +216,11 @@ const messages = {
       rojo: 'Red',
       verde: 'Green',
       colorTablero: 'Board color',
-      oceano: 'ocean',
-      desierto: 'desert',
-      cesped: 'grass',
-      espacio: 'space',
-      lava: 'wash',
+      oceano: 'Ocean',
+      desierto: 'Desert',
+      cesped: 'Grass',
+      espacio: 'Space',
+      lava: 'Wash',
       IdiomaWeb: 'Language',
     }
     }

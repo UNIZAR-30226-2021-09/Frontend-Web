@@ -47,6 +47,7 @@
 import ListaAmigos from '@/components/ListaAmigos.vue'
 import {mapState, mapMutations} from 'vuex';
 import axios from 'axios'
+import { i18n } from '../plugins/i18n' 
 
 export default {
   name: 'Configuracion',
@@ -65,6 +66,7 @@ export default {
         }
   },
   created: function(){
+      i18n.locale = this.configuracion.idioma;  
     let dir = this.host + '/match/infoPartida'
       axios
       .post(dir, {

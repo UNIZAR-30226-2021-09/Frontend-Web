@@ -91,6 +91,7 @@
 import ListaAmigos from '@/components/ListaAmigos.vue'
 import {mapState} from 'vuex';
 import axios from 'axios'
+import { i18n } from '../plugins/i18n' 
 
 export default {
   name: 'Modotorneo',
@@ -106,6 +107,7 @@ export default {
   },
   created: function(){
         this.participantes[0].nombre = this.perfil.nombreUsuario;
+        i18n.locale = this.configuracion.idioma;  
     },
   methods: {
       seleccionado: function(amigo){
@@ -164,7 +166,7 @@ export default {
 
   },
   computed: {
-      ...mapState(['perfil','host']), //Para recoger los datos de la lista de amigos que están almacenados en el store
+      ...mapState(['perfil','host','configuracion']), //Para recoger los datos de la lista de amigos que están almacenados en el store
 
   },
 

@@ -150,6 +150,7 @@
 <script>
 // import ListaAmigos from '@/components/ListaAmigos.vue'
 import {mapState} from 'vuex'
+import { i18n } from '../plugins/i18n' 
 
 export default {
   name: 'Tutorial',
@@ -167,7 +168,7 @@ export default {
         }
   },
   computed:{
-    ...mapState(['perfil'])
+    ...mapState(['perfil','configuracion'])
   },
   // methods: {
   //     enviarDatos: function(){
@@ -181,7 +182,7 @@ export default {
     // }else{
     //   this.$socket.emit("logMe", { nombreUsuario: "User4"});
     // }
-    console.log('b');
+    i18n.locale = this.configuracion.idioma;  
   }
 
 }

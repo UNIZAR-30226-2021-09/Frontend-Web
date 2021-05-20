@@ -89,6 +89,10 @@ export default {
             enviando: false
         }
   },
+  created: function() {
+    i18n.locale = this.configuracion.idioma;  
+
+  },
   methods:{
     digestMessage: async function(message) {
         const msgUint8 = new TextEncoder().encode(message);                           // encode as (utf-8) Uint8Array
