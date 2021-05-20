@@ -87,6 +87,7 @@ const messages = {
           noIA: 'Actualmente no tienes partidas contra la IA en curso.',
           partidaContra1: 'Partida contra ',
           partidaContra2: ', esperando a movimiento del contrincante',
+          
       },
       perfil:{
         partidasJugadas: 'Partidas jugadas',
@@ -132,7 +133,7 @@ const messages = {
         compartirPerfil: 'Copy link to share profile',
         historialPartidas: 'Game history',
         volverTutorial: 'Watch the tutorial again',
-        verPartida: 'See game'
+        verPartida: 'View game'
       },
       navbar: {
         nuevaPartida: 'Game against AI',

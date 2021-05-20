@@ -60,6 +60,7 @@
                               <div v-else>
                                 <li class="list-group-item list-group-item-warning">
                                   {{ $t('partidasCurso.partidaContra1') }}{{partida.contrincante}}{{ $t('partidasCurso.partidaContra2') }}
+                                  <button  style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.verPartida') }}</button>
                                 </li>
                               </div>
 
@@ -89,6 +90,7 @@
                               <div v-else>
                                 <li class="list-group-item list-group-item-warning">
                                   {{ $t('partidasCurso.partidaContra1') }}{{partida.contrincante}}{{ $t('partidasCurso.partidaContra2') }}
+                                  <button  style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.verPartida') }}</button>
                                 </li>
                               </div>
 
@@ -118,6 +120,7 @@
                               <div v-else>
                                 <li class="list-group-item list-group-item-warning">
                                   {{ $t('partidasCurso.partidaContra1') }}{{partida.contrincante}}{{ $t('partidasCurso.partidaContra2') }}
+                                  <button  style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.verPartida') }}</button>
                                 </li>
                               </div>
 
@@ -146,6 +149,7 @@
                               <div v-else>
                                 <li class="list-group-item list-group-item-warning">
                                   {{ $t('partidasCurso.partidaContra1') }}{{partida.contrincante}}{{ $t('partidasCurso.partidaContra2') }}
+                                  <button  style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.verPartida') }}</button>
                                 </li>
                               </div>
 
