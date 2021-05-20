@@ -48,6 +48,7 @@ new Vue({
       console.log('El token es: ' + this.perfil.token)
       console.log('El nombre de usuario es ' + this.perfil.nombreUsuario)
       this.$socket.emit("logMe", { nombreUsuario: this.perfil.nombreUsuario});
+      //TODO: Hay que hacer emit de getIntoAllGames
     }
   } ,
   sockets:{
@@ -110,21 +111,48 @@ new Vue({
       })
       .catch(error => {
       //Error al enviar la petición
-      console.log(error.response.request.response)
-      this.$toasted.show("Error", { 
-        theme: "toasted-primary", 
-        position: "bottom-left", 
-        duration : 10000
-      });
+        console.log(error.response.request.response)
+        this.$toasted.show("Error", { 
+          theme: "toasted-primary", 
+          position: "bottom-left", 
+          duration : 10000
+        });
       })
 
       }
-    }
+    },
+    llegaChallenge: function (){
+      console.log("llegachallenge")
+      if (this.perfil.token != ''){
+        //this.host me sale undefined
+        let dir = this.host + '/game/incomingRequests'
+        axios
+        .post(dir, {
+            nombreUsuario: this.perfil.nombreUsuario,
+            accessToken: this.perfil.token
+        })
+        .then(resp => {
+        //Petición enviada correctamente
+          this.setDesafios(resp.data)
+        })
+        .catch(error => {
+        //Error al enviar la petición
+          console.log(error)
+        });
+      }
+    },
+    llegaAceptarChallenge: function (gameid){
+      //TODO: Aquí tenemos que actualizar la lista de partidas en curso
+      console.log("llegaAceptarChallenge")
+      this.$socket.emit("joinGame", gameid);
+      console.log("join game")
+    },
+    
   },
   computed:{
     ...mapState(['perfil', 'host'])
   },
   methods:{
-    ...mapMutations(['setEntrantes','setAmigos', 'setSalientes']),
+    ...mapMutations(['setEntrantes','setAmigos', 'setSalientes', 'setDesafios']),
   }
 }).$mount('#app')

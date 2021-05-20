@@ -55,7 +55,7 @@
             </ul>
         </div>
 
-        <!-- Lista de partidas amistosasa recibidas -->
+        <!-- Lista de desafios recibidas -->
         <div class="mt-3">
             <h5 style="display:inline" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ $t('listaAmigos.desafiosRecibidos') }} <span style="background-color: coral;" class="badge">{{numDesafiosRecibidos}}</span></h5>
             <ul class="dropdown-menu list-group-flush">
@@ -229,6 +229,9 @@ export default {
         })
         .then(resp => {
             //Petición enviada correctamente
+            this.$socket.emit("aceptarChallenge", {nombreUsuario: jugador.contrincante, game: jugador.id});
+            this.$socket.emit("joinGame", jugador.id);
+            console.log("join game")
             console.log(resp)
             this.setPartidaActual(resp.data._id)
             console.log(resp.data._id)
@@ -237,7 +240,7 @@ export default {
             this.setTurnoActual('ColocandoBarcos')
             this.perfil.desafiosRecibidos.splice(index, 1);
             this.$router.push('partida')
-
+            
             })
         .catch(error => {
         //Error al enviar la petición

@@ -122,6 +122,7 @@ export default {
                 
                 //const tok = this.$store.getters.getToken  //!!!Conseguir el token introducido 
                 this.$socket.emit("logMe", { nombreUsuario: nombreRecibido});
+                this.$socket.emit("getIntoAllGames", { nombreUsuario: this.perfil.nombreUsuario});
                 //console.log(tok)
                 this.$router.push('Inicio'); //Vamos al inicio con el usuario identificado
                 })

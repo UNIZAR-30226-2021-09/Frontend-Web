@@ -89,6 +89,7 @@ const messages = {
       },
       perfil:{
         partidasJugadas: 'Partidas jugadas',
+        copy: 'Enlace copiado al portapapeles',
         ganadas: 'Ganadas',
         perdidas: 'Perdidas',
         torneos: 'Torneos ganados',
@@ -197,6 +198,7 @@ const messages = {
     },
     perfil:{
       partidasJugadas: 'Games played',
+      copy: 'Link copied to clipboard',
       ganadas: 'Games won',
       perdidas: 'Games lost',
       torneos: 'Tournaments won',
@@ -216,7 +218,7 @@ const messages = {
       cesped: 'grass',
       espacio: 'space',
       lava: 'wash',
-      IdiomaWeb: 'Lenguage',
+      IdiomaWeb: 'Language',
     }
     }
 }

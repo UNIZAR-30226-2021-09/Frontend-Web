@@ -96,6 +96,7 @@ export default {
         }else{
           console.log("Éxito en la petición ")
           console.log(resp)
+
         }
         this.$toasted.show(i18n.t('mensaje.hasDesafiado1') + resp.data.participante2 + i18n.t('mensaje.hasDesafiado2'), { 
                     theme: "toasted-primary", 
@@ -105,7 +106,7 @@ export default {
         this.msg =  i18n.t('mensaje.seleccionaAmigo');
         var element = document.getElementById("btnSend");
         element.classList.add("disabled");
-        
+        this.$socket.emit("challenge", {nombreUsuario: this.amigoDesafiado});
       
       })
       .catch(error => {

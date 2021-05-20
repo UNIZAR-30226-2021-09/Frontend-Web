@@ -6,8 +6,8 @@
       <p></p>
 
       <div class="mt-5"> 
-         <div class="row g-3">           
-            <div class="col-sm-9">
+         <!-- <div class="row g-3">            -->
+            <!-- <div class="col-sm-9"> -->
 
               <!-- Contenido de la pantalla -->
                 <!-- <input type="button" value="Click Me" style="float: right;"> -->
@@ -128,15 +128,15 @@
 
 
             </div>
-            <ListaAmigos/>
-        </div>
-      </div>
+            <!-- <ListaAmigos/> -->
+        <!-- </div> -->
+      <!-- </div> -->
     </div>
 </template>
 
 #######################################SCRIPT#######################################
 <script>
-import ListaAmigos from '@/components/ListaAmigos.vue'
+// import ListaAmigos from '@/components/ListaAmigos.vue'
 import {mapState,mapMutations} from 'vuex';
 import useSound from 'vue-use-sound'
 import bombSfx from '../assets/bomb.mp3'
@@ -183,10 +183,10 @@ export default {
       let retVal = ''
       if (this.turnoActual === 'TuTurno'){
         retVal = 'Mi turno'
-        let self = this; //Para usar este this dentro de la función de flecha! :D (https://forum.vuejs.org/t/is-not-a-function/12444)
-        this.computerSquares.forEach(square => square.addEventListener('click', function(){
-          self.disparo(square)
-        }))
+        // let self = this; //Para usar este this dentro de la función de flecha! :D (https://forum.vuejs.org/t/is-not-a-function/12444)
+        // this.computerSquares.forEach(square => square.addEventListener('click', function(){
+        //   self.disparo(square)
+        // }))
       }
       if (this.turnoActual === 'TurnoRival'){
         retVal = 'Turno del rival'
@@ -214,7 +214,7 @@ export default {
     }
   },
   components: {
-    ListaAmigos
+    // ListaAmigos
   },
   data() {
         return{ 
@@ -265,6 +265,78 @@ export default {
 
           barcosHundidos: 0,
         }
+  },
+  sockets:{
+    //Función del socket que se llama cuando el jugador de la partida en la que estoy ahora pone los barcos
+    llegaMovement: function(info){
+      console.log("llegaMovement :D")
+      console.log(info.game)
+      console.log(info.nuevoTurno)
+      if (info.nuevoTurno === 'finPartida'){
+        this.$router.push('finPartida')
+      }
+      if(info.game === this.partidaActual){ //Si estoy mirando la partida que se ha actualizado, actualizo el turno
+        console.log("Voy a cambiar mi turno a " + info.nuevoTurno)
+        this.setTurnoActual(info.nuevoTurno)
+      }
+      // this.restartGrid();
+      let self = this;
+      let dir = this.host + '/match/cogerTablero'
+      axios
+      .post(dir, {
+        nombreUsuario: this.perfil.nombreUsuario,
+        accessToken: this.perfil.token,
+        gameid: this.partidaActual
+      })
+      .then(resp => {
+        //Petición enviada correctamente
+        console.log(resp)
+
+        //Recupero los disparos a mis barcos
+        const tuTablero = resp.data.tuTablero
+        tuTablero.forEach(info => //Este es un for each que itera en cada uno de los barcos
+          {
+            let coord = info.casilla //Cada una de las coordenadas de cada disparo
+            if (info.casilla.estado === 'acierto') {self.userSquares[parseInt((coord.fila * self.width) + coord.columna)].classList.add('boom')}
+            else if (info.casilla.estado === 'fallo') {self.userSquares[parseInt((coord.fila * self.width) + coord.columna)].classList.add('miss')}
+            else {console.log("???")}
+          }
+        )
+
+        //Recupero las posiciones de mis barcos
+        const tusBarcos = resp.data.tusBarcos
+        let colorBarco = 'barco-' + self.configuracion.barcos
+        tusBarcos.forEach(barco => //Este es un for each que itera en cada uno de los barcos
+         barco.coordenadas.forEach(coord => //Cada una de las coordenadas de cada cuadradito de un barco
+          {
+            if(! self.userSquares[parseInt((coord.fila * self.width) + coord.columna)].classList.contains('boom') &&
+               ! self.userSquares[parseInt((coord.fila * self.width) + coord.columna)].classList.contains('miss')){ //se pinta el barco si no hay disparo
+              self.userSquares[parseInt((coord.fila * self.width) + coord.columna)].classList.add('taken', colorBarco)
+            }
+          }
+         )
+        )
+
+        //Recupero los disparos que le he hecho al rival
+        const disparos = resp.data.disparos
+        disparos.forEach(info => //Este es un for each que itera en cada uno de los barcos
+          {
+            let coord = info.casilla //Cada una de las coordenadas de cada disparo
+            if (info.casilla.estado === 'acierto') {self.computerSquares[parseInt((coord.fila * self.width) + coord.columna)].classList.add('boom')}
+            else if (info.casilla.estado === 'fallo') {self.computerSquares[parseInt((coord.fila * self.width) + coord.columna)].classList.add('miss')}
+            else {console.log("???")}
+          }
+        )
+        
+
+      })
+      .catch(error => {
+      //Error al enviar la petición
+        console.log('Error en post de coger tablero')
+        console.log(error)
+      });
+      
+    },
   },
   methods: {
     ...mapMutations([
@@ -403,10 +475,23 @@ export default {
         .then(resp => {
             //Petición enviada correctamente
             console.log('Respuesta a colocación de barcos:')
-            console.log(resp)
+            console.log(resp.data.turno)
             //Si los barcos están ok, cambio el estado
             this.setTurnoActual(resp.data.turno)
-            // this.turnDisplay = 'Rival colocando sus barcos'
+            // Aviso al otro jugador de que ya he puesto los barcos
+            if (resp.data.turno === 'ColocandoBarcosRival'){ //Si soy el primero que pone los barcos, le quiero decir al otro que es él quien los está poniendo
+              this.$socket.emit("movement", {game: this.partidaActual, nuevoTurno: 'ColocandoBarcos'});
+              console.log("He enviado emit con texto: ColocandoBarcos")
+            } 
+            //Si soy el segundo, aviso al contrincante de lo contrario
+            if (resp.data.turno === 'TuTurno'){
+              this.$socket.emit("movement", {game: this.partidaActual, nuevoTurno: 'TurnoRival'});
+              console.log("He enviado emit con texto: TurnoRival")
+            }
+            if (resp.data.turno === 'TurnoRival'){
+              this.$socket.emit("movement", {game: this.partidaActual, nuevoTurno: 'TuTurno'});
+              console.log("He enviado emit con texto: TuTurno")
+            }
             
             })
         .catch(error => {
@@ -431,10 +516,11 @@ export default {
       console.log("current player es " + this.turnoActual)
       if (this.turnoActual === 'TuTurno'){
         this.turnDisplay = 'Mi turno'
-        let self = this; //Para usar este this dentro de la función de flecha! :D (https://forum.vuejs.org/t/is-not-a-function/12444)
-        this.computerSquares.forEach(square => square.addEventListener('click', function(){
-          self.disparo(square)
-        }))
+        // let self = this; //Para usar este this dentro de la función de flecha! :D (https://forum.vuejs.org/t/is-not-a-function/12444)
+        
+        // this.computerSquares.forEach(square => square.addEventListener('click', function(){
+        //   self.disparo(square)
+        // }))
       }
       if (this.turnoActual === 'TurnoRival'){
         this.turnDisplay = 'Turno del rival'
@@ -472,12 +558,15 @@ export default {
           //Si he fallado el disparo
           if (resp.data.disparo === "fallo" && resp.data.fin == false){ 
             this.water() //Hacemos el sonidito del agua
+            this.setTurnoActual('TurnoRival') //Si fallo, cambio el turno en local
             square.classList.add('miss') //Pintamos de agua
+            this.$socket.emit("movement", {game: this.partidaActual, nuevoTurno: 'TuTurno'});
           }
           //Si he tocado un barco
           if (resp.data.disparo === "tocado" && resp.data.fin == false){
             this.hit() //Sonidito de la bomba
             square.classList.add('boom') //Marcamos que he acertado
+            this.$socket.emit("movement", {game: this.partidaActual, nuevoTurno: 'TurnoRival'});
           }
           //Si he hundido un barco
           if (resp.data.disparo === "hundido" && resp.data.fin == false){
@@ -489,8 +578,10 @@ export default {
               position: "bottom-left", 
               duration : 4000
             });
+            this.$socket.emit("movement", {game: this.partidaActual, nuevoTurno: 'TurnoRival'});
           }
           //Si he hundido el último barco y he ganado la partida
+          
           if (resp.data.disparo === "hundido" && resp.data.fin == true){
             this.bomb() //Sonidito de la bomba
             square.classList.add('boom') //Marcamos que he acertado
@@ -500,9 +591,10 @@ export default {
               position: "bottom-left", 
               duration : 4000
             });
+            this.$socket.emit("movement", {game: this.partidaActual, nuevoTurno: 'finPartida'});
             this.$router.push('finPartida')
           }
-        
+
         })
         .catch(error => {
         //Error al enviar la petición
@@ -883,7 +975,8 @@ export default {
   } */
 
   .grids-container{
-    display: flex
+    display: flex;
+    text-align: center;
   }  
 
   .barco-Azul{

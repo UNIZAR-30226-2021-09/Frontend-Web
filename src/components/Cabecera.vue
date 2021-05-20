@@ -131,7 +131,8 @@ export default {
     numNotificaciones: function () {
       // `this` points to the vm instance
       if(this.perfil.partidasEnCurso.mensaje != "Token no proveído."){
-          console.log(this.perfil.partidasEnCurso.mensaje);
+        //TODO: HAY QUE ACTUALIZAR DINÁMICAMENTE EL GLOBITO
+          //console.log(this.perfil.partidasEnCurso.mensaje);
           return this.perfil.partidasEnCurso.filter( partida => partida.tuTurno).length;
       }
       return 0;

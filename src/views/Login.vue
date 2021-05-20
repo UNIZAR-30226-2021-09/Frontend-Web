@@ -116,6 +116,7 @@ export default {
         this.setHistorial(resp.data.historial);
         this.setUsuarioBuscado(resp.data.nombreUsuario);
         this.$socket.emit("logMe", { nombreUsuario: this.perfil.nombreUsuario});
+        this.$socket.emit("getIntoAllGames", { nombreUsuario: this.perfil.nombreUsuario});
         //Faltaría actualizar los puntos del usuario y sus partidas actuales (?) 
 
         this.imprimePerfil()
