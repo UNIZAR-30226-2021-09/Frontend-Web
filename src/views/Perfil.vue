@@ -183,6 +183,14 @@ export default {
         this.resetToken()
         this.$router.push('/');
       },
+      mensajeCopiar: function(){
+        let msg = this.$t('perfil.copy')
+        this.$toasted.show(msg, { 
+              theme: "toasted-primary", 
+              position: "bottom-left", 
+              duration : 10000
+            });
+      },
   },
   mounted(){
           console.log("Pues aqui estamos: ");
@@ -216,14 +224,6 @@ export default {
         console.log(error.response)
         });
     },
-    mensajeCopiar: function(){
-        let msg = this.$t('perfil.copy')
-        this.$toasted.show(msg, { 
-              theme: "toasted-primary", 
-              position: "bottom-left", 
-              duration : 10000
-            });
-      },
   },
 }
 </script>
