@@ -58,8 +58,13 @@
                               </div>
 
                               <div v-else>
-                                <li class="list-group-item list-group-item-warning">
+                                <li v-if="partida.tuTurno == 'TurnoRival'" class="list-group-item list-group-item-warning">
                                   {{ $t('partidasCurso.partidaContra1') }}{{partida.contrincante}}{{ $t('partidasCurso.partidaContra2') }}
+                                  <button  style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.verPartida') }}</button>
+                                </li>
+
+                                <li v-else class="list-group-item list-group-item-warning">
+                                  {{ $t('partidasCurso.partidaContra1') }}{{partida.contrincante}}{{ $t('partidasCurso.partidaContra2barcos') }}
                                   <button  style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.verPartida') }}</button>
                                 </li>
                               </div>
@@ -88,8 +93,13 @@
                               </div>
 
                               <div v-else>
-                                <li class="list-group-item list-group-item-warning">
+                                <li v-if="partida.tuTurno == 'TurnoRival'" class="list-group-item list-group-item-warning">
                                   {{ $t('partidasCurso.partidaContra1') }}{{partida.contrincante}}{{ $t('partidasCurso.partidaContra2') }}
+                                  <button  style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.verPartida') }}</button>
+                                </li>
+
+                                <li v-else class="list-group-item list-group-item-warning">
+                                  {{ $t('partidasCurso.partidaContra1') }}{{partida.contrincante}}{{ $t('partidasCurso.partidaContra2barcos') }}
                                   <button  style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.verPartida') }}</button>
                                 </li>
                               </div>
@@ -118,8 +128,13 @@
                               </div>
 
                               <div v-else>
-                                <li class="list-group-item list-group-item-warning">
+                                <li v-if="partida.tuTurno == 'TurnoRival'" class="list-group-item list-group-item-warning">
                                   {{ $t('partidasCurso.partidaContra1') }}{{partida.contrincante}}{{ $t('partidasCurso.partidaContra2') }}
+                                  <button  style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.verPartida') }}</button>
+                                </li>
+
+                                <li v-else class="list-group-item list-group-item-warning">
+                                  {{ $t('partidasCurso.partidaContra1') }}{{partida.contrincante}}{{ $t('partidasCurso.partidaContra2barcos') }}
                                   <button  style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.verPartida') }}</button>
                                 </li>
                               </div>
@@ -147,8 +162,13 @@
                               </div>
 
                               <div v-else>
-                                <li class="list-group-item list-group-item-warning">
+                                <li v-if="partida.tuTurno == 'TurnoRival'" class="list-group-item list-group-item-warning">
                                   {{ $t('partidasCurso.partidaContra1') }}{{partida.contrincante}}{{ $t('partidasCurso.partidaContra2') }}
+                                  <button  style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.verPartida') }}</button>
+                                </li>
+
+                                <li v-else class="list-group-item list-group-item-warning">
+                                  {{ $t('partidasCurso.partidaContra1') }}{{partida.contrincante}}{{ $t('partidasCurso.partidaContra2barcos') }}
                                   <button  style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.verPartida') }}</button>
                                 </li>
                               </div>
@@ -176,7 +196,7 @@
 import ListaAmigos from '@/components/ListaAmigos.vue'
 import {mapState,mapMutations} from 'vuex';
 import axios from 'axios'
-import { i18n } from '../plugins/i18n' 
+import { i18n } from '@/plugins/i18n'
 
 export default {
   name: 'PartidasEnCurso',
@@ -190,7 +210,7 @@ export default {
   },
   methods: {
       ...mapMutations([
-      'setPartidas', 'setPartidaActual', 'setContrincanteActual', 'setTurnoActual','configuracion'
+      'setPartidas', 'setPartidaActual', 'setContrincanteActual', 'setTurnoActual'
     ]),
     irAPartida: function(partida){
       //console.log('Voy a ir a la partida ' + partida.id)
@@ -203,6 +223,7 @@ export default {
     }
   },
   created: function(){
+          console.log(this.configuracion.idioma);
           i18n.locale = this.configuracion.idioma;
           let dir = this.host + '/game/inProgress'  
           axios
@@ -221,7 +242,7 @@ export default {
             });
   },
   computed: {
-      ...mapState(['perfil','host']), //Para recoger los datos de la lista de amigos que están almacenados en el store
+      ...mapState(['perfil','host','configuracion']), //Para recoger los datos de la lista de amigos que están almacenados en el store
 
 
       numPartidasIA :function(){

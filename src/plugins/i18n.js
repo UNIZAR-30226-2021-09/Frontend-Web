@@ -87,6 +87,7 @@ const messages = {
           noIA: 'Actualmente no tienes partidas contra la IA en curso.',
           partidaContra1: 'Partida contra ',
           partidaContra2: ', esperando a movimiento del contrincante',
+          partidaContra2barcos: ', esperando a que el contrincante coloque sus barcos',
           
       },
       perfil:{
@@ -198,6 +199,7 @@ const messages = {
         noIA: 'You have no games vs IA in progress.',
         partidaContra1: 'Game against ',
         partidaContra2: ', waiting for the opponent\'s move',
+        partidaContra2barcos: ', waiting for the opponent to place his ships',
     },
     perfil:{
       partidasJugadas: 'Games played',

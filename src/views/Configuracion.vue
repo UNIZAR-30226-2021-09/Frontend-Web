@@ -110,7 +110,7 @@ export default {
       'setColor','setTablero','setIdioma']),
     setIdioma: function(locale){
           this.configuracion.idioma = locale;
-      i18n.locale = locale
+          i18n.locale = locale
     }
   },
   created: function() {

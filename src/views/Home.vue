@@ -60,7 +60,8 @@ export default {
   methods:{
 
     changeLanguage(locale) {
-      i18n.locale = locale
+      i18n.locale = locale;
+      this.configuracion.idioma = locale;
 
     }
   },
