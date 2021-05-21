@@ -188,7 +188,7 @@ export default {
         this.$toasted.show(msg, { 
               theme: "toasted-primary", 
               position: "bottom-left", 
-              duration : 10000
+              duration : 800
             });
       },
   },
@@ -197,7 +197,7 @@ export default {
           console.log(this.usuario);
   },
   updated(){
-          console.log("NUEVA CARGA");
+          //console.log("NUEVA CARGA");
   },
    watch: {
     // whenever question changes, this function will run
