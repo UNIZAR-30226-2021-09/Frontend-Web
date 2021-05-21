@@ -113,6 +113,21 @@ const messages = {
         espacio: 'Espacio',
         lava: 'Lava',
         IdiomaWeb: 'Idioma',
+      },
+      tutorial:{
+        tutorial: 'Tutorial',
+        scroll1: 'Utiliza la barra de navegación para acceder directamente a algunas pantallas o para cerrar la sesión',
+        scroll2: 'Visualiza todos los modos de juego disponibles desde la pantalla inicial',
+        scroll3: '¡Busca una partida contra un contrincante aleatorio!',
+        scroll4: '¡Reta a un amigo a una partida amistosa!',
+        scroll5: '¡Crea un torneo en el que participaréis tú y otros tres amigos!',
+        scroll6: 'Visualiza las partidas que tienes activas',
+        scroll7: '¡Maneja tu lista de amigos desde cualquier pantalla!',
+        scroll8: 'Visualiza tus datos o tu posición en la clasificación desde tu perfil',
+        scroll9: '¡Pon la página web a tu gusto desde la pestaña de configuración!',
+        scroll10: 'Y... ¡diviértete jugando a Batalla Naval!',
+        irInicio: 'Ir al inicio',
+        saltarTutorial: 'Saltar tutorial'
       }
     },
     en: {
@@ -224,6 +239,21 @@ const messages = {
       espacio: 'Space',
       lava: 'Wash',
       IdiomaWeb: 'Language',
+    },
+    tutorial:{
+      tutorial: 'Tutorial',
+      scroll1: 'Use the navigation bar to directly access some screens or to log out',
+      scroll2: 'View all available game modes from the home screen',
+      scroll3: 'Look for a match against a random opponent!',
+      scroll4: 'Challenge a friend to a friendly match!',
+      scroll5: 'Create a tournament where you and three other friends will participate!',
+      scroll6: 'View the games you have active',
+      scroll7: 'Manage your friends list from any screen!',
+      scroll8: 'View your data or your position in the ranking from your profile',
+      scroll9: 'Make the web page to your liking from the configuration tab!',
+      scroll10: 'And ... have fun playing Naval Battle!',
+      irInicio: 'Go to start',
+      saltarTutorial: 'Skip tutorial'
     }
     }
 }
