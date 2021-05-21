@@ -842,6 +842,10 @@ export default {
       //index-1 , index-2 and so on, the ship will rebound back to the displayGrid.
       } else if (!self.isHorizontal && !newNotAllowedVertical.includes(shipLastId) && empty) {
         self.drop()
+        //Guardamos la información
+        let fila = Math.floor((parseInt(this.dataset.id) - selectedShipIndex) / self.width)
+        let columna = Math.floor((parseInt(this.dataset.id) - selectedShipIndex) % self.width)
+        guardarInfo(fila, columna, shipClass, self)
         for (let i=0; i < self.draggedShipLength; i++) {
           // let directionClass
           // if (i === 0) directionClass = 'start'
@@ -1032,12 +1036,14 @@ export default {
     flex-wrap: wrap;
     /* background-color: lightblue; */
     margin: 20px;
+    margin-left: 100px;
   }
 
   .battleship-grid div { /*Cualquier grid que esté en un div tendrá este estilo */
     width: 40px;
     height: 40px;
     outline: 0.5px solid black;
+    
     /* background-color: lightblue; */
   }
 
@@ -1049,6 +1055,7 @@ export default {
     /* background-color: lightgreen; */
     /* background-image: url('~@/assets/oceano.jpg'); */
     margin: 20px;
+    margin-left: 200px;
   }
 
   .grid-display{
