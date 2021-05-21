@@ -28,80 +28,80 @@
 
                     <!-- Barra de Navegación -->
                     <div class="carousel-item active" data-bs-interval="4000">
-                      <img src="@/assets/logo.png" width="900" height="500" class="d-block" alt="@/assets/logo.png">
-                      <div class="carousel-caption d-none d-md-block bg-white rounded-pill">
+                      <img src="@/assets/imagenesTutorial/barraNavegacion.png" width="900" height="550" class="d-block" alt="@/assets/logo.png">
+                      <div class="carousel-caption d-none d-md-block bg-light rounded-pill border border-primary">
                         <p>Utiliza la barra de navegación para acceder directamente a algunas pantallas o para cerrar la sesión</p>
                       </div>
                     </div>
 
                     <!-- Modos de juego -->
                     <div class="carousel-item" data-bs-interval="4000">
-                      <img src="@/assets/logo.png" width="900" height="500" class="d-block" alt="@/assets/logo.png" >
-                      <div class="carousel-caption d-none d-md-block bg-white rounded-pill">
+                      <img src="@/assets/imagenesTutorial/modosJuego.png" width="900" height="600" class="d-block" alt="@/assets/logo.png" >
+                      <div class="carousel-caption d-none d-md-block bg-light rounded-pill border border-primary">
                         <p>Visualiza todos los modos de juego disponibles desde la pantalla inicial</p>
                       </div>
                     </div>
 
                     <!-- Partida a ciegas -->
                     <div class="carousel-item" data-bs-interval="4000">
-                      <img src="@/assets/logo.png" width="900" height="500" class="d-block" alt="@/assets/logo.png" >
-                      <div class="carousel-caption d-none d-md-block bg-white rounded-pill">
+                      <img src="@/assets/imagenesTutorial/contrincanteAleatorio.png" width="900" height="600" class="d-block" alt="@/assets/logo.png" >
+                      <div class="carousel-caption d-none d-md-block bg-light rounded-pill border border-primary">
                         <p>¡Busca una partida contra un contrincante aleatorio!</p>
                       </div>
                     </div>
 
                     <!-- Desafiar a un amigo -->
                     <div class="carousel-item" data-bs-interval="4000">
-                      <img src="@/assets/logo.png" width="900" height="500" class="d-block" alt="@/assets/logo.png" >
-                      <div class="carousel-caption d-none d-md-block bg-white rounded-pill">
+                      <img src="@/assets/imagenesTutorial/partidaAmistosa.png" width="900" height="600" class="d-block" alt="@/assets/logo.png" >
+                      <div class="carousel-caption d-none d-md-block bg-light rounded-pill border border-primary">
                         <p>¡Reta a un amigo a una partida amistosa!</p>
                       </div>
                     </div>
 
                     <!-- Modo torneo -->
                     <div class="carousel-item" data-bs-interval="4000">
-                      <img src="@/assets/logo.png" width="900" height="500" class="d-block" alt="@/assets/logo.png" >
-                      <div class="carousel-caption d-none d-md-block bg-white rounded-pill">
+                      <img src="@/assets/imagenesTutorial/creaTorneo.png" width="900" height="600" class="d-block" alt="@/assets/logo.png" >
+                      <div class="carousel-caption d-none d-md-block bg-light rounded-pill border border-primary">
                         <p>¡Crea un torneo en el que participaréis tú y otros tres amigos!</p>
                       </div>
                     </div>
 
                     <!-- Partidas en curso -->
                     <div class="carousel-item" data-bs-interval="4000">
-                      <img src="@/assets/logo.png" width="900" height="500" class="d-block" alt="@/assets/logo.png" >
-                      <div class="carousel-caption d-none d-md-block bg-white rounded-pill">
+                      <img src="@/assets/imagenesTutorial/listaPartidas.png" width="900" height="550" class="d-block" alt="@/assets/logo.png" >
+                      <div class="carousel-caption d-none d-md-block bg-light rounded-pill border border-primary">
                         <p>Visualiza las partidas que tienes activas</p>
                       </div>
                     </div>
 
                     <!-- Lista de amigos -->
                     <div class="carousel-item" data-bs-interval="4000">
-                      <img src="@/assets/logo.png" width="900" height="500" class="d-block" alt="@/assets/logo.png" >
-                      <div class="carousel-caption d-none d-md-block bg-white rounded-pill">
+                      <img src="@/assets/imagenesTutorial/listaAmigos.png" width="900" height="550" class="d-block" alt="@/assets/logo.png" >
+                      <div class="carousel-caption d-none d-md-block bg-light rounded-pill border border-primary">
                         <p>¡Maneja tu lista de amigos desde cualquier pantalla!</p>
                       </div>
                     </div>
 
                     <!-- Clasificación  -->
                     <div class="carousel-item" data-bs-interval="4000">
-                      <img src="@/assets/logo.png" width="900" height="500" class="d-block" alt="@/assets/logo.png" >
-                      <div class="carousel-caption d-none d-md-block bg-white rounded-pill">
+                      <img src="@/assets/imagenesTutorial/perfil.png" width="900" height="550" class="d-block" alt="@/assets/logo.png" >
+                      <div class="carousel-caption d-none d-md-block bg-light rounded-pill border border-primary">
                         <p>Visualiza tus datos o tu posición en la clasificación desde tu perfil</p>
                       </div>
                     </div>
 
                     <!-- Configuración  -->
                     <div class="carousel-item" data-bs-interval="4000">
-                      <img src="@/assets/logo.png" width="900" height="500" class="d-block" alt="@/assets/logo.png" >
-                      <div class="carousel-caption d-none d-md-block bg-white rounded-pill">
+                      <img src="@/assets/imagenesTutorial/pestanaConfig.png" width="900" height="400" class="d-block" alt="@/assets/logo.png" >
+                      <div class="carousel-caption d-none d-md-block bg-light rounded-pill border border-primary">
                         <p>¡Pon la página web a tu gusto desde la pestaña de configuración!</p>
                       </div>
                     </div>
 
                     <!-- Pantalla de partida -->
                     <div class="carousel-item h-50">
-                      <img src="@/assets/logo.png" width="900" height="500" class="d-block" alt="@/assets/logo.png" >
-                      <div class="carousel-caption d-none d-md-block bg-white rounded-pill">
+                      <img src="@/assets/imagenesTutorial/partida.png" width="900" height="500" class="d-block" alt="@/assets/logo.png" >
+                      <div class="carousel-caption d-none d-md-block bg-light rounded-pill border border-primary">
                         <p>Y... ¡diviértete jugando a Batalla Naval!</p>
                         <router-link to="inicio" class="link-primary" >
                           <p >

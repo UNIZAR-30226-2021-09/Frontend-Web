@@ -129,7 +129,7 @@ export default {
                 console.log(this.perfil.nombreUsuario)
                 this.$socket.emit("getIntoAllGames", { nombreUsuario: this.perfil.nombreUsuario});
                 //console.log(tok)
-                this.$router.push('Inicio'); //Vamos al inicio con el usuario identificado
+                this.$router.push('Tutorial'); //Vamos al inicio con el usuario identificado
                 })
             .catch(error => {
                 this.enviando = false
