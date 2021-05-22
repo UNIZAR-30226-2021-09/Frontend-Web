@@ -12,12 +12,12 @@
               <!-- Contenido de la pantalla -->
                 <!-- <input type="button" value="Click Me" style="float: right;"> -->
                 <div class="btn-group" style="float: right;">
-                  <a href="inicio" class="btn btn-warning">
+                  <button class="btn btn-warning" @click="rendirme">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="currentColor" class="bi bi-flag" viewBox="0 0 16 18">
                       <path d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001M14 1.221c-.22.078-.48.167-.766.255-.81.252-1.872.523-2.734.523-.886 0-1.592-.286-2.203-.534l-.008-.003C7.662 1.21 7.139 1 6.5 1c-.669 0-1.606.229-2.415.478A21.294 21.294 0 0 0 3 1.845v6.433c.22-.078.48-.167.766-.255C4.576 7.77 5.638 7.5 6.5 7.5c.847 0 1.548.28 2.158.525l.028.01C9.32 8.29 9.86 8.5 10.5 8.5c.668 0 1.606-.229 2.415-.478A21.317 21.317 0 0 0 14 7.655V1.222z"/>
                     </svg>
                     Rendirme
-                  </a>
+                  </button>
                   <a href="inicio" class="btn btn-warning">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 18">
                       <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
@@ -25,6 +25,7 @@
                     </svg>
                     Salir 
                   </a>
+                  
                 </div>
 
                 <p></p>
@@ -651,7 +652,36 @@ export default {
       //   console.log('miss~~')
       //  }
       
-    }
+    },
+    rendirme: function(){
+      //Enviar el disparo
+      let dir = this.host + '/match/rendirse'
+        axios
+        .post(dir, {
+          nombreUsuario: this.perfil.nombreUsuario,
+          accessToken: this.perfil.token,
+          gameid: this.partidaActual
+        })
+        .then(resp => {
+          //Petición enviada correctamente
+          console.log(resp)
+          if (this.contrincanteActual != 'I.A'){ //Quiero avisar al otro jugador de que la partida ha acabado siempre y cuando no sea la IA
+            this.$socket.emit("movement", {game: this.partidaActual, nuevoTurno: 'finPartida'});
+          }
+          this.$router.push('finPartida')
+        })
+
+        .catch(error => {
+        //Error al enviar la petición
+          console.log('Error en post de enviar movimiento')
+          console.log(error)
+          this.$toasted.show("Error", { 
+            theme: "toasted-primary", 
+            position: "bottom-left", 
+            duration : 10000
+          });
+        });
+    },
   },
   mounted() {
     console.log('Entrando en la partida con id ' + this.partidaActual)
