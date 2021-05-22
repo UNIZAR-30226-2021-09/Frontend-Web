@@ -561,18 +561,44 @@ export default {
           //Petición enviada correctamente
           console.log(resp)
 
-          //Si he fallado el disparo
-          if (resp.data.disparo === "fallo" && resp.data.fin == false){ 
-            this.water() //Hacemos el sonidito del agua
-            this.setTurnoActual('TurnoRival') //Si fallo, cambio el turno en local
-            square.classList.add('miss') //Pintamos de agua
-            this.$socket.emit("movement", {game: this.partidaActual, nuevoTurno: 'TuTurno'});
-          }
+
           //Si he tocado un barco
           if (resp.data.disparo === "tocado" && resp.data.fin == false){
             this.hit() //Sonidito de la bomba
             square.classList.add('boom') //Marcamos que he acertado
             this.$socket.emit("movement", {game: this.partidaActual, nuevoTurno: 'TurnoRival'});
+          }
+
+          //Si he fallado el disparo
+          if (resp.data.disparo === "fallo" && resp.data.fin == false){ 
+            this.water() //Hacemos el sonidito del agua
+            square.classList.add('miss') //Pintamos de agua
+
+            //Ahora hay que diferenciar si estoy jugando contra un usuario o contra la IA
+            if (this.contrincanteActual === 'I.A'){
+              console.log("Estoy jugando contra la IA")
+              const disparosIA = resp.data.movimientoIA
+              let self = this
+              disparosIA.forEach(disparo => //Este es un for each que itera en cada uno de los barcos
+                {
+                  let fila = disparo.fila 
+                  let columna = disparo.columna
+                  if (disparo.estado === 'tocado' || disparo.estado === 'hundido') {self.userSquares[parseInt((fila * self.width) + columna)].classList.add('boom')}
+                  else if (disparo.estado === 'fallo') {self.userSquares[parseInt((fila * self.width) + columna)].classList.add('miss')}
+                  else {console.log("???")}
+                }
+              )
+
+            }else{
+              console.log("Estoy jugando contra " + this.contrincanteActual + ", le envío el movimiento")
+              this.setTurnoActual('TurnoRival') //Si fallo, cambio el turno en local
+              this.$socket.emit("movement", {game: this.partidaActual, nuevoTurno: 'TuTurno'});
+            }
+
+          }
+
+          if (resp.data.disparo === "fallo" && resp.data.fin == true){ //Estoy jugando contra la IA, he fallado pero ella ha ganado y por lo tanto fin = true
+            this.$router.push('finPartida')
           }
           //Si he hundido un barco
           if (resp.data.disparo === "hundido" && resp.data.fin == false){
@@ -586,8 +612,8 @@ export default {
             });
             this.$socket.emit("movement", {game: this.partidaActual, nuevoTurno: 'TurnoRival'});
           }
+
           //Si he hundido el último barco y he ganado la partida
-          
           if (resp.data.disparo === "hundido" && resp.data.fin == true){
             this.bomb() //Sonidito de la bomba
             square.classList.add('boom') //Marcamos que he acertado
@@ -602,6 +628,7 @@ export default {
           }
 
         })
+
         .catch(error => {
         //Error al enviar la petición
           console.log('Error en post de enviar movimiento')
