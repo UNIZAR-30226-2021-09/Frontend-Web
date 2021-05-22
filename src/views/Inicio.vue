@@ -48,7 +48,7 @@
                   </div>
                   <div class="carousel-inner h-50">
                     <div class="carousel-item active" data-bs-interval="4000">
-                      <button @click="buscarPartidaIA"><img src="@/assets/vs_IA.jpg" width="750" height="550" class="d-block" alt="@/assets/logo.png" ></button>
+                      <a @click="buscarPartidaIA"><img src="@/assets/vs_IA.jpg" width="750" height="550" class="d-block" alt="@/assets/logo.png" ></a>
                       <div class="carousel-caption d-none d-md-block bg-white rounded-pill">
                         <h4>
                           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-cpu" viewBox="0 0 16 16">

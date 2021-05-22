@@ -133,7 +133,7 @@ export default {
       if(this.perfil.partidasEnCurso.mensaje != "Token no proveído."){
         //TODO: HAY QUE ACTUALIZAR DINÁMICAMENTE EL GLOBITO
           //console.log(this.perfil.partidasEnCurso.mensaje);
-          return this.perfil.partidasEnCurso.filter( partida => partida.tuTurno).length;
+          return this.perfil.partidasEnCurso.filter( partida =>partida.tuTurno == 'TuTurno' || partida.tuTurno == 'ColocandoBarcos' ).length;
       }
       return 0;
     }
