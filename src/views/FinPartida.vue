@@ -104,7 +104,13 @@ export default {
   computed:{
     ...mapState(['configuracion','host','partidaActual','contrincanteActual','perfil']), //Para recoger los datos de la lista de amigos que están almacenados en el store
     Precision: function(){
-      let porcentaje = (this.Acertados / this.Disparos) * 100;
+      let porcentaje
+      if (this.Disparos == 0){
+        porcentaje = 0;
+      }else{
+        porcentaje = (this.Acertados / this.Disparos) * 100;
+      }
+      
       return porcentaje.toFixed(2);
     },
   },

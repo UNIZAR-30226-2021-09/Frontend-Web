@@ -62,7 +62,7 @@
               <router-link :to="{ path: '/Inicio'}"   class="nav-link">{{ $t('boton.inicio') }}</router-link>
             </li>
             <li v-if="perfil.token != ''" class="nav-item">
-              <router-link :to="{ path: '/Partida'}"   class="nav-link">{{ $t('navbar.nuevaPartida') }}</router-link>
+              <p  @click="buscarPartidaIA" style="cursor: pointer" class="nav-link">{{ $t('navbar.nuevaPartida') }}</p>
             </li>
             <li v-if="perfil.token != ''" class="nav-item">
               <router-link :to="{ path: '/Ciegas'}" class="nav-link">{{ $t('navbar.partidaCiegas') }}</router-link>
@@ -116,13 +116,41 @@ export default {
   },
   methods: {
       ...mapMutations([
-      'setUsuarioBuscado','resetToken','setPartidas','imprimePerfil','setPerfilUndefined']),
+      'setUsuarioBuscado','resetToken','setPartidas','imprimePerfil','setPerfilUndefined','setPartidaActual','setContrincanteActual','setTurnoActual']),
 
       cerrarSesion: function(){
         this.setPartidas([]);
         this.resetToken()
         this.$router.push('/');
       },
+      buscarPartidaIA: function(){
+        let dir = this.host + '/game/ia'
+        axios
+        .post(dir, {
+            nombreUsuario: this.perfil.nombreUsuario,
+            accessToken: this.perfil.token
+        })
+        .then(resp => {
+          //Partida contra IA creada
+          console.log(resp)
+          this.setPartidaActual(resp.data._id)
+          this.setContrincanteActual(resp.data.participante2)
+          this.setTurnoActual("ColocandoBarcos")
+          console.log('Vamos a la partida ' + this.partidaActual)
+          this.$router.push('/partida');
+          
+        })
+        .catch(error => {
+        //Error al enviar la petición
+        this.$toasted.show("Ha habido un error creando la partida contra la IA. Inténtalo de nuevo más tarde.", { 
+                    theme: "toasted-primary", 
+                    position: "bottom-left", 
+                    duration : 4000
+                  });
+        console.log(error)
+        });
+    
+    }
 
     },
   computed: {
