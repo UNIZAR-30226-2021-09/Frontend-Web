@@ -128,6 +128,28 @@ const messages = {
         scroll10: 'Y... ¡diviértete jugando a Batalla Naval!',
         irInicio: 'Ir al inicio',
         saltarTutorial: 'Saltar tutorial'
+      },
+      partida:{
+        rendirme: 'Rendirse',
+        salir: 'Salir',
+        miTurno: 'Mi turno',
+        turnoRival: 'Turno del rival',
+        colocaBarcos: 'Coloca tus barcos',
+        rivalColocaBarcos: 'Rival colocando sus barcos',
+        tuFlota: 'Tu flota',
+        flotaDe: 'Flota de ',
+        empezarPartida: 'Empezar partida',
+        rotar: 'Rotar los barcos',
+        quitar: 'Quitar mis barcos',
+        victoria: 'VICTORIA',
+        derrota: 'DERROTA',
+        hasGanado: 'Has ganado la partida contra ',
+        hasPerdido: 'Has perdido la partida contra ',
+        puntosGanados: 'Puntos ganados: ',
+        puntosPerdidos: 'Puntos perdidos: ',
+        disparosEfectuados: 'Disparos efectuados:',
+        barcosDestruidos: 'Barcos destruidos:',
+        precision: 'Precision de los disparos:',
       }
     },
     en: {
@@ -254,6 +276,28 @@ const messages = {
       scroll10: 'And ... have fun playing Naval Battle!',
       irInicio: 'Go to start',
       saltarTutorial: 'Skip tutorial'
+    },
+    partida:{
+      rendirme: 'Give up',
+      salir: 'Leave',
+      miTurno: 'My turn',
+      turnoRival: 'Enemy\'s turn',
+      colocaBarcos: 'Place your ships',
+      rivalColocaBarcos: 'Enemy placing his ships',
+      tuFlota: 'Your fleet',
+      flotaDe: 'Fleet of ',
+      empezarPartida: 'Start game',
+      rotar: 'Rotate ships',
+      quitar: 'Take away my ships',
+      victoria: 'VICTORY',
+      derrota: 'DEFEAT',
+      hasGanado: 'You have won the game against ',
+      hasPerdido: 'You have lost the game against ',
+      puntosGanados: 'Points won: ',
+      puntosPerdidos: 'Points lost: ',
+      disparosEfectuados: 'Shots fired: ',
+      barcosDestruidos: 'Ships destroyed: ',
+      precision: 'Shot accuracy: ',
     }
     }
 }

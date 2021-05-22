@@ -15,19 +15,18 @@
 
                 <h5 class="mt-4"> {{Puntos}} </h5>
 
-                <h5 class="mt-4"> Disparos efectuados: {{Disparos}} </h5>
+                <h5 class="mt-4"> {{ $t('partida.disparosEfectuados') }} {{Disparos}} </h5>
 
-                <h5 class="mt-4"> Barcos destruidos: {{Destruidos}} </h5>
+                <h5 class="mt-4"> {{ $t('partida.barcosDestruidos') }} {{Destruidos}} </h5>
 
-                <h5 class="mt-4"> Precision de los disparos: {{Precision}} % </h5>
+                <h5 class="mt-4"> {{ $t('partida.precision') }} {{Precision}} % </h5>
 
                 <h5 class="mt-4">
                   <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-award-fill" viewBox="0 0 16 16">
                     <path d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z"/>
                     <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
                   </svg>
-                  <router-link to="clasificacion" class="btn btn-primary btn-sm mb-1" type="button" >Ver posicion en la clasificación</router-link></h5>
-
+                  <router-link :to="{ name: 'Clasificacion', params: {usuario: perfil.nombreUsuario} }" class="btn btn-primary btn-sm mb-1" type="button" >{{ $t('boton.verClasificacion') }}</router-link></h5>
               </div>
               
                 
@@ -79,13 +78,13 @@ export default {
         console.log(resp)
         
         if (resp.data.infoPartida.ganador == true){ //He ganado
-          this.Resultado = 'VICTORIA'
-          this.Descripcion = ('Has ganado la partida contra ' + this.contrincanteActual + '!')
-          this.Puntos = ('Puntos ganados: ' + resp.data.infoPartida.puntos)
+          this.Resultado = this.$t('partida.victoria')
+          this.Descripcion = (this.$t('partida.hasGanado') + this.contrincanteActual + '!')
+          this.Puntos = (this.$t('partida.puntosGanados') + resp.data.infoPartida.puntos)
         } else if (resp.data.infoPartida.ganador == false){ //He perdido
-          this.Resultado = 'DERROTA'
-          this.Descripcion = ('Has perdido la partida contra ' + this.contrincanteActual + '...')
-          this.Puntos = ('Puntos perdidos: ' + resp.data.infoPartida.puntos)
+          this.Resultado = this.$t('partida.derrota')
+          this.Descripcion = (this.$t('partida.hasPerdido') + this.contrincanteActual + '...')
+          this.Puntos = (this.$t('partida.puntosPerdidos') + resp.data.infoPartida.puntos)
         } else{
           console.log('???')
         }
