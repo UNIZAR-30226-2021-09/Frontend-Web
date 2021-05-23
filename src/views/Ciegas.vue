@@ -89,6 +89,8 @@ export default {
                     duration : 10000
                   });
                   this.disabledButton = false;
+                  this.$socket.emit("aceptarChallenge", {nombreUsuario: resp.data.participante1, game: resp.data._id});
+                  this.$socket.emit("joinGame", resp.data._id);
               }
               
           })

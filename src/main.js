@@ -143,6 +143,28 @@ new Vue({
     },
     llegaAceptarChallenge: function (gameid){
       //TODO: Aquí tenemos que actualizar la lista de partidas en curso
+      let dir = this.host + '/game/inProgress'  
+      console.log(this.perfil);
+      if (this.perfil != undefined ){
+        axios
+        .post(dir, {
+            nombreUsuario: this.perfil.nombreUsuario,
+            accessToken: this.perfil.token
+        })
+        .then(resp => {
+            this.setPartidas(resp.data);
+          })
+
+        .catch(error => {
+          //Error al hacer login
+          console.log(error)
+          this.$toasted.show("Error", { 
+            theme: "toasted-primary", 
+            position: "bottom-left", 
+            duration : 10000
+          });
+          });
+      }
       console.log("llegaAceptarChallenge")
       this.$socket.emit("joinGame", gameid);
       console.log("join game")
@@ -153,6 +175,6 @@ new Vue({
     ...mapState(['perfil', 'host'])
   },
   methods:{
-    ...mapMutations(['setEntrantes','setAmigos', 'setSalientes', 'setDesafios']),
+    ...mapMutations(['setEntrantes','setAmigos', 'setSalientes', 'setDesafios', 'setPartidas']),
   }
 }).$mount('#app')
