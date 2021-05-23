@@ -15,7 +15,7 @@
                     <div class="row g-3">
                       <div class="action col-sm-9">
                             
-                            <img  class="img-fluid rounded "  src="@/assets/fondo_cuadricula.png" alt="lava.jpg">
+                            <img  class="img-fluid rounded "  src="@/assets/torneo_cuadricula.png" alt="lava.jpg">
                       </div>
 
                       <div class=" container col-sm-3 bg-white">
