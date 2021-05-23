@@ -240,8 +240,8 @@ export default {
       }
   },
   mounted(){
-          console.log("Pues aqui estamos: ");
-          console.log(this.usuario);
+          // console.log("Pues aqui estamos: ");
+          // console.log(this.usuario);
   },
   updated(){
           //console.log("NUEVA CARGA");
