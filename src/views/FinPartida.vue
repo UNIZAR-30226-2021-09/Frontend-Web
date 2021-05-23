@@ -88,8 +88,8 @@ export default {
         } else{
           console.log('???')
         }
-
-        if(resp.data.torneo != 'no'){ //Si la partida ha sido de torneo, printeo la info
+        console.log(resp.data)
+        if(resp.data.torneo != undefined && resp.data.torneo != 'no'){ //Si la partida ha sido de torneo, printeo la info
           this.Descripcion = this.Descripcion + ' en la partida de ' + resp.data.torneo
           if (resp.data.torneo === 'semifinal' ){
             this.$toasted.show("Se te ha añadido la partida de la final en la lista de partidas ", { 
