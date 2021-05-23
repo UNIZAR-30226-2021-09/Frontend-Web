@@ -65,12 +65,12 @@ export default {
         }
   },
   created: function(){
+      console.log(this.usuarioBuscado)
       i18n.locale = this.configuracion.idioma;  
-    let dir = this.host + '/match/infoPartida'
+    let dir = this.host + '/infoPartida'
       axios
       .post(dir, {
-        nombreUsuario: this.perfil.nombreUsuario,
-        accessToken: this.perfil.token,
+        nombreUsuario: this.usuarioBuscado,
         gameid: this.partidaActual
       })
       .then(resp => {
@@ -102,7 +102,7 @@ export default {
       });
   },
   computed:{
-    ...mapState(['configuracion','host','partidaActual','contrincanteActual','perfil']), //Para recoger los datos de la lista de amigos que están almacenados en el store
+    ...mapState(['configuracion','host','partidaActual','contrincanteActual','perfil','usuarioBuscado']), //Para recoger los datos de la lista de amigos que están almacenados en el store
     Precision: function(){
       let porcentaje
       if (this.Disparos == 0){

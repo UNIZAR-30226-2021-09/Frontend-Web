@@ -67,19 +67,20 @@
                   <div class="card card-body">
 
                       <!-- Bucle que recorre todo el historial -->
-                      <div v-for="(partida) in perfil.partidas" v-bind:key="partida.codigo">
+                      <div v-for="(partida) in partidas" v-bind:key="partida.codigo">
                         
                         <!-- Si una partida ha sido victoria, se muestra en verde  -->
-                        <div v-if="partida.resultado === 'Victoria'">
+                        <div v-if="partida.resultado === 'victoria'">
                           <li class="list-group-item list-group-item-success">
                             {{ $t('partidasCurso.partidaContra1') }} {{partida.contrincante}} 
                             ({{partida.resultado}})
-                            <router-link to="perfil" class="btn btn-light btn-sm mb-1 mt-1" type="button" >{{ $t('boton.verPartida') }}</router-link>
+                            <!--<router-link to="perfil" class="btn btn-light btn-sm mb-1 mt-1" type="button" >{{ $t('boton.verPartida') }}</router-link>-->
+                            <button style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1" @click="irAPartida(partida)" type="button" >{{ $t('boton.verPartida') }}</button>
                           </li>
                         </div>
                         
                         <!-- Si una partida ha sido derrota, se muestra en rojo -->
-                        <div v-if="partida.resultado === 'Derrota'">
+                        <div v-if="partida.resultado === 'derrota'">
                           <li class="list-group-item list-group-item-danger">
                             {{ $t('partidasCurso.partidaContra1') }} {{partida.contrincante}} 
                             ({{partida.resultado}})
@@ -88,7 +89,7 @@
                         </div>
 
                         <!-- Si una partida no ha sido victoria ni derrota, probablemente sea un error y se muestra en naranja -->
-                        <div v-if="partida.resultado != 'Derrota' && partida.resultado != 'Victoria' ">
+                        <div v-if="partida.resultado != 'derrota' && partida.resultado != 'victoria' ">
                           <li class="list-group-item list-group-item-warning">
                             Error?
                             {{ $t('partidasCurso.partidaContra1') }} {{partida.contrincante}} 
@@ -119,7 +120,7 @@
 #######################################SCRIPT#######################################
 <script>
 import ListaAmigos from '@/components/ListaAmigos.vue'
-import {mapState} from 'vuex';
+import {mapState,mapMutations} from 'vuex';
 import axios from 'axios'
 import { i18n } from '@/plugins/i18n'
 
@@ -136,12 +137,13 @@ export default {
             perdidas: 0,
             torneos: 0,
             puntos: 0,
+            partidas: []
         }
   },
   created: function(){
 
-          console.log('La ruta es:');
-          console.log(window.location.href );
+          this.partidas = this.perfil.partidas;
+          console.log(this.perfil.partidas );
           i18n.locale = this.configuracion.idioma;
 
           let dir = this.host + '/profile';
@@ -164,6 +166,23 @@ export default {
             //Error al hacer login
             console.log(error.response)
             });
+
+
+            dir = this.host + '/history';
+
+      axios
+      .post(dir, {
+          nombreUsuario: this.usuario
+      })
+      .then(resp => {
+          
+          this.partidas = resp.data;
+        })
+
+      .catch(error => {
+        //Error al hacer login
+        console.log(error.response)
+        });
                 
   },
   computed:{
@@ -178,10 +197,13 @@ export default {
       }
   },
   methods: {
-        recargar: function(){
-        this.setPartidas([]);
-        this.resetToken()
-        this.$router.push('/');
+      ...mapMutations([
+      'setPartidas', 'setPartidaActual', 'setContrincanteActual', 'setTurnoActual','setUsuarioBuscado'
+    ]),
+      recargar: function(){
+          this.setPartidas([]);
+          this.resetToken()
+          this.$router.push('/');
       },
       mensajeCopiar: function(){
         let msg = this.$t('perfil.copy')
@@ -191,6 +213,17 @@ export default {
               duration : 800
             });
       },
+      irAPartida: function(partida){
+      //console.log('Voy a ir a la partida ' + partida.id)
+          console.log(partida)
+          this.setPartidaActual(partida.id)
+          this.setContrincanteActual(partida.contrincante)
+          this.setTurnoActual('Historial');
+          this.setUsuarioBuscado(this.nombre);
+
+          this.$router.push({path: '/finPartida'})
+
+    }
   },
   mounted(){
           console.log("Pues aqui estamos: ");
@@ -217,6 +250,23 @@ export default {
           this.ganadas = resp.data.partidasGanadas;
           this.perdidas = resp.data.partidasPerdidas;
           this.torneos = resp.data.torneosGanados;
+        })
+
+      .catch(error => {
+        //Error al hacer login
+        console.log(error.response)
+        });
+
+
+      dir = this.host + '/history';
+
+      axios
+      .post(dir, {
+          nombreUsuario: this.usuario
+      })
+      .then(resp => {
+          
+          this.partidas = resp.data;
         })
 
       .catch(error => {

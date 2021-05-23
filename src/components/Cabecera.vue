@@ -41,8 +41,8 @@
     <br>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="border-radius: 20px; margin-left: 50px; margin-right: 50px;">
       <div class="container-fluid" style="margin-left: 30px; margin-right: 30px;">
-        <router-link v-if="perfil.token === ''" to="/"  class="navbar-brand">Batalla Naval</router-link>
-        <router-link v-else to="Inicio"  class="navbar-brand">Batalla Naval</router-link>
+        <router-link v-if="perfil.token === ''" :to="{ path: '/'}"  class="navbar-brand">Batalla Naval</router-link>
+        <router-link v-else :to="{ path: '/Inicio'}"  class="navbar-brand">Batalla Naval</router-link>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
