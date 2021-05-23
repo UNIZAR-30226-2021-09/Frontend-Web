@@ -23,8 +23,8 @@
                     <p  class="fw-lighter" style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.ganadas') }}: {{ganadas}}</p>
                     <p  class="fw-lighter" style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.perdidas') }}: {{perdidas}}</p>
                     <p  class="fw-lighter" style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.torneos') }}: {{torneos}}</p>
-                    <p  class="fw-lighter" v-if="ganadas+perdidas == 0" style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.partidasJugadas') }}: {{ $t('perfil.noExisten') }}</p>
-                    <p  class="fw-lighter" v-else style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.partidasJugadas') }}: {{ganadas + perdidas}}</p>
+                    <p  class="fw-lighter" v-if="ganadas+perdidas == 0" style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.proporcion') }}: {{ $t('perfil.noExisten') }}</p>
+                    <p  class="fw-lighter" v-else style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.proporcion') }}: {{winRatio}}%</p>
                     <p  class="fw-lighter" style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.puntos') }}: {{puntos}}</p>
                   </h5>
 
@@ -197,6 +197,14 @@ export default {
       direccion: function(){
 
           return window.location.href;
+      },
+      winRatio: function(){
+
+        let porcentaje
+
+        porcentaje = (this.ganadas / (this.ganadas + this.perdidas) ) * 100;
+        
+        return porcentaje.toFixed(2);
       }
   },
   methods: {
