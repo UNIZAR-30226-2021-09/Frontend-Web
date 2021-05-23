@@ -283,6 +283,7 @@ export default {
       console.log(info.game)
       console.log(info.nuevoTurno)
       if (info.nuevoTurno === 'finPartida'){
+        this.setUsuarioBuscado(this.perfil.nombreUsuario)
         this.$router.push('finPartida')
       }
       if(info.game === this.partidaActual){ //Si estoy mirando la partida que se ha actualizado, actualizo el turno
@@ -350,7 +351,7 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'setTurnoActual'
+      'setTurnoActual', 'setUsuarioBuscado'
     ]),
     //Game logic
     //Create Board
@@ -602,6 +603,7 @@ export default {
           }
 
           if (resp.data.disparo === "fallo" && resp.data.fin == true){ //Estoy jugando contra la IA, he fallado pero ella ha ganado y por lo tanto fin = true
+            this.setUsuarioBuscado(this.perfil.nombreUsuario)
             this.$router.push('finPartida')
           }
           //Si he hundido un barco
@@ -628,6 +630,7 @@ export default {
               duration : 4000
             });
             this.$socket.emit("movement", {game: this.partidaActual, nuevoTurno: 'finPartida'});
+            this.setUsuarioBuscado(this.perfil.nombreUsuario)
             this.$router.push('finPartida')
           }
 
@@ -671,6 +674,7 @@ export default {
           if (this.contrincanteActual != 'I.A'){ //Quiero avisar al otro jugador de que la partida ha acabado siempre y cuando no sea la IA
             this.$socket.emit("movement", {game: this.partidaActual, nuevoTurno: 'finPartida'});
           }
+          this.setUsuarioBuscado(this.perfil.nombreUsuario)
           this.$router.push('finPartida')
         })
 
