@@ -24,7 +24,7 @@
                     <p  class="fw-lighter" style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.perdidas') }}: {{perdidas}}</p>
                     <p  class="fw-lighter" style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.torneos') }}: {{torneos}}</p>
                     <p  class="fw-lighter" v-if="ganadas+perdidas == 0" style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.partidasJugadas') }}: {{ $t('perfil.noExisten') }}</p>
-                    <p  class="fw-lighter" v-else style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.partidasJugadas') }}: {{ganadas / perdidas}}</p>
+                    <p  class="fw-lighter" v-else style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.partidasJugadas') }}: {{ganadas + perdidas}}</p>
                     <p  class="fw-lighter" style="margin-top: 10px; margin-left: 100px;">{{ $t('perfil.puntos') }}: {{puntos}}</p>
                   </h5>
 
@@ -156,7 +156,7 @@ export default {
               nombreUsuario: this.usuario
           })
           .then(resp => {
-              
+              console.log(resp)
               this.nombre = resp.data.nombreUsuario;
               this.email = resp.data.email; //nos lo tienen que mandar
               this.ganadas = resp.data.partidasGanadas;
@@ -258,6 +258,7 @@ export default {
           nombreUsuario: this.usuario
       })
       .then(resp => {
+        
           
           this.nombre = resp.data.nombreUsuario;
           this.email = resp.data.email; //nos lo tienen que mandar
