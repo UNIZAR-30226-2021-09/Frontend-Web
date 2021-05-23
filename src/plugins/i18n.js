@@ -24,7 +24,8 @@ const messages = {
         compartirPerfil: 'Copiar enlace para compartir perfil',
         historialPartidas: 'Historial de partidas',
         volverTutorial: 'Volver a ver el tutorial',
-        verPartida: 'Ver partida'
+        verPartida: 'Ver partida',
+        verEstadisticas: 'Ver estadisticas'
       },
       navbar: {
           nuevaPartida: 'Partida contra la IA',
@@ -171,7 +172,8 @@ const messages = {
         compartirPerfil: 'Copy link to share profile',
         historialPartidas: 'Game history',
         volverTutorial: 'Watch the tutorial again',
-        verPartida: 'View game'
+        verPartida: 'View game',
+        verEstadisticas: 'View statistics'
       },
       navbar: {
         nuevaPartida: 'Game against AI',

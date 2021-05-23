@@ -75,7 +75,8 @@
                             {{ $t('partidasCurso.partidaContra1') }} {{partida.contrincante}} 
                             ({{partida.resultado}})
                             <!--<router-link to="perfil" class="btn btn-light btn-sm mb-1 mt-1" type="button" >{{ $t('boton.verPartida') }}</router-link>-->
-                            <button style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1" @click="irAPartida(partida)" type="button" >{{ $t('boton.verPartida') }}</button>
+                            <button style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.verPartida') }}</button>
+                            <button style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 mt-1 bg-info" @click="irAEstadistica(partida)" type="button" >{{ $t('boton.verEstadisticas') }}</button>
                           </li>
                         </div>
                         
@@ -84,7 +85,8 @@
                           <li class="list-group-item list-group-item-danger">
                             {{ $t('partidasCurso.partidaContra1') }} {{partida.contrincante}} 
                             ({{partida.resultado}})
-                            <button style="margin-left: 10px;" class="btn btn-light btn-sm mb-1" @click="irAPartida(partida)" type="button" >{{ $t('boton.verPartida') }}</button>
+                            <button style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.verPartida') }}</button>
+                            <button style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 bg-info" @click="irAEstadistica(partida)" type="button" >{{ $t('boton.verEstadisticas') }}</button>
                           </li>
                         </div>
 
@@ -94,7 +96,8 @@
                             Error?
                             {{ $t('partidasCurso.partidaContra1') }} {{partida.contrincante}} 
                             ({{partida.resultado}})
-                            <button style="margin-left: 10px;" class="btn btn-light btn-sm mb-1" @click="irAPartida(partida)" type="button" >{{ $t('boton.verPartida') }}</button>
+                            <button style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 bg-warning" @click="irAPartida(partida)" type="button" >{{ $t('boton.verPartida') }}</button>
+                            <button style="margin-left: 10px;" class="btn btn-light btn-sm mb-1 bg-info" @click="irAEstadistica(partida)" type="button" >{{ $t('boton.verEstadisticas') }}</button>
                           </li>
                         </div>
                         
@@ -213,7 +216,7 @@ export default {
               duration : 800
             });
       },
-      irAPartida: function(partida){
+      irAEstadistica: function(partida){
       //console.log('Voy a ir a la partida ' + partida.id)
           console.log(partida)
           this.setPartidaActual(partida.id)
@@ -223,7 +226,18 @@ export default {
 
           this.$router.push({path: '/finPartida'})
 
-    }
+      },
+      irAPartida: function(partida){
+      //console.log('Voy a ir a la partida ' + partida.id)
+          console.log(partida)
+          this.setPartidaActual(partida.id)
+          this.setContrincanteActual(partida.contrincante)
+          this.setTurnoActual('Historial');
+          this.setUsuarioBuscado(this.nombre);
+
+          this.$router.push({path: '/Partida'})
+
+      }
   },
   mounted(){
           console.log("Pues aqui estamos: ");
