@@ -90,9 +90,10 @@ export default {
         }
         console.log(resp.data)
         if(resp.data.infoPartida.torneo != undefined && resp.data.infoPartida.torneo != 'no'){ //Si la partida ha sido de torneo, printeo la info
-          this.Descripcion = this.Descripcion + ' (en la partida de ' + resp.data.infoPartida.torneo + ')'
+          this.Descripcion = this.Descripcion + i18n.t('mensaje.enPartidaDe') + resp.data.infoPartida.torneo + ')' 
           if (resp.data.infoPartida.torneo === 'semifinal' && resp.data.infoPartida.ganador == true){
-            this.$toasted.show("Se te ha añadido la partida de la final en la lista de partidas ", { 
+            this.$toasted.show(i18n.t('mensaje.seAñadira'), { 
+                  
                     theme: "outline", 
                     position: "bottom-left", 
                     duration : 10000

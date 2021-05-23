@@ -300,19 +300,20 @@ export default {
 
       numPartidasTorneo :function(){
           if(this.perfil.partidasEnCurso.mensaje != "Token no proveído."){
-            return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo').length;
+            return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo' && partida.contrincante != undefined).length;
           }
           return 0;
       },
       teTocaTorneo :function(){
           if(this.perfil.partidasEnCurso.mensaje != "Token no proveído."){
-              return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo' && (partida.tuTurno == 'TuTurno' || partida.tuTurno == 'ColocandoBarcos')).length;
+              return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo' && (partida.tuTurno == 'TuTurno' || partida.tuTurno == 'ColocandoBarcos') && partida.contrincante != undefined).length;
 
           }
           return 0;
       },           
       partidasTorneo: function(){
-          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo');
+
+          return this.perfil.partidasEnCurso.filter( partida => partida.tipo == 'torneo' && partida.contrincante != undefined);
       }
     
   }

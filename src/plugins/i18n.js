@@ -65,7 +65,11 @@ const messages = {
           vasInvitar: 'Vas a invitar a ',
           hasDesafiado1: 'Has desafiado a  ',
           hasDesafiado2: '. Se añadirá la partida a la lista de partidas en curso cuando se acepte.',
-          participantes: 'Participantes'
+          participantes: 'Participantes',
+          seAñadira: 'Se te ha añadido la partida de la final en la lista de partidas.',
+          enPartidaDe: ' (en la partida de ',
+          torneoCreado: 'Torneo creado. Las partida se ha añadido a tu lista.',
+          estadoFinal: 'Estado final de la partida'
       },
       listaAmigos:{
           peticionesRecibidas: 'Peticiones de amistad recibidas',
@@ -214,6 +218,10 @@ const messages = {
         hasDesafiado1: 'You have challenged ',
         hasDesafiado2: '. The game will be added to your current games list when the opponent accepts it.',
         participantes: 'Participants',
+        seAñadira: 'The match of the final has been added to the playlist.',
+        enPartidaDe: ' (in the match of ',
+        torneoCreado: 'Tournament created. The match have been added to your game list.',
+        estadoFinal: 'Final state of the match'
         
 
       },

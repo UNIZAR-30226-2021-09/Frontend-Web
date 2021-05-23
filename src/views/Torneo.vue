@@ -160,7 +160,7 @@ export default {
                 this.$socket.emit("aceptarChallenge", {nombreUsuario: resp.data.j2, game: resp.data.p1});
                 this.$socket.emit("aceptarChallenge", {nombreUsuario: resp.data.j3, game: resp.data.p2});
                 this.$socket.emit("aceptarChallenge", {nombreUsuario: resp.data.j4, game: resp.data.p2});
-                this.$toasted.show("Torneo creado. Las partida se ha añadido a tu lista.", { 
+                this.$toasted.show(i18n.t('mensaje.torneoCreado'), { 
                     theme: "outline", 
                     position: "bottom-left", 
                     duration : 10000

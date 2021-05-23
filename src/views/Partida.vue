@@ -203,7 +203,7 @@ export default {
         retVal = this.$t('partida.rivalColocaBarcos')
       }
       if (this.turnoActual === 'Historial'){
-        retVal = "Estado final de la partida"
+        retVal = this.$t('partida.estadoFinal') 
       }
 
       // if (this.colocarFlota){
