@@ -84,7 +84,7 @@
                           <li class="list-group-item list-group-item-danger">
                             {{ $t('partidasCurso.partidaContra1') }} {{partida.contrincante}} 
                             ({{partida.resultado}})
-                            <router-link to="perfil" class="btn btn-light btn-sm mb-1" type="button" >{{ $t('boton.verPartida') }}</router-link>
+                            <button style="margin-left: 10px;" class="btn btn-light btn-sm mb-1" @click="irAPartida(partida)" type="button" >{{ $t('boton.verPartida') }}</button>
                           </li>
                         </div>
 
@@ -94,7 +94,7 @@
                             Error?
                             {{ $t('partidasCurso.partidaContra1') }} {{partida.contrincante}} 
                             ({{partida.resultado}})
-                            <router-link to="perfil" class="btn btn-light btn-sm mb-1" type="button" > {{ $t('boton.verPartida') }}</router-link>
+                            <button style="margin-left: 10px;" class="btn btn-light btn-sm mb-1" @click="irAPartida(partida)" type="button" >{{ $t('boton.verPartida') }}</button>
                           </li>
                         </div>
                         
