@@ -61,7 +61,7 @@ export default {
             Puntos: 'Puntos __: +__',
             Disparos: -1,
             Destruidos: -1,
-            Acertados: -1
+            Acertados: -1,
         }
   },
   created: function(){
@@ -88,6 +88,18 @@ export default {
         } else{
           console.log('???')
         }
+
+        if(resp.data.torneo != 'no'){ //Si la partida ha sido de torneo, printeo la info
+          this.Descripcion = this.Descripcion + ' en la partida de ' + resp.data.torneo
+          if (resp.data.torneo === 'semifinal' ){
+            this.$toasted.show("Se te ha añadido la partida de la final en la lista de partidas ", { 
+                    theme: "outline", 
+                    position: "bottom-left", 
+                    duration : 10000
+                  });
+          }
+        }
+        
 
         this.Disparos = resp.data.infoPartida.disparosRealizados
         this.Destruidos = resp.data.infoPartida.barcosDestruidos
