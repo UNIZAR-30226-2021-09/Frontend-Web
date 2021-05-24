@@ -158,7 +158,7 @@ export default {
     ...mapState(['perfil', 'host', 'partidaActual','configuracion'])
   },
   methods: {
-      ...mapMutations(['setPartidaActual', 'setContrincanteActual', 'setTurnoActual']),
+      ...mapMutations(['setPartidaActual', 'setContrincanteActual', 'setTurnoActual', 'setPartidas']),
       buscarPartidaIA: function(){
         let dir = this.host + '/game/ia'
         axios
@@ -200,6 +200,28 @@ export default {
     //console.log("weweewweweew");
     //console.log(this.$route.params.usuario);
     i18n.locale = this.configuracion.idioma;
+    let dir = this.host + '/game/inProgress'  
+      console.log(this.perfil);
+      if (this.perfil != undefined ){
+        axios
+        .post(dir, {
+            nombreUsuario: this.perfil.nombreUsuario,
+            accessToken: this.perfil.token
+        })
+        .then(resp => {
+            this.setPartidas(resp.data);
+          })
+
+        .catch(error => {
+          //Error al hacer login
+          console.log(error)
+          this.$toasted.show("Error", { 
+            theme: "toasted-primary", 
+            position: "bottom-left", 
+            duration : 10000
+          });
+        });
+      }
   }
 
 }

@@ -89,7 +89,7 @@
 #######################################SCRIPT#######################################
 <script>
 import ListaAmigos from '@/components/ListaAmigos.vue'
-import {mapState} from 'vuex';
+import {mapState, mapMutations} from 'vuex';
 import axios from 'axios'
 import { i18n } from '../plugins/i18n' 
 
@@ -110,6 +110,7 @@ export default {
         i18n.locale = this.configuracion.idioma;  
     },
   methods: {
+    ...mapMutations(['setPartidas']),
       seleccionado: function(amigo){
         
           if(amigo == this.participantes[0].nombre){
@@ -156,6 +157,7 @@ export default {
           })
           .then(resp => {
                 console.log(resp)
+                //Aviso al resto de jugadores y me meto en mi sala
                 this.$socket.emit("joinGame", resp.data.p1);
                 this.$socket.emit("aceptarChallenge", {nombreUsuario: resp.data.j2, game: resp.data.p1});
                 this.$socket.emit("aceptarChallenge", {nombreUsuario: resp.data.j3, game: resp.data.p2});
@@ -165,6 +167,29 @@ export default {
                     position: "bottom-left", 
                     duration : 10000
                   });
+                //Actualizo mis listas de partidas
+                let dir = this.host + '/game/inProgress'  
+                console.log(this.perfil);
+                if (this.perfil != undefined ){
+                  axios
+                  .post(dir, {
+                      nombreUsuario: this.perfil.nombreUsuario,
+                      accessToken: this.perfil.token
+                  })
+                  .then(resp => {
+                      this.setPartidas(resp.data);
+                    })
+
+                  .catch(error => {
+                    //Error al hacer login
+                    console.log(error)
+                    this.$toasted.show("Error", { 
+                      theme: "toasted-primary", 
+                      position: "bottom-left", 
+                      duration : 10000
+                    });
+                  });
+                }
             })
 
           .catch(error => {
